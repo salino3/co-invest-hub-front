@@ -88,111 +88,6 @@ export const useAppFunctions = () => {
 */
 
   //
-  const checkEmptyValues = <T extends Record<string, any>>(
-    values: any,
-    // it does not check them
-    list: any[] = [],
-    setFormDataError?: React.Dispatch<React.SetStateAction<T>>,
-    t?: any
-  ): boolean => {
-    let hasError = false;
-
-    for (const key in values) {
-      if (Object.prototype.hasOwnProperty.call(values, key)) {
-        const value = values[key];
-        if (!list.includes(key)) {
-          switch (key) {
-            case "username":
-              if (!value) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  [key]: `${t(key)} ${t("empty_or_incorrect")}`,
-                }));
-                hasError = true;
-              }
-
-              break;
-            case "role_description":
-              if (!value) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  [key]: `${t(key)} ${t("empty_or_incorrect")}`,
-                }));
-                hasError = true;
-              }
-              break;
-            case "age":
-              if (!value || isNaN(value) || value < 0) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  [key]: `${t(key)} ${t("empty_or_incorrect")}`,
-                }));
-                hasError = true;
-              }
-
-              break;
-            case "password":
-              if (!value) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  [key]: `${t(key)} ${t("is_required")}`,
-                }));
-                hasError = true;
-              } else if (value && value?.length < 6) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  password: `${t(key)} ${t("at_least_6")}`,
-                }));
-                hasError = true;
-              }
-
-              break;
-
-            case "email":
-              if (!value) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  [key]: `${t(key)} ${t("is_required")}`,
-                }));
-                hasError = true;
-              } else if (!emailRegex.test(value)) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  email: `Invalid ${t(key)} format`,
-                }));
-                hasError = true;
-              }
-              break;
-            case "profile_picture":
-              if (!value) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  [key]: `${t(key)} ${t("is_required")}`,
-                }));
-                hasError = true;
-              }
-              break;
-            default:
-              if (
-                (value && !value.trim()) ||
-                value === undefined ||
-                value === null
-              ) {
-                setFormDataError?.((prev) => ({
-                  ...prev,
-                  [key]: `${key} ${t("empty_or_incorrect")}`,
-                }));
-                hasError = true;
-              }
-              break;
-          }
-        }
-      }
-    }
-    return hasError;
-  };
-
-  //
   function downLoadImage(logo: string) {
     if (!logo) return;
 
@@ -218,6 +113,76 @@ export const useAppFunctions = () => {
       .catch((error) => console.error("Error downloading the image:", error));
   }
 
+  //*
+  // Function for convert Base64 to Blob
+  const base64ToBlob = (base64Data: any) => {
+    const byteCharacters = atob(base64Data.split(",")[1]);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
+      const slice = byteCharacters.slice(offset, offset + 1024);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, { type: "image/png" });
+  };
+
+  //
+  function getLocalizedCalendarData(language: string) {
+    const locale = language || "en";
+
+    // Get names of months
+    const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
+    const months = Array.from({ length: 12 }, (_, i) =>
+      monthFormatter.format(new Date(2025, i, 1))
+    );
+
+    // Get names of the days of the week
+    const dayFormatter = new Intl.DateTimeFormat(locale, { weekday: "long" });
+    const weeks = Array.from({ length: 7 }, (_, i) =>
+      dayFormatter.format(new Date(2024, 0, i + 1))
+    );
+
+    // Get names of "day", "month" y "year"
+    const displayNames = new Intl.DisplayNames(locale, {
+      type: "dateTimeField",
+    });
+
+    const calendarNames = {
+      day: displayNames.of("day"),
+      month: displayNames.of("month"),
+      year: displayNames.of("year"),
+    };
+
+    return { months, weeks, calendarNames };
+  }
+
+  //
+  function capitalizeFirstLetter(val: string) {
+    return val.charAt(0).toUpperCase() + val.slice(1);
+  }
+
+  //
+  function getAvailableDays(year: string, month: string) {
+    // Convert strings to numbers
+    const y = parseInt(year, 10);
+    const m = parseInt(month, 10);
+
+    if (!y || !m) {
+      if (m === 2) {
+        return Array.from({ length: 29 }, (_, i) => i + 1);
+      }
+      return Array.from({ length: 31 }, (_, i) => i + 1);
+    }
+
+    // new Date(year, month, 0) return the last day of indicated month (remember that parameter 'month' es 1-indexed)
+    const maxDays = new Date(y, m, 0).getDate();
+    return Array.from({ length: maxDays }, (_, i) => i + 1);
+  }
+
   return {
     getEndTokenFromCookie,
     getAuthToken,
@@ -225,7 +190,11 @@ export const useAppFunctions = () => {
     //
     getWordPrefix,
     capitalizeFirst,
-    checkEmptyValues,
     downLoadImage,
+    //
+    base64ToBlob,
+    getLocalizedCalendarData,
+    capitalizeFirstLetter,
+    getAvailableDays,
   };
 };
