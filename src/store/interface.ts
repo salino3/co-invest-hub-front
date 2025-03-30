@@ -10,12 +10,22 @@ export interface PropsCompany {
   investmentMax?: number;
   contacts: Record<string, string>;
   multimedia: Record<string, string>[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface PropsCurrentUser {
+  id?: number;
+  email: string;
+  name?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface PropsProvider {
   companies: PropsCompany[];
+  currentUser: PropsCurrentUser;
   theme: "dark" | "light";
   changeGlobalColors(): void;
+  setCurrentUser: (user: PropsCurrentUser) => void;
 }
