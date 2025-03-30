@@ -1,68 +1,88 @@
+:host,
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  // WEB appling colors
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  //
+  --color-link: #553eb6;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  // New varibles
+
+  // Dark
+  --global-01: #f5f5f5;
+  --global-02: #1b1b1b;
+  --global-03: #f4a261;
+  --global-04: #1b1b1b;
+  --global-05: #d4af37;
+  --global-06: #1b1b1b;
+  --global-07: #f5f5f5;
+  --global-08: #4a5568;
+  --global-lines: rgb(178, 164, 164);
+
+  // Light
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+html,
+#root,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 16px;
+  letter-spacing: 0.5px;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
+  font-family: Arial, Helvetica, sans-serif !important;
+  color: var(--global-01) !important;
+  background-color: var(--global-02);
+  border-color: var(--color-55);
   button {
-    background-color: #f9f9f9;
+    color: var(--button-primary-text);
+    background-color: var(--button-primary-bg);
+  }
+  .selectedLanguage {
+    background-color: var(--global-03);
+  }
+  .primaryBtn {
+    color: var(--global-04);
+    background-color: var(--global-05);
+  }
+  .secundaryBtn {
+    color: var(--global-06) !important;
+    background-color: var(--global-07) !important;
+  }
+
+  .btnStylesApp {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    text-decoration: none;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:active {
+    scale: 0.98;
+    opacity: 0.5;
   }
 }
