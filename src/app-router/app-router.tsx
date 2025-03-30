@@ -1,6 +1,7 @@
 import React, { JSX } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
+import { ContainerLayout } from "../layout";
 import { routesApp } from "./interface-routes";
 
 interface PropsRoutes {
@@ -45,19 +46,18 @@ function chooseRoutes(visibility: string) {
 
 export const AppRoutes: React.FC = () => {
   return (
-    // <ContainerLayout>
-
-    <Routes>
-      {routes &&
-        routes?.length > 0 &&
-        routes.map(({ path, element, visibility }) => {
-          return (
-            <Route key={path} path={path} element={chooseRoutes(visibility)}>
-              <Route path={path} element={element} />
-            </Route>
-          );
-        })}
-    </Routes>
-    // </ContainerLayout>
+    <ContainerLayout>
+      <Routes>
+        {routes &&
+          routes?.length > 0 &&
+          routes.map(({ path, element, visibility }) => {
+            return (
+              <Route key={path} path={path} element={chooseRoutes(visibility)}>
+                <Route path={path} element={element} />
+              </Route>
+            );
+          })}
+      </Routes>
+    </ContainerLayout>
   );
 };
