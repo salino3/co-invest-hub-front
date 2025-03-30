@@ -6,7 +6,7 @@ import { routesApp } from "../interface-routes";
 
 export const PrivateRoutes: React.FC = () => {
   const navigate = useNavigate();
-  const { setCurrentUser } = useProviderSelector("setCurrentUser");
+  const { loginAccount } = useProviderSelector("loginAccount");
   const { getAuthToken } = useAppFunctions();
 
   React.useEffect(() => {
@@ -14,7 +14,7 @@ export const PrivateRoutes: React.FC = () => {
     if (!token) {
       navigate(routesApp.root);
     } else {
-      setCurrentUser && setCurrentUser(token);
+      loginAccount && loginAccount(token);
     }
   }, []);
 

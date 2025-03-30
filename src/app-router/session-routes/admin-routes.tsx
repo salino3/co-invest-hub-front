@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { GlobalAppContext, GlobalStateApp } from "../../core";
+import { useProviderSelector } from "../../store";
 import { useAppFunctions } from "../../hooks";
 import { routesApp } from "../interface-routes";
 
 export const AdminRoutes: React.FC = () => {
   const navigate = useNavigate();
 
-  const { loginAccount } = useContext<GlobalStateApp>(GlobalAppContext);
-
+  const { loginAccount } = useProviderSelector("loginAccount");
   const { getAuthToken } = useAppFunctions();
 
   React.useEffect(() => {
@@ -16,7 +15,7 @@ export const AdminRoutes: React.FC = () => {
     if (!token || token?.role_user !== "admin") {
       navigate(routesApp.root);
     } else {
-      loginAccount(token);
+      loginAccount && loginAccount(token);
     }
   }, []);
 

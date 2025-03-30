@@ -16,8 +16,9 @@ export interface PropsCompany {
 
 export interface PropsCurrentUser {
   id?: number;
-  email: string;
+  email?: string;
   name?: string;
+  role_user?: string;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -27,5 +28,6 @@ export interface PropsProvider {
   currentUser: PropsCurrentUser;
   theme: "dark" | "light";
   changeGlobalColors(): void;
-  setCurrentUser: (user: PropsCurrentUser) => void;
+  loginAccount: (user: PropsCurrentUser) => void;
+  logoutAccount: () => void;
 }
