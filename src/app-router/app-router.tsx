@@ -2,6 +2,7 @@ import React, { JSX } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
+import { HomePage } from "../pods";
 import { routesApp } from "./interface-routes";
 
 interface PropsRoutes {
@@ -11,11 +12,11 @@ interface PropsRoutes {
 }
 
 const routes: PropsRoutes[] = [
-  // {
-  //   path: routesApp?.root,
-  //   element: <HomeLayout />,
-  //   visibility: "public",
-  // },
+  {
+    path: routesApp?.root,
+    element: <HomePage />,
+    visibility: "public",
+  },
   // {
   //   path: routesApp?.dashboard,
   //   element: <DashboardLayout />,
