@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import { PropsCurrentUser } from "../store";
-import { routesApp } from "../app-router";
+import { routesApp } from "../router";
 
 export const useAppFunctions = () => {
   //
