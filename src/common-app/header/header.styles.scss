@@ -1,0 +1,50 @@
+.rootHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  position: relative;
+  background-color: blue;
+  .containerHeader {
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100px;
+
+    .boxUp {
+      flex-grow: 2;
+      flex-basis: 2;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 1rem;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .boxDown {
+      flex-grow: 1;
+      flex-basis: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 100%;
+
+      & > div {
+        padding: 0 1rem 3px;
+
+        span {
+        }
+      }
+    }
+  }
+}

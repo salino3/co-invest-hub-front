@@ -1,0 +1,11 @@
+.switch {
+  display: flex;
+  white-space: nowrap;
+  right: 0;
+  bottom: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px 10px 5px 10px;
+}
