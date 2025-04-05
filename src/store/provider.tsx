@@ -26,15 +26,15 @@ export const useProvider = create<PropsProvider>()(
           root.style.setProperty("--global-lines", "rgb(178, 164, 164)");
         } else {
           // #light
-          root.style.setProperty("--global-01", "#1b1b1b");
-          root.style.setProperty("--global-02", "#eaeaea");
-          root.style.setProperty("--global-03", "#e2e8f0");
-          root.style.setProperty("--global-04", "#f7fafc");
-          root.style.setProperty("--global-05", "#ed8936");
-          root.style.setProperty("--global-06", "#30d2ca");
-          root.style.setProperty("--global-07", "#f5f5f5");
-          root.style.setProperty("--global-08", "#a0a5af");
-          root.style.setProperty("--global-lines", "rgb(27, 27, 27)");
+          root.style.setProperty("--global-01", "#1b1b1b"); // Primary text color (dark for readability)
+          root.style.setProperty("--global-02", "#f5f5f5"); // Main background color (clean white)
+          root.style.setProperty("--global-03", "#e76f51"); // Accent color (warm coral for highlights)
+          root.style.setProperty("--global-04", "#f7f7f7"); // Secondary background (cards, containers)
+          root.style.setProperty("--global-05", "#cfa93f"); // Gold tone for emphasis (buttons, icons)
+          root.style.setProperty("--global-06", "#e2e8f0"); // Input fields background (light gray-blue)
+          root.style.setProperty("--global-07", "#1b1b1b"); // Secondary text color (dark for contrast)
+          root.style.setProperty("--global-08", "#718096"); // Muted text color (less important info)
+          root.style.setProperty("--global-lines", "rgba(0, 0, 0, 0.1)"); // Subtle separator lines
         }
       },
       loginAccount: (user: PropsCurrentUser) => {
