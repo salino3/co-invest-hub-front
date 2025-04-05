@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import "./header.styles.scss";
 import { DropDown } from "../drop-down";
+import "./header.styles.scss";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");
@@ -47,6 +47,47 @@ export const Header: React.FC = () => {
     };
   }, []);
 
+  const array = [
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+    // {},
+  ];
+
   return (
     <header className="rootHeader">
       <div className="containerHeader">
@@ -77,7 +118,12 @@ export const Header: React.FC = () => {
               
               ${fadeClose ? "fadeClose" : ""}`}
             >
-              {openSelectCompanies && <DropDown />}
+              {openSelectCompanies && (
+                <DropDown
+                  array={array}
+                  height={array && array?.length * 40 + 5}
+                />
+              )}
             </div>
           </div>
           <div className="boxCenter">
