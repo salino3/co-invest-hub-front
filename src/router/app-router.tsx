@@ -1,5 +1,5 @@
 import React, { JSX } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
 import { HomePage } from "../pods";
@@ -45,10 +45,17 @@ function chooseRoutes(visibility: string) {
   }
 }
 
+// Layout wrapper component
+const LayoutWrapper: React.FC = () => (
+  <ContainerLayout>
+    <Outlet />
+  </ContainerLayout>
+);
+
 export const AppRoutes: React.FC = () => {
   return (
-    <ContainerLayout>
-      <Routes>
+    <Routes>
+      <Route path={routesApp?.root} element={<LayoutWrapper />}>
         {routes &&
           routes?.length > 0 &&
           routes.map(({ path, element, visibility }) => {
@@ -58,7 +65,7 @@ export const AppRoutes: React.FC = () => {
               </Route>
             );
           })}
-      </Routes>
-    </ContainerLayout>
+      </Route>
+    </Routes>
   );
 };
