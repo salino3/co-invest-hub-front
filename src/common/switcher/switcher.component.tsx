@@ -4,26 +4,23 @@ import "./switcher.styles.scss";
 
 interface Props {
   first: any;
-  second: any;
-  currentvalue: any;
+  currentValue: any;
   toggle: () => void;
   t: (i: string) => string;
 }
 
 export const Switcher: React.FC<Props> = (props) => {
-  const { first, second, currentvalue, toggle, t } = props;
+  const { first, currentValue, toggle, t } = props;
 
   return (
     <section className="switch">
       <label htmlFor="switcher">
-        {currentvalue === second
-          ? t(second === "#1b1b1b" ? "light" : second)
-          : t(first === "#f5f5f5" ? "dark" : first)}
+        {currentValue !== first ? t("light") : t("dark")}
       </label>
       <ReactSwitch
         name="switcher"
         onChange={toggle}
-        checked={currentvalue === second}
+        checked={currentValue !== first}
       />
     </section>
   );
