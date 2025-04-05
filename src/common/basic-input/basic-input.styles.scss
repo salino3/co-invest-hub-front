@@ -1,0 +1,92 @@
+.containerBasicInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 2rem;
+  position: relative;
+  .contentInputBI {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+
+    label {
+      position: absolute;
+      left: 5px;
+      top: 18px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      transition: top 0.3s ease, transform 0.3s ease;
+    }
+
+    input,
+    textarea {
+      padding: 0.5rem;
+      border-bottom: 1px solid;
+      outline: none;
+      transition: border-color 0.3s ease;
+      transition: height 0.3s ease;
+      width: 200px;
+      border-radius: 5px;
+    }
+
+    .inputError {
+      border: solid 2px red;
+    }
+
+    &:focus-within label {
+      top: -11px;
+      bottom: translateY(100%);
+      font-size: 0.9rem;
+    }
+
+    .label_01 {
+      top: -11px;
+      bottom: translateY(100%);
+      font-size: 0.9rem;
+    }
+
+    // It works after focus
+    // input:invalid {
+    //   border: 2px solid red;
+    // }
+
+    // input:valid {
+    //   border: 2px solid green;
+    // }
+  }
+  small {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    height: 2rem;
+
+    padding-left: 2px;
+    width: 100%;
+    bottom: 0;
+    color: red;
+  }
+}
+
+.labelLight {
+  label {
+    color: var(--label-input-light);
+  }
+  input,
+  textarea {
+    background-color: var(--color-19);
+  }
+}
+
+.labelDark {
+  label {
+    color: var(--label-input-dark);
+  }
+  input,
+  textarea {
+    background-color: var(--color-two);
+  }
+}
