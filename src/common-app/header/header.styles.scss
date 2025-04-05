@@ -8,6 +8,8 @@
   min-height: 100px;
   position: relative;
   background-color: blue;
+  border: solid 2px var(--global-05);
+  background-color: var(--global-08);
   .containerHeader {
     position: fixed;
     top: 0;
