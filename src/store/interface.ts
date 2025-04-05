@@ -18,7 +18,8 @@ export interface PropsCurrentUser {
   id?: number;
   email?: string;
   name?: string;
-  role_user?: string;
+  role_user?: "user" | "admin";
+  age?: number;
   createdAt?: string;
   updatedAt?: string;
 }
