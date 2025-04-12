@@ -23,4 +23,5 @@ export const es = {
   is_required: "es requerido",
   at_least_6: "debe contener al menos 6 caracteres",
   passwords_not_match: "Las contraseñas no coinciden",
+  my_companies: "Mis empresas",
 };

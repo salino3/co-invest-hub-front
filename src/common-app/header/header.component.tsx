@@ -47,46 +47,7 @@ export const Header: React.FC = () => {
     };
   }, []);
 
-  const array = [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-  ];
+  const array = [{}, {}];
 
   return (
     <header className="rootHeader">
@@ -109,10 +70,10 @@ export const Header: React.FC = () => {
               aria-label={t("choose_language")}
               alt={t("arrow_languages")}
             />
-            <span>my companies</span>
+            <span>{t("my_companies")}</span>
             <div
               ref={elementRef}
-              className={` dropdownCompanies ${
+              className={`dropdownCompanies ${
                 !fadeClose && openSelectCompanies ? "showDropdown" : ""
               }
               
