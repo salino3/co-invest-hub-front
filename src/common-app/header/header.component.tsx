@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [openSelectCompanies, setOpenSelectCompanies] = useState(false);
   const [fadeClose, setFadeClose] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
+  const [showSettings, setShowSettings] = useState<boolean>(false);
 
   //
   const handleCompanies = () => {
@@ -92,10 +92,7 @@ export const Header: React.FC = () => {
           <div className="boxCenter">
             <span>Searching</span>
           </div>
-          <div
-            onClick={() => setShowSettings((prev) => !prev)}
-            className="boxRight"
-          >
+          <div onClick={() => setShowSettings(true)} className="boxRight">
             <span>Settings</span>
             <Settings
               showSettings={showSettings}
