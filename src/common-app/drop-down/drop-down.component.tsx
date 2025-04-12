@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { rootDropDown } from "./drop-down.styles";
 
 interface DivStyledProps {
@@ -10,7 +10,7 @@ interface DivStyledProps {
 
 export const DivStyled = styled.div<DivStyledProps>`
   ${({ $dropdownHeight }) => rootDropDown($dropdownHeight || "0px")}
-  ${(props) => props.$customStyle}
+  ${({ $customStyle }) => $customStyle || ""}
 `;
 
 export const DropDown: React.FC<{ array: any[]; height: number }> = ({
