@@ -34,6 +34,6 @@ export class ServicesApp {
 
   // Accouts
   public static async getCompanies(): Promise<AxiosResponse<PropsCompany[]>> {
-    return await axios.get(`${baseBackend}/companies`);
+    return await axios.get(`${baseBackend}/api/companies`);
   }
 }
