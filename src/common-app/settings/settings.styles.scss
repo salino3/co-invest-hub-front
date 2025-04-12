@@ -1,0 +1,37 @@
+@keyframes showSettings {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes hideSettings {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.rootSettings {
+  position: fixed;
+  border: solid var(--global-05);
+  height: 100vh;
+  box-sizing: border-box;
+  top: 0;
+  right: 0;
+  background-color: var(--global-08);
+  width: 75%;
+}
+
+.show {
+  display: block;
+  animation: showSettings 1s forwards;
+}
+
+.hide {
+  animation: hideSettings 1s forwards;
+}

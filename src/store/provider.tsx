@@ -7,7 +7,7 @@ import { PropsCurrentUser, PropsProvider } from "./interface";
 export const useProvider = create<PropsProvider>()(
   persist(
     immer((set, get) => ({
-      currentUser: {},
+      currentUser: null,
       companies: [],
       theme: "dark",
       changeGlobalColors() {
@@ -22,6 +22,10 @@ export const useProvider = create<PropsProvider>()(
         root.style.setProperty("--global-06", isDark ? "#e2e8f0" : "#1b1b1b");
         root.style.setProperty("--global-07", isDark ? "#1b1b1b" : "#f5f5f5");
         root.style.setProperty("--global-08", isDark ? "#718096" : "#4a5568");
+        root.style.setProperty(
+          "--color-01",
+          isDark ? "rgba(74, 85, 104, 0.5)" : "rgba(113, 128, 150, 0.5)"
+        );
         root.style.setProperty(
           "--global-lines",
           isDark ? "rgba(0, 0, 0, 0.1)" : "rgb(178, 164, 164)"
@@ -38,7 +42,7 @@ export const useProvider = create<PropsProvider>()(
       },
       logoutAccount: () => {
         set((state) => {
-          state.currentUser = {};
+          state.currentUser = null;
         });
       },
     })),

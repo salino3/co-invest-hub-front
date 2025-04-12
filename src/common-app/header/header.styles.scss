@@ -7,9 +7,7 @@
   height: 100%;
   min-height: 100px;
   position: relative;
-  background-color: blue;
-  border: solid 2px var(--global-05);
-  background-color: var(--global-08);
+
   .containerHeader {
     position: fixed;
     top: 0;
@@ -18,8 +16,10 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    box-sizing: border-box;
     min-height: 100px;
-
+    border: solid 2px var(--global-05);
+    background-color: var(--global-08);
     .boxUp {
       flex-grow: 2;
       flex-basis: 2;
@@ -43,46 +43,62 @@
 
       & > div {
         padding: 0 1rem 3px;
+      }
 
-        span {
+      //
+      .boxLeft {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        .iconLanguage {
+          transform: rotate(0deg);
+          transition: transform 0.3s ease-in-out;
+        }
+
+        .rotateIcon {
+          transform: rotate(90deg);
+          transition: transform 0.3s ease-in-out;
+        }
+
+        .dropdownCompanies {
+          position: absolute;
+          top: 100%;
+          left: 1rem;
+          background-color: var(--color-one);
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          z-index: 99999999999;
+        }
+
+        .fadeClose {
+          animation: cover 1s forwards;
+        }
+
+        .showDropdown {
+          animation: show 1s forwards;
         }
       }
-    }
 
-    //
-    .boxLeft {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      .iconLanguage {
-        transform: rotate(0deg);
-        transition: transform 0.3s ease-in-out;
-      }
+      //
+      .boxRight {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-01) !important;
+        padding-top: 4px;
+        border-radius: 3px;
 
-      .rotateIcon {
-        transform: rotate(90deg);
-        transition: transform 0.3s ease-in-out;
-      }
-
-      .dropdownCompanies {
-        position: absolute;
-        top: 100%;
-        left: 1rem;
-        background-color: var(--color-one);
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        z-index: 99999999999;
-      }
-
-      .fadeClose {
-        animation: cover 1s forwards;
-      }
-
-      .showDropdown {
-        animation: show 1s forwards;
+        & > span {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 0.5rem;
+        }
       }
     }
   }

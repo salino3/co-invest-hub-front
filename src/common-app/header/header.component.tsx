@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { SettingIcon } from "../../common/icons";
 import { DropDown } from "../drop-down";
+import { Settings } from "../settings";
 import "./header.styles.scss";
 
 export const Header: React.FC = () => {
@@ -11,6 +13,7 @@ export const Header: React.FC = () => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [openSelectCompanies, setOpenSelectCompanies] = useState(false);
   const [fadeClose, setFadeClose] = useState(false);
+  const [showSettings, setShowSettings] = useState<boolean | null>(null);
 
   //
   const handleCompanies = () => {
@@ -47,46 +50,27 @@ export const Header: React.FC = () => {
     };
   }, []);
 
-  const array = [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-    // {},
-  ];
+  //
+  useEffect(() => {
+    const handleClickOutsideSetting = (event: MouseEvent) => {
+      const settingElement = document.getElementById("spanSettingComponent");
+      if (
+        settingElement &&
+        !settingElement.contains(event.target as Node) &&
+        showSettings
+      ) {
+        setShowSettings(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutsideSetting);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutsideSetting);
+    };
+  }, [showSettings]);
+
+  const array = [{}, {}];
 
   return (
     <header className="rootHeader">
@@ -105,14 +89,14 @@ export const Header: React.FC = () => {
               className={`iconLanguage ${
                 !fadeClose && openSelectCompanies ? "rotateIcon" : ""
               }`}
-              src={"assets/icons/arrow_04.svg"}
+              src={"/assets/icons/arrow_04.svg"}
               aria-label={t("choose_language")}
               alt={t("arrow_languages")}
             />
-            <span>my companies</span>
+            <span>{t("my_companies")}</span>
             <div
               ref={elementRef}
-              className={` dropdownCompanies ${
+              className={`dropdownCompanies ${
                 !fadeClose && openSelectCompanies ? "showDropdown" : ""
               }
               
@@ -129,8 +113,21 @@ export const Header: React.FC = () => {
           <div className="boxCenter">
             <span>Searching</span>
           </div>
-          <div className="boxRight">
-            <span>Settings</span>
+          <div
+            onClick={() => setShowSettings(true)}
+            style={{
+              cursor: showSettings ? "default" : "pointer",
+            }}
+            id="spanSettingComponent"
+            className="boxRight"
+          >
+            <span>
+              Settings <SettingIcon />
+            </span>
+            <Settings
+              showSettings={showSettings}
+              setShowSettings={setShowSettings}
+            />
           </div>
         </div>
       </div>
