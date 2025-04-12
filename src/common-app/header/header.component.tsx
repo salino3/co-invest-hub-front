@@ -105,7 +105,7 @@ export const Header: React.FC = () => {
               className={`iconLanguage ${
                 !fadeClose && openSelectCompanies ? "rotateIcon" : ""
               }`}
-              src={"assets/icons/arrow_04.svg"}
+              src={"/assets/icons/arrow_04.svg"}
               aria-label={t("choose_language")}
               alt={t("arrow_languages")}
             />
