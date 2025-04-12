@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [openSelectCompanies, setOpenSelectCompanies] = useState(false);
   const [fadeClose, setFadeClose] = useState(false);
-  const [showSettings, setShowSettings] = useState<boolean>(false);
+  const [showSettings, setShowSettings] = useState<boolean | null>(null);
 
   //
   const handleCompanies = () => {
@@ -48,6 +48,26 @@ export const Header: React.FC = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  //
+  useEffect(() => {
+    const handleClickOutsideSetting = (event: MouseEvent) => {
+      const settingElement = document.getElementById("spanSettingComponent");
+      if (
+        settingElement &&
+        !settingElement.contains(event.target as Node) &&
+        showSettings
+      ) {
+        setShowSettings(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutsideSetting);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutsideSetting);
+    };
+  }, [showSettings]);
 
   const array = [{}, {}];
 
@@ -92,7 +112,14 @@ export const Header: React.FC = () => {
           <div className="boxCenter">
             <span>Searching</span>
           </div>
-          <div onClick={() => setShowSettings(true)} className="boxRight">
+          <div
+            onClick={() => setShowSettings(true)}
+            style={{
+              cursor: showSettings ? "default" : "pointer",
+            }}
+            id="spanSettingComponent"
+            className="boxRight"
+          >
             <span>Settings</span>
             <Settings
               showSettings={showSettings}
