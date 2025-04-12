@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DropDown } from "../drop-down";
+import { Settings } from "../settings";
 import "./header.styles.scss";
 
 export const Header: React.FC = () => {
@@ -11,6 +12,7 @@ export const Header: React.FC = () => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [openSelectCompanies, setOpenSelectCompanies] = useState(false);
   const [fadeClose, setFadeClose] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   //
   const handleCompanies = () => {
@@ -90,8 +92,15 @@ export const Header: React.FC = () => {
           <div className="boxCenter">
             <span>Searching</span>
           </div>
-          <div className="boxRight">
+          <div
+            onClick={() => setShowSettings((prev) => !prev)}
+            className="boxRight"
+          >
             <span>Settings</span>
+            <Settings
+              showSettings={showSettings}
+              setShowSettings={setShowSettings}
+            />
           </div>
         </div>
       </div>
