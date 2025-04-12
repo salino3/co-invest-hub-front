@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { SettingIcon } from "../../common/icons";
 import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
 import "./header.styles.scss";
@@ -120,7 +121,9 @@ export const Header: React.FC = () => {
             id="spanSettingComponent"
             className="boxRight"
           >
-            <span>Settings</span>
+            <span>
+              Settings <SettingIcon />
+            </span>
             <Settings
               showSettings={showSettings}
               setShowSettings={setShowSettings}

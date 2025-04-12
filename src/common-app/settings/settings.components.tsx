@@ -1,10 +1,19 @@
 import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
+import { Arrow02 } from "../../common/icons";
 import "./settings.styles.scss";
 
-export const Settings: React.FC<{
+interface Props {
   showSettings: boolean | null;
   setShowSettings: Dispatch<SetStateAction<boolean | null>>;
-}> = ({ showSettings, setShowSettings }) => {
+}
+
+export const Settings: React.FC<Props> = ({
+  showSettings,
+  setShowSettings,
+}) => {
+  const { t } = useTranslation("main");
+
   if (showSettings === null) {
     return null;
   } else if (!showSettings)
@@ -14,14 +23,14 @@ export const Settings: React.FC<{
 
   return (
     <div className={`rootSettings ${showSettings ? "show" : "hide"}`}>
-      SETTINGS
       <button
         onClick={(event: MouseEvent<HTMLButtonElement>) => {
           event?.stopPropagation();
           setShowSettings(false);
         }}
       >
-        Close
+        {t("close")} <Arrow02 />
+        <Arrow02 />
       </button>
     </div>
   );

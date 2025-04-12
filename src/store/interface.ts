@@ -42,7 +42,7 @@ export interface AccountLoginForm {
 
 export interface PropsProvider {
   companies: PropsCompany[];
-  currentUser: PropsCurrentUser;
+  currentUser: PropsCurrentUser | null;
   theme: "dark" | "light";
   changeGlobalColors(): void;
   loginAccount: (user: PropsCurrentUser) => void;
