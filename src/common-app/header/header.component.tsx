@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ServicesApp } from "../../services";
 import { SettingIcon } from "../../common/icons";
 import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
@@ -14,6 +15,9 @@ export const Header: React.FC = () => {
   const [openSelectCompanies, setOpenSelectCompanies] = useState(false);
   const [fadeClose, setFadeClose] = useState(false);
   const [showSettings, setShowSettings] = useState<boolean | null>(null);
+  const [listMyCompanies, setListMyCompanies] = useState<
+    { id: number; name: string }[]
+  >([]);
 
   //
   const handleCompanies = () => {
@@ -70,7 +74,11 @@ export const Header: React.FC = () => {
     };
   }, [showSettings]);
 
-  const array = [{}, {}];
+  useEffect(() => {
+    ServicesApp?.getMyCompanies("4").then((res) =>
+      setListMyCompanies(res.data)
+    );
+  }, []);
 
   return (
     <header className="rootHeader">
@@ -104,8 +112,8 @@ export const Header: React.FC = () => {
             >
               {openSelectCompanies && (
                 <DropDown
-                  array={array}
-                  height={array && array?.length * 40 + 5}
+                  array={listMyCompanies && listMyCompanies}
+                  height={listMyCompanies && listMyCompanies?.length * 42 + 5}
                 />
               )}
             </div>

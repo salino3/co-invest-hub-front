@@ -20,14 +20,16 @@ export const rootDropDown = (height: string) => css`
       height: 0px;
     }
   }
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   border-radius: 0.5rem;
   gap: 1rem;
   padding: 1rem 1rem 0.5rem;
   height: 100%;
+  width: 100%;
   z-index: 999999999;
   background-color: black;
   max-height: 350px;
@@ -49,7 +51,14 @@ export const rootDropDown = (height: string) => css`
     border: 1px solid #222; // Optional: border to match the track
   }
 
-  & > div {
-    border: solid;
+  & > .company_02 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: solid 1px;
+    padding-bottom: 2px;
+    width: 100%;
   }
 `;
