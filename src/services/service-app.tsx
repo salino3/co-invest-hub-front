@@ -17,6 +17,7 @@ export class ServicesApp {
       withCredentials: true,
     });
   }
+
   public static async loginAccount(
     account: AccountLoginForm
   ): Promise<AxiosResponse> {
@@ -32,7 +33,19 @@ export class ServicesApp {
 
   //* Get Data
 
-  // Accouts
+  // Relation account Companies
+  public static async getMyCompanies(id: string): Promise<AxiosResponse> {
+    return await axios
+      .get(`${baseBackend}/relation/account/companies/${id}`, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
+  // Companies
   public static async getCompanies(): Promise<AxiosResponse<PropsCompany[]>> {
     return await axios.get(`${baseBackend}/api/companies`);
   }
