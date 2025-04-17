@@ -74,11 +74,11 @@ export const Header: React.FC = () => {
     };
   }, [showSettings]);
 
-  useEffect(() => {
-    ServicesApp?.getMyCompanies("4").then((res) =>
-      setListMyCompanies(res.data)
-    );
-  }, []);
+  // useEffect(() => {
+  //   ServicesApp?.getMyCompanies("4").then((res) =>
+  //     setListMyCompanies(res.data)
+  //   );
+  // }, []);
 
   return (
     <header className="rootHeader">
