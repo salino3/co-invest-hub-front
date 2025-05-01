@@ -1,0 +1,13 @@
+.rootButton_x78 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .btnComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+  }
+}

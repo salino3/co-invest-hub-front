@@ -26,12 +26,11 @@ export interface PropsCurrentUser {
 
 //
 export interface AccountRegisterForm {
-  email: string;
   name?: string;
+  email: string;
   password: string;
   passwordConfirm: string;
   age: number | null;
-  account_type: "individual" | "business";
 }
 
 //

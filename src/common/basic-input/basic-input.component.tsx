@@ -10,7 +10,7 @@ interface PropsBasicInput {
   click?: React.MouseEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   change?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   value?: string | number | readonly string[] | undefined;
-  ref?: React.LegacyRef<HTMLInputElement> | undefined;
+  ref?: React.Ref<HTMLInputElement> | undefined;
   errMsg?: string;
   checkError?: boolean;
   min?: string | number | undefined;
