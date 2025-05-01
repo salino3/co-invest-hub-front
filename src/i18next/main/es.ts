@@ -24,4 +24,8 @@ export const es = {
   at_least_6: "debe contener al menos 6 caracteres",
   passwords_not_match: "Las contraseñas no coinciden",
   my_companies: "Mis empresas",
+  password_not_match: "La contraseña no coincide",
+  required: "Campo requerido",
+  password_too_short: "Contraseña mínimo 6 caracteres",
+  min_18: "Tiene que ser mayor de edad",
 };

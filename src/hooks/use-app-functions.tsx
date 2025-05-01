@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { PropsCurrentUser } from "../store";
 import { routesApp } from "../router";
+import { TFunction } from "i18next";
 
 export const useAppFunctions = () => {
   //
@@ -187,6 +188,7 @@ export const useAppFunctions = () => {
   function checkFormRequired(
     formData: any,
     setFormDataError: any,
+    t: TFunction<"main", undefined>,
     listNoRequired: string[]
   ): boolean {
     let hasError = false;
@@ -194,7 +196,7 @@ export const useAppFunctions = () => {
       if (!listNoRequired.includes(key) && !formData[key]) {
         setFormDataError((prev: any) => ({
           ...prev,
-          [key]: "Requiered",
+          [key]: t("required"),
         }));
         hasError = true;
       }

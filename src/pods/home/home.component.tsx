@@ -8,10 +8,10 @@ import {
   useProviderSelector,
 } from "../../store";
 import { ServicesApp } from "../../services";
+import { useAppFunctions } from "../../hooks";
 import { BasicInput, Button } from "../../common";
 import { routesApp } from "../../router";
 import "./home.styles.scss";
-import { useAppFunctions } from "../../hooks";
 
 interface AccountRegisterFormError {
   name: string;
@@ -75,14 +75,47 @@ export const HomePage: React.FC = () => {
         ...prev,
         [key]: value,
       }));
+
+      setFormDataError((prev) => ({
+        ...prev,
+        [key]: "",
+      }));
     };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement> | undefined) => {
     event?.preventDefault();
 
-    let error: boolean = checkFormRequired(formData, setFormDataError, [
+    let error: boolean = checkFormRequired(formData, setFormDataError, t, [
       "name",
     ]);
+
+    // "passwordConfirm" in formData: Only executes it if 'passwordConfirm' exists
+    if (
+      "passwordConfirm" in formData &&
+      formData?.password !== formData?.passwordConfirm
+    ) {
+      error = true;
+      setFormDataError((prev) => ({
+        ...prev,
+        ["passwordConfirm"]: t("password_not_match"),
+      }));
+    }
+
+    if (formData?.password?.length < 6) {
+      error = true;
+      setFormDataError((prev) => ({
+        ...prev,
+        ["password"]: t("password_too_short"),
+      }));
+    }
+
+    if ("age" in formData && formData?.age && Number(formData?.age) < 18) {
+      error = true;
+      setFormDataError((prev) => ({
+        ...prev,
+        ["age"]: t("min_18"),
+      }));
+    }
 
     if (error) {
     } else {
@@ -131,8 +164,6 @@ export const HomePage: React.FC = () => {
     }
   }, [currentUser]);
 
-  // console.log("log3", !["name"].includes("name"));
-
   return (
     <div className="rootHomePage">
       <h1>{t("welcome")}</h1>
@@ -150,7 +181,6 @@ export const HomePage: React.FC = () => {
                 lbl="name"
                 change={handleChange("name")}
                 value={(formData as AccountRegisterForm)?.name || ""}
-                errMsg={(formDataError as AccountRegisterFormError)?.name}
               />
               <BasicInput
                 type="email"
@@ -159,6 +189,9 @@ export const HomePage: React.FC = () => {
                 change={handleChange("email")}
                 value={(formData as AccountRegisterForm)?.email || ""}
                 errMsg={(formDataError as AccountRegisterFormError)?.email}
+                checkError={
+                  !!(formDataError as AccountRegisterFormError)?.email
+                }
               />
               <BasicInput
                 type="password"
@@ -167,6 +200,9 @@ export const HomePage: React.FC = () => {
                 change={handleChange("password")}
                 value={(formData as AccountRegisterForm)?.password || ""}
                 errMsg={(formDataError as AccountRegisterFormError)?.password}
+                checkError={
+                  !!(formDataError as AccountRegisterFormError)?.password
+                }
               />
               <BasicInput
                 type="password"
@@ -177,6 +213,9 @@ export const HomePage: React.FC = () => {
                 errMsg={
                   (formDataError as AccountRegisterFormError)?.passwordConfirm
                 }
+                checkError={
+                  !!(formDataError as AccountRegisterFormError)?.passwordConfirm
+                }
               />
               <BasicInput
                 type="number"
@@ -185,6 +224,7 @@ export const HomePage: React.FC = () => {
                 change={handleChange("age")}
                 value={(formData as AccountRegisterForm)?.age || ""}
                 errMsg={(formDataError as AccountRegisterFormError)?.age}
+                checkError={!!(formDataError as AccountRegisterFormError)?.age}
               />
             </>
           ) : (
@@ -196,6 +236,7 @@ export const HomePage: React.FC = () => {
                 change={handleChange("email")}
                 value={(formData as AccountLoginForm)?.email || ""}
                 errMsg={(formDataError as AccountLoginForm)?.email}
+                checkError={!!(formDataError as AccountLoginForm)?.email}
               />
               <BasicInput
                 type="password"
@@ -204,9 +245,11 @@ export const HomePage: React.FC = () => {
                 change={handleChange("password")}
                 value={(formData as AccountLoginForm)?.password || ""}
                 errMsg={(formDataError as AccountLoginForm)?.password}
+                checkError={!!(formDataError as AccountLoginForm)?.password}
               />
             </>
           )}
+
           <Button type="submit" text={t("confirm")} />
         </form>
       </div>
