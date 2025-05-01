@@ -10,7 +10,7 @@ export const PublicRoutes: React.FC = () => {
     "currentUser",
     "logoutAccount"
   );
-  const { getAuthToken } = useAppFunctions();
+  const { getAuthToken, closeSession } = useAppFunctions();
 
   const token = getAuthToken();
   React.useEffect(() => {
@@ -19,6 +19,7 @@ export const PublicRoutes: React.FC = () => {
     } else {
       if (currentUser?.email) {
         logoutAccount && logoutAccount();
+        closeSession && closeSession();
       }
     }
   }, []);

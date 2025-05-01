@@ -1,7 +1,12 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
-import { AccountLoginForm, AccountRegisterForm } from "../../store";
+import {
+  AccountLoginForm,
+  AccountRegisterForm,
+  useProviderSelector,
+} from "../../store";
 import { ServicesApp } from "../../services";
 import { BasicInput, Button } from "../../common";
 import { routesApp } from "../../router";
@@ -11,6 +16,10 @@ export const HomePage: React.FC = () => {
   const { t } = useTranslation("main");
 
   const navigate = useNavigate();
+  const { loginAccount, currentUser } = useProviderSelector(
+    "loginAccount",
+    "currentUser"
+  );
 
   const [formType, setFormType] = useState<boolean>(true);
 
@@ -46,8 +55,8 @@ export const HomePage: React.FC = () => {
 
     ServicesApp?.[formType ? "registerAccount" : "loginAccount"](
       formData as AccountRegisterForm & AccountLoginForm
-    ).then(() => {
-      !formType ? navigate(routesApp?.dashboard) : setFormType(false);
+    ).then((res: AxiosResponse<any, any>) => {
+      !formType ? loginAccount && loginAccount(res.data) : setFormType(false);
     });
   };
 
@@ -67,6 +76,12 @@ export const HomePage: React.FC = () => {
           }
     );
   }, [formType]);
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate(routesApp?.dashboard);
+    }
+  }, [currentUser]);
 
   return (
     <div className="rootHomePage">
