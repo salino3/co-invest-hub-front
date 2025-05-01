@@ -20,7 +20,7 @@ const routes: PropsRoutes[] = [
   {
     path: routesApp?.company(":name", ":id"),
     element: <CompanyPage />,
-    visibility: "public",
+    visibility: "private",
   },
   // TODO: CreateCompanyPage
   // the login and register, make them in <HomePage>

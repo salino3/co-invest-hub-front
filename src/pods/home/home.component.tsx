@@ -39,7 +39,10 @@ export const HomePage: React.FC = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement> | undefined) => {
     event?.preventDefault();
-    console.log("log1", formData);
+
+    ServicesApp?.[formType ? "registerAccount" : "loginAccount"](
+      formData as AccountRegisterForm & AccountLoginForm
+    );
   };
 
   useEffect(() => {
