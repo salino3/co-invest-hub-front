@@ -183,6 +183,26 @@ export const useAppFunctions = () => {
     return Array.from({ length: maxDays }, (_, i) => i + 1);
   }
 
+  //
+  function checkFormRequired(
+    formData: any,
+    setFormDataError: any,
+    listNoRequired: string[]
+  ): boolean {
+    let hasError = false;
+    for (let key in formData) {
+      if (!listNoRequired.includes(key) && !formData[key]) {
+        setFormDataError((prev: any) => ({
+          ...prev,
+          [key]: "Requiered",
+        }));
+        hasError = true;
+      }
+    }
+
+    return hasError;
+  }
+
   return {
     getEndTokenFromCookie,
     getAuthToken,
@@ -196,5 +216,7 @@ export const useAppFunctions = () => {
     getLocalizedCalendarData,
     capitalizeFirstLetter,
     getAvailableDays,
+    //
+    checkFormRequired,
   };
 };
