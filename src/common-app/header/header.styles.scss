@@ -30,6 +30,14 @@
       align-items: center;
       width: 100%;
       max-width: 1200px;
+
+      .boxData {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+      }
     }
 
     .boxDown {

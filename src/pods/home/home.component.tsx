@@ -139,7 +139,3 @@ export const HomePage: React.FC = () => {
     </div>
   );
 };
-
-// useEffect(() => {
-//   ServicesApp.getCompanies();
-// }, []);
