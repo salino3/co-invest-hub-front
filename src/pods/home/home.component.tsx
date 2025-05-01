@@ -12,6 +12,14 @@ import { BasicInput, Button } from "../../common";
 import { routesApp } from "../../router";
 import "./home.styles.scss";
 
+interface AccountRegisterFormError {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  age: string;
+}
+
 export const HomePage: React.FC = () => {
   const { t } = useTranslation("main");
 
@@ -40,6 +48,23 @@ export const HomePage: React.FC = () => {
         }
   );
 
+  const [formDataError, setFormDataError] = useState<
+    AccountRegisterFormError | AccountLoginForm
+  >(
+    formType
+      ? {
+          name: "",
+          email: "",
+          password: "",
+          passwordConfirm: "",
+          age: "",
+        }
+      : {
+          email: "",
+          password: "",
+        }
+  );
+
   const handleChange =
     (key: keyof (AccountRegisterForm & AccountLoginForm)) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -53,11 +78,16 @@ export const HomePage: React.FC = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement> | undefined) => {
     event?.preventDefault();
 
-    ServicesApp?.[formType ? "registerAccount" : "loginAccount"](
-      formData as AccountRegisterForm & AccountLoginForm
-    ).then((res: AxiosResponse<any, any>) => {
-      !formType ? loginAccount && loginAccount(res.data) : setFormType(false);
-    });
+    let error: boolean = false;
+
+    if (error) {
+    } else {
+      ServicesApp?.[formType ? "registerAccount" : "loginAccount"](
+        formData as AccountRegisterForm & AccountLoginForm
+      ).then((res: AxiosResponse<any, any>) => {
+        !formType ? loginAccount && loginAccount(res.data) : setFormType(false);
+      });
+    }
   };
 
   useEffect(() => {
@@ -138,13 +168,15 @@ export const HomePage: React.FC = () => {
                 lbl={"email"}
                 change={handleChange("email")}
                 value={(formData as AccountLoginForm)?.email || ""}
+                errMsg={(formDataError as AccountLoginForm)?.email}
               />
               <BasicInput
-                type="text"
+                type="password"
                 name={"password"}
                 lbl="password"
                 change={handleChange("password")}
                 value={(formData as AccountLoginForm)?.password || ""}
+                errMsg={(formDataError as AccountLoginForm)?.password}
               />
             </>
           )}
