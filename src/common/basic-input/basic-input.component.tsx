@@ -73,7 +73,21 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             value={value}
             onClick={click}
             onChange={change}
-            //   onBlur={handleBlur} // Handle input blur
+            // onWheel={(e) => e.currentTarget.blur()}
+            onFocus={(e) => {
+              e.currentTarget.addEventListener(
+                "wheel",
+                (e: Event) => e.preventDefault(),
+                {
+                  passive: false,
+                }
+              );
+            }}
+            onBlur={(e) => {
+              e.currentTarget.removeEventListener("wheel", (e: Event) =>
+                e.preventDefault()
+              );
+            }}
             // onInput={() => alert("Hi!")} // It works when value change
           />
         )}
