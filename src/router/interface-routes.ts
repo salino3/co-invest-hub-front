@@ -7,7 +7,7 @@ interface Routes {
 
 export const routesApp: Routes = {
   root: "/",
-  dashboard: "/:token",
+  dashboard: "/dashboard",
   company: (name: string, id: string) => `company/${name}/${id}`,
   error404: "*",
 };

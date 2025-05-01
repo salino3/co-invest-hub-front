@@ -1,12 +1,16 @@
 import { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AccountLoginForm, AccountRegisterForm } from "../../store";
 import { ServicesApp } from "../../services";
 import { BasicInput, Button } from "../../common";
+import { routesApp } from "../../router";
 import "./home.styles.scss";
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation("main");
+
+  const navigate = useNavigate();
 
   const [formType, setFormType] = useState<boolean>(true);
 
@@ -42,7 +46,9 @@ export const HomePage: React.FC = () => {
 
     ServicesApp?.[formType ? "registerAccount" : "loginAccount"](
       formData as AccountRegisterForm & AccountLoginForm
-    );
+    ).then(() => {
+      !formType ? navigate(routesApp?.dashboard) : setFormType(false);
+    });
   };
 
   useEffect(() => {
