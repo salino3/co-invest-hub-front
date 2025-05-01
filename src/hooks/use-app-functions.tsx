@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { PropsCurrentUser } from "../store";
 import { routesApp } from "../router";
+import { TFunction } from "i18next";
 
 export const useAppFunctions = () => {
   //
@@ -183,6 +184,27 @@ export const useAppFunctions = () => {
     return Array.from({ length: maxDays }, (_, i) => i + 1);
   }
 
+  //
+  function checkFormRequired(
+    formData: any,
+    setFormDataError: any,
+    t: TFunction<"main", undefined>,
+    listNoRequired: string[]
+  ): boolean {
+    let hasError = false;
+    for (let key in formData) {
+      if (!listNoRequired.includes(key) && !formData[key]) {
+        setFormDataError((prev: any) => ({
+          ...prev,
+          [key]: t("required"),
+        }));
+        hasError = true;
+      }
+    }
+
+    return hasError;
+  }
+
   return {
     getEndTokenFromCookie,
     getAuthToken,
@@ -196,5 +218,7 @@ export const useAppFunctions = () => {
     getLocalizedCalendarData,
     capitalizeFirstLetter,
     getAvailableDays,
+    //
+    checkFormRequired,
   };
 };

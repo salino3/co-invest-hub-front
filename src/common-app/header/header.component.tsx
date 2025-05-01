@@ -1,13 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ServicesApp } from "../../services";
+import { useAppFunctions } from "../../hooks";
 import { SettingIcon } from "../../common/icons";
 import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
 import "./header.styles.scss";
+import { Button } from "../../common/button";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");
+
+  const { closeSession } = useAppFunctions();
 
   // My Companies
   const btnToggleRef = useRef<HTMLDivElement>(null);
@@ -84,7 +88,10 @@ export const Header: React.FC = () => {
     <header className="rootHeader">
       <div className="containerHeader">
         <div className="boxUp">
-          <div className="boxData">{t("email")}</div>
+          <div className="boxData">
+            {t("email")}
+            <Button click={() => closeSession()} text={t("logout")} />
+          </div>
           <div className="boxName">{t("logo")}</div>
         </div>
         <div className="boxDown">

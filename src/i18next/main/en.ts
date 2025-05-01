@@ -24,4 +24,8 @@ export const en = {
   at_least_6: "must be at least 6 characters long",
   passwords_not_match: "Passwords do not match",
   my_companies: "My companies",
+  password_not_match: "Password does not match",
+  required: "Requerido field",
+  password_too_short: "Password minimum 6 characters",
+  min_18: "You must be adult",
 };

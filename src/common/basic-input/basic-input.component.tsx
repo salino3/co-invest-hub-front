@@ -10,7 +10,7 @@ interface PropsBasicInput {
   click?: React.MouseEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   change?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   value?: string | number | readonly string[] | undefined;
-  ref?: React.LegacyRef<HTMLInputElement> | undefined;
+  ref?: React.Ref<HTMLInputElement> | undefined;
   errMsg?: string;
   checkError?: boolean;
   min?: string | number | undefined;
@@ -73,7 +73,21 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             value={value}
             onClick={click}
             onChange={change}
-            //   onBlur={handleBlur} // Handle input blur
+            // onWheel={(e) => e.currentTarget.blur()}
+            onFocus={(e) => {
+              e.currentTarget.addEventListener(
+                "wheel",
+                (e: Event) => e.preventDefault(),
+                {
+                  passive: false,
+                }
+              );
+            }}
+            onBlur={(e) => {
+              e.currentTarget.removeEventListener("wheel", (e: Event) =>
+                e.preventDefault()
+              );
+            }}
             // onInput={() => alert("Hi!")} // It works when value change
           />
         )}

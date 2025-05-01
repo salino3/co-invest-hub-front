@@ -4,4 +4,20 @@
   justify-content: flex-start;
   align-items: center;
   min-height: 100%;
+
+  .containerHomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    .boxButtonHome {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
 }
