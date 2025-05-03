@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { TFunction } from "i18next";
@@ -20,10 +20,11 @@ export const DivStyled = styled.div<DivStyledProps>`
 
 // <DropDown> with inside <DivStyled>
 export const DropDown: React.FC<{
+  setShow: Dispatch<SetStateAction<boolean>>;
   array: { id: number; name: string }[];
   height: number;
   t: TFunction<"main", undefined>;
-}> = ({ array, height, t }) => {
+}> = ({ setShow, array, height, t }) => {
   const navigate = useNavigate();
   return (
     <DivStyled
@@ -32,7 +33,14 @@ export const DropDown: React.FC<{
     >
       {array && array?.length > 0 ? (
         array.map((item: { id: number; name: string }) => (
-          <span className="company_02" key={item?.id}>
+          <span
+            onClick={() => {
+              navigate(routesApp?.company(item?.name, String(item?.id)));
+              setShow(() => false);
+            }}
+            className="company_02"
+            key={item?.id}
+          >
             {item?.name}
           </span>
         ))
@@ -42,7 +50,10 @@ export const DropDown: React.FC<{
         </div>
       )}
       <div
-        onClick={() => navigate(routesApp?.create_company)}
+        onClick={() => {
+          navigate(routesApp?.create_company);
+          setShow(() => false);
+        }}
         className="addCompany opacityStyles"
       >
         {t("add_company")} <MoreIcon width={16} height={16} />
