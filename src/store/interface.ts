@@ -47,3 +47,10 @@ export interface PropsProvider {
   loginAccount: (user: PropsCurrentUser) => void;
   logoutAccount: () => void;
 }
+
+//
+export interface PropsTabs {
+  key: number;
+  title: string;
+  component: React.ReactNode;
+}
