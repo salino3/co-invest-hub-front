@@ -9,7 +9,7 @@ interface Routes {
 export const routesApp: Routes = {
   root: "/",
   dashboard: "/dashboard",
-  company: (name: string, id: string) => `company/${name}/${id}`,
+  company: (name: string, id: string) => `/company/${name}/${id}`,
   create_company: "/create/new-company",
   error404: "*",
 };
