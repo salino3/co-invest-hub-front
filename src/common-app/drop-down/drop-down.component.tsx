@@ -21,9 +21,9 @@ export const DropDown: React.FC<{
   t: TFunction<"main", undefined>;
 }> = ({ array, height, t }) => {
   return (
-    <DivStyled $dropdownHeight={String(height == 5 ? 47 : height)}>
+    <DivStyled $dropdownHeight={String(height == 35 ? 80 : height)}>
       {array && array?.length > 0 ? (
-        array.map((item, i) => (
+        array.map((item: { id: number; name: string }) => (
           <span className="company_02" key={item?.id}>
             {item?.name}
           </span>
@@ -33,6 +33,7 @@ export const DropDown: React.FC<{
           {t("no_companies")}
         </div>
       )}
+      <div className="addCompany">add</div>
     </DivStyled>
   );
 };

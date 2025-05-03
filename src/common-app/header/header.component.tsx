@@ -78,11 +78,11 @@ export const Header: React.FC = () => {
     };
   }, [showSettings]);
 
-  // useEffect(() => {
-  //   ServicesApp?.getMyCompanies("4").then((res) =>
-  //     setListMyCompanies(res.data)
-  //   );
-  // }, []);
+  useEffect(() => {
+    ServicesApp?.getMyCompanies("4").then((res) =>
+      setListMyCompanies(res.data)
+    );
+  }, []);
 
   return (
     <header className="rootHeader">
@@ -120,7 +120,7 @@ export const Header: React.FC = () => {
               {openSelectCompanies && (
                 <DropDown
                   array={listMyCompanies && listMyCompanies}
-                  height={listMyCompanies && listMyCompanies?.length * 42 + 5}
+                  height={listMyCompanies && listMyCompanies?.length * 42 + 35}
                   t={t}
                 />
               )}
