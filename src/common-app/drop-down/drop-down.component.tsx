@@ -33,7 +33,7 @@ export const DropDown: React.FC<{
           {t("no_companies")}
         </div>
       )}
-      <div className="addCompany">add</div>
+      <div className="addCompany">{t("add_company")}</div>
     </DivStyled>
   );
 };

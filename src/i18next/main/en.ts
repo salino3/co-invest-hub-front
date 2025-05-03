@@ -29,4 +29,5 @@ export const en = {
   password_too_short: "Password minimum 6 characters",
   min_18: "You must be adult",
   no_companies: "No companies...",
+  add_company: "Add company",
 };
