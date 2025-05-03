@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { TFunction } from "i18next";
+import { MoreIcon } from "../../common/icons";
 import { rootDropDown } from "./drop-down.styles";
 
 interface DivStyledProps {
@@ -33,7 +34,9 @@ export const DropDown: React.FC<{
           {t("no_companies")}
         </div>
       )}
-      <div className="addCompany">{t("add_company")}</div>
+      <div className="addCompany">
+        {t("add_company")} <MoreIcon />
+      </div>
     </DivStyled>
   );
 };
