@@ -28,4 +28,5 @@ export const es = {
   required: "Campo requerido",
   password_too_short: "Contraseña mínimo 6 caracteres",
   min_18: "Tiene que ser mayor de edad",
+  no_companies: "No hay empresas...",
 };

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { TFunction } from "i18next";
 import { rootDropDown } from "./drop-down.styles";
 
 interface DivStyledProps {
@@ -17,7 +18,8 @@ export const DivStyled = styled.div<DivStyledProps>`
 export const DropDown: React.FC<{
   array: { id: number; name: string }[];
   height: number;
-}> = ({ array, height }) => {
+  t: TFunction<"main", undefined>;
+}> = ({ array, height, t }) => {
   return (
     <DivStyled $dropdownHeight={String(height == 5 ? 47 : height)}>
       {array && array?.length > 0 ? (
@@ -27,7 +29,9 @@ export const DropDown: React.FC<{
           </span>
         ))
       ) : (
-        <div key={"xxx"}>No companies...</div>
+        <div className="noCompanies" key={"xxx"}>
+          {t("no_companies")}
+        </div>
       )}
     </DivStyled>
   );

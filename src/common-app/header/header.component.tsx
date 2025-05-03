@@ -121,6 +121,7 @@ export const Header: React.FC = () => {
                 <DropDown
                   array={listMyCompanies && listMyCompanies}
                   height={listMyCompanies && listMyCompanies?.length * 42 + 5}
+                  t={t}
                 />
               )}
             </div>
