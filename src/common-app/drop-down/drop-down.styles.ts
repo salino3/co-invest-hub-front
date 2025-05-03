@@ -34,6 +34,7 @@ export const rootDropDown = (height: string) => css`
   background-color: black;
   max-height: 350px;
   overflow-y: ${Number(height) > 350 ? "scroll" : null};
+  cursor: default;
 
   /* Custom slim scrollbar styling for Webkit browsers */
   &::-webkit-scrollbar {
@@ -60,12 +61,22 @@ export const rootDropDown = (height: string) => css`
     border-bottom: solid 1px;
     padding-bottom: 2px;
     width: 100%;
+    cursor: pointer;
   }
 
-  .noCompanies {
+  .opacityStyles {
     background-color: rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.5);
     padding: 0.1rem 0.5rem;
     border-radius: 0.5rem;
+  }
+
+  .addCompany {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
   }
 `;
