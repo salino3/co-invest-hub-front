@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PropsTabs } from "../../store";
+import { StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
 import "./company-page.styles.scss";
 
@@ -33,7 +34,7 @@ export const CompanyPage: React.FC = () => {
   return (
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
-      <h1>{t("company_page")}</h1>
+      <StarIcon fill={"gold"} /> <h1>{t("company_page")}</h1>
       <span>{params?.name}</span>
       <span>{params?.id}</span>
       <div className="containertabs">{tabs[tab]?.component}</div>
