@@ -23,6 +23,11 @@ const routes: PropsRoutes[] = [
     visibility: "private",
   },
   {
+    path: routesApp?.create_company,
+    element: <CompanyPage />,
+    visibility: "private",
+  },
+  {
     path: routesApp?.dashboard,
     element: <Dashboard />,
     visibility: "private",

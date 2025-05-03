@@ -31,7 +31,7 @@ export const HomePage: React.FC = () => {
   );
   const { checkFormRequired } = useAppFunctions();
 
-  const [formType, setFormType] = useState<boolean>(false);
+  const [formType, setFormType] = useState<boolean>(true);
 
   const [formData, setFormData] = useState<
     AccountRegisterForm | AccountLoginForm
@@ -169,9 +169,18 @@ export const HomePage: React.FC = () => {
       <h1>{t("welcome")}</h1>
       <div className="containerHomePage">
         <div className="boxButtonHome">
-          <Button click={() => setFormType(true)} text={t("register")} />
-          <Button click={() => setFormType(false)} text={t("login")} />
+          <Button
+            customStyles={formType ? "btnRegister" : ""}
+            click={() => setFormType(true)}
+            text={t("register")}
+          />
+          <Button
+            customStyles={!formType ? "btnLogin" : ""}
+            click={() => setFormType(false)}
+            text={t("login")}
+          />
         </div>
+        <h4>{t(formType ? "register" : "login")}</h4>
         <form onSubmit={handleSubmit} id="formHomePage">
           {formType ? (
             <>

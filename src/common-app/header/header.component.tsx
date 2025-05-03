@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useProviderSelector } from "../../store";
 import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
 import { SettingIcon } from "../../common/icons";
 import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
-import "./header.styles.scss";
 import { Button } from "../../common/button";
+import "./header.styles.scss";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");
 
+  const { currentUser } = useProviderSelector("currentUser");
   const { closeSession } = useAppFunctions();
 
   // My Companies
@@ -78,11 +80,11 @@ export const Header: React.FC = () => {
     };
   }, [showSettings]);
 
-  // useEffect(() => {
-  //   ServicesApp?.getMyCompanies("4").then((res) =>
-  //     setListMyCompanies(res.data)
-  //   );
-  // }, []);
+  useEffect(() => {
+    ServicesApp?.getMyCompanies("4").then((res) =>
+      setListMyCompanies(res.data)
+    );
+  }, []);
 
   return (
     <header className="rootHeader">
@@ -98,7 +100,7 @@ export const Header: React.FC = () => {
           <div
             ref={btnToggleRef}
             onClick={() => handleCompanies()}
-            className={`boxLeft `}
+            className={`boxLeft ${currentUser?.email ? "" : "boxVisibility"}`}
           >
             <img
               className={`iconLanguage ${
@@ -119,13 +121,19 @@ export const Header: React.FC = () => {
             >
               {openSelectCompanies && (
                 <DropDown
+                  setShow={setOpenSelectCompanies}
                   array={listMyCompanies && listMyCompanies}
-                  height={listMyCompanies && listMyCompanies?.length * 42 + 5}
+                  height={listMyCompanies && listMyCompanies?.length * 42 + 35}
+                  t={t}
                 />
               )}
             </div>
           </div>
-          <div className="boxCenter">
+          <div
+            className={`boxCenter   ${
+              currentUser?.email ? "" : "boxVisibility"
+            }`}
+          >
             <span>Searching</span>
           </div>
           <div
