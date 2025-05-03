@@ -1,7 +1,10 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { TFunction } from "i18next";
 import { MoreIcon } from "../../common/icons";
 import { rootDropDown } from "./drop-down.styles";
+import { routesApp } from "../../router";
 
 interface DivStyledProps {
   className?: string;
@@ -21,6 +24,7 @@ export const DropDown: React.FC<{
   height: number;
   t: TFunction<"main", undefined>;
 }> = ({ array, height, t }) => {
+  const navigate = useNavigate();
   return (
     <DivStyled
       $dropdownHeight={String(height == 35 ? 80 : height)}
@@ -37,7 +41,10 @@ export const DropDown: React.FC<{
           {t("no_companies")}
         </div>
       )}
-      <div className="addCompany opacityStyles">
+      <div
+        onClick={() => navigate(routesApp?.create_company)}
+        className="addCompany opacityStyles"
+      >
         {t("add_company")} <MoreIcon width={16} height={16} />
       </div>
     </DivStyled>
