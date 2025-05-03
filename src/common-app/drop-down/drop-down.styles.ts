@@ -62,6 +62,8 @@ export const rootDropDown = (height: string) => css`
     padding-bottom: 2px;
     width: 100%;
     cursor: pointer;
+    color: inherit;
+    text-decoration: none;
   }
 
   .opacityStyles {
@@ -78,5 +80,6 @@ export const rootDropDown = (height: string) => css`
     align-items: center;
     gap: 0.25rem;
     cursor: pointer;
+    text-decoration: none;
   }
 `;
