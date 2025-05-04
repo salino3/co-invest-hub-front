@@ -81,7 +81,7 @@ export const Header: React.FC = () => {
   }, [showSettings]);
 
   useEffect(() => {
-    ServicesApp?.getMyCompanies("4").then((res) =>
+    ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) =>
       setListMyCompanies(res.data)
     );
   }, []);
