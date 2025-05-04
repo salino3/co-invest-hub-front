@@ -31,9 +31,7 @@ export class ServicesApp {
       });
   }
 
-  //* Get Data
-
-  // Relation account Companies
+  //* Relation account Companies
   public static async getMyCompanies(id: string): Promise<AxiosResponse> {
     return await axios
       .get(`${baseBackend}/relation/account/companies/${id}`, {
@@ -45,16 +43,54 @@ export class ServicesApp {
       });
   }
 
-  // Companies
+  //*  Companies
   public static async getCompanies(): Promise<AxiosResponse<PropsCompany[]>> {
     return await axios.get(`${baseBackend}/api/companies`);
   }
 
   // Favorites
 
+  public static async addFavorite(ids: {
+    account_id: string | number;
+    company_id: string | number;
+  }): Promise<AxiosResponse> {
+    return await axios
+      .post(`${baseBackend}/api/favorites`, ids, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   public static async getFavoriteCompanies(
     id: string
   ): Promise<AxiosResponse<number[]>> {
-    return await axios.get(`${baseBackend}/api/favorites/${id}`);
+    return await axios
+      .get(`${baseBackend}/api/favorites/${id}`, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
+  public static async deleteFavorite(ids: {
+    account_id: string | number;
+    company_id: string | number;
+  }): Promise<AxiosResponse<number[]>> {
+    return await axios
+      .delete(
+        `${baseBackend}/api/favorites/${ids?.account_id}/${ids?.company_id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
   }
 }

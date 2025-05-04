@@ -15,6 +15,7 @@ export const CompanyPage: React.FC = () => {
 
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
+  const [flagFavorite, setFlagFavorite] = useState<boolean>(false);
 
   const tabs: PropsTabs[] = [
     {
@@ -40,20 +41,29 @@ export const CompanyPage: React.FC = () => {
         setMyFavorites(res.data)
       );
     }
-  }, [currentUser?.id, !!params?.id]);
+  }, [currentUser?.id, !!params?.id, flagFavorite]);
+
+  const isFavorited =
+    myFavorites &&
+    myFavorites?.length > 0 &&
+    myFavorites.some((f) => f === Number(params?.id));
 
   return (
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
-      <StarIcon
-        fill={
-          myFavorites &&
-          myFavorites?.length > 0 &&
-          myFavorites.some((f) => f === Number(params?.id))
-            ? "gold"
-            : "currentColor"
-        }
-      />{" "}
+      {params?.id && (
+        <StarIcon
+          click={() =>
+            ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
+              account_id: isFavorited
+                ? String(currentUser?.id)
+                : Number(currentUser?.id),
+              company_id: isFavorited ? String(params?.id) : Number(params?.id),
+            }).then(() => setFlagFavorite(!flagFavorite))
+          }
+          fill={isFavorited ? "gold" : "currentColor"}
+        />
+      )}{" "}
       <h1>{t("company_page")}</h1>
       <span>{params?.name}</span>
       <span>{params?.id}</span>

@@ -1,8 +1,11 @@
+import { MouseEventHandler } from "react";
+
 interface Props {
   width?: number;
   height?: number;
   fill?: string;
   stroke?: string;
+  click?: MouseEventHandler<SVGSVGElement> | undefined;
 }
 
 export const StarIcon: React.FC<Props> = ({
@@ -10,9 +13,11 @@ export const StarIcon: React.FC<Props> = ({
   height = 24,
   fill = "currentColor",
   stroke = "currentColor",
+  click,
 }) => {
   return (
     <svg
+      onClick={click}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill={fill}
