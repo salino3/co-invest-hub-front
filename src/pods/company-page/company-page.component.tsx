@@ -14,6 +14,7 @@ export const CompanyPage: React.FC = () => {
   const { currentUser } = useProviderSelector("currentUser");
 
   const [tab, setTabs] = useState<number>(0);
+  const [myFavorites, setMyFavorites] = useState<number[]>([]);
 
   const tabs: PropsTabs[] = [
     {
@@ -35,14 +36,25 @@ export const CompanyPage: React.FC = () => {
 
   useEffect(() => {
     if (params?.id) {
-      ServicesApp?.getFavoriteCompanies(String(currentUser?.id));
+      ServicesApp?.getFavoriteCompanies(String(currentUser?.id)).then((res) =>
+        setMyFavorites(res.data)
+      );
     }
   }, [currentUser?.id, !!params?.id]);
 
   return (
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
-      <StarIcon fill={"gold"} /> <h1>{t("company_page")}</h1>
+      <StarIcon
+        fill={
+          myFavorites &&
+          myFavorites?.length > 0 &&
+          myFavorites.some((f) => f === Number(params?.id))
+            ? "gold"
+            : "currentColor"
+        }
+      />{" "}
+      <h1>{t("company_page")}</h1>
       <span>{params?.name}</span>
       <span>{params?.id}</span>
       <div className="containertabs">{tabs[tab]?.component}</div>
