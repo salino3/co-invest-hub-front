@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { PropsTabs, useProviderSelector } from "../../store";
+import { PropsCompany, PropsTabs, useProviderSelector } from "../../store";
 import { ServicesApp } from "../../services";
 import { StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
@@ -16,6 +16,15 @@ export const CompanyPage: React.FC = () => {
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
   const [flagFavorite, setFlagFavorite] = useState<boolean>(false);
+  const [companydata, setCompanyData] = useState<PropsCompany>({
+    name: "",
+    description: "",
+    hashtags: [],
+    sector: "",
+    location: "",
+    contacts: {},
+    multimedia: [],
+  });
 
   const tabs: PropsTabs[] = [
     {
@@ -40,6 +49,10 @@ export const CompanyPage: React.FC = () => {
       ServicesApp?.getFavoriteCompanies(String(currentUser?.id)).then((res) =>
         setMyFavorites(res.data)
       );
+
+      ServicesApp?.getCompany(params?.id).then((res) =>
+        setCompanyData(res.data)
+      );
     }
   }, [currentUser?.id, !!params?.id, flagFavorite]);
 
@@ -52,21 +65,37 @@ export const CompanyPage: React.FC = () => {
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
       {params?.id && (
-        <StarIcon
-          click={() =>
-            ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
-              account_id: isFavorited
-                ? String(currentUser?.id)
-                : Number(currentUser?.id),
-              company_id: isFavorited ? String(params?.id) : Number(params?.id),
-            }).then(() => setFlagFavorite(!flagFavorite))
-          }
-          fill={isFavorited ? "gold" : "currentColor"}
-        />
-      )}{" "}
-      <h1>{t("company_page")}</h1>
-      <span>{params?.name}</span>
-      <span>{params?.id}</span>
+        <div className="infoAboutCompnay">
+          <StarIcon
+            click={() =>
+              ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
+                account_id: isFavorited
+                  ? String(currentUser?.id)
+                  : Number(currentUser?.id),
+                company_id: isFavorited
+                  ? String(params?.id)
+                  : Number(params?.id),
+              }).then(() => setFlagFavorite(!flagFavorite))
+            }
+            fill={isFavorited ? "gold" : "currentColor"}
+          />
+          * <h4>{params?.name}</h4> *
+          <div className="boxLogoCompany">
+            <img
+              src={companydata?.logo || "/assets/icons/group_3.svg"}
+              alt="Logo"
+              onError={(e) =>
+                (e.currentTarget.src = "/assets/icons/group_3.svg")
+              }
+            />
+          </div>
+        </div>
+      )}
+      <hr
+        style={{
+          width: "98%",
+        }}
+      />
       <div className="containertabs">{tabs[tab]?.component}</div>
     </div>
   );

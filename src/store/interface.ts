@@ -1,6 +1,6 @@
 export interface PropsCompany {
   id?: number;
-  companyCode: string;
+  // companyCode: string;
   name: string;
   description: string;
   hashtags: string[];
@@ -10,6 +10,7 @@ export interface PropsCompany {
   investmentMax?: number;
   contacts: Record<string, string>;
   multimedia: Record<string, string>[];
+  logo?: string;
   createdAt?: string;
   updatedAt?: string;
 }

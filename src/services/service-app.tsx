@@ -48,7 +48,13 @@ export class ServicesApp {
     return await axios.get(`${baseBackend}/api/companies`);
   }
 
-  // Favorites
+  public static async getCompany(
+    id: string
+  ): Promise<AxiosResponse<PropsCompany>> {
+    return await axios.get(`${baseBackend}/api/companies/${id}`);
+  }
+
+  //* Favorites
 
   public static async addFavorite(ids: {
     account_id: string | number;
