@@ -49,4 +49,12 @@ export class ServicesApp {
   public static async getCompanies(): Promise<AxiosResponse<PropsCompany[]>> {
     return await axios.get(`${baseBackend}/api/companies`);
   }
+
+  // Favorites
+
+  public static async getFavoriteCompanies(
+    id: string
+  ): Promise<AxiosResponse<number[]>> {
+    return await axios.get(`${baseBackend}/api/favorites/${id}`);
+  }
 }
