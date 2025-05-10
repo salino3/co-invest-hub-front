@@ -5,6 +5,7 @@
   align-items: center;
   padding: 1rem 0 2rem;
   position: relative;
+  color: var(--global-07);
   .contentInputBI {
     display: flex;
     flex-direction: column;
@@ -30,6 +31,7 @@
       transition: height 0.3s ease;
       width: 200px;
       border-radius: 5px;
+      color: var(--global-07);
     }
 
     .inputError {

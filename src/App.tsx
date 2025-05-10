@@ -19,7 +19,10 @@ function App() {
     root.style.setProperty("--global-06", isDark ? "#1b1b1b" : "#e2e8f0");
     root.style.setProperty("--global-07", isDark ? "#f5f5f5" : "#1b1b1b");
     root.style.setProperty("--global-08", isDark ? "#4a5568" : "#f3f3f3");
-    root.style.setProperty("--color-01", isDark ? "#3a4250" : "#cecece");
+    root.style.setProperty(
+      "--color-01",
+      isDark ? "rgba(113, 128, 150, 0.5)" : "rgba(74, 85, 104, 0.5)"
+    );
     root.style.setProperty(
       "--global-lines",
       isDark ? "rgb(178, 164, 164)" : "rgba(0, 0, 0, 0.1)"
