@@ -12,6 +12,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: 1rem;
+
+    input {
+      width: 400px;
+    }
   }
 }

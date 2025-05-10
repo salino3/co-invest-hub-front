@@ -92,37 +92,39 @@ export const CompanyPage: React.FC = () => {
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
       {params?.id && (
-        <div className="infoAboutCompnay">
-          <StarIcon
-            click={() =>
-              ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
-                account_id: isFavorited
-                  ? String(currentUser?.id)
-                  : Number(currentUser?.id),
-                company_id: isFavorited
-                  ? String(params?.id)
-                  : Number(params?.id),
-              }).then(() => setFlagFavorite(!flagFavorite))
-            }
-            fill={isFavorited ? "gold" : "currentColor"}
-          />
-          * <h4>{params?.name}</h4> *
-          <div className="boxLogoCompany">
-            <img
-              src={companyData?.logo || "/assets/icons/group_3.svg"}
-              alt="Logo"
-              onError={(e) =>
-                (e.currentTarget.src = "/assets/icons/group_3.svg")
+        <>
+          <div className="infoAboutCompnay">
+            <StarIcon
+              click={() =>
+                ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
+                  account_id: isFavorited
+                    ? String(currentUser?.id)
+                    : Number(currentUser?.id),
+                  company_id: isFavorited
+                    ? String(params?.id)
+                    : Number(params?.id),
+                }).then(() => setFlagFavorite(!flagFavorite))
               }
+              fill={isFavorited ? "gold" : "currentColor"}
             />
+            * <h4>{params?.name}</h4> *
+            <div className="boxLogoCompany">
+              <img
+                src={companyData?.logo || "/assets/icons/group_3.svg"}
+                alt="Logo"
+                onError={(e) =>
+                  (e.currentTarget.src = "/assets/icons/group_3.svg")
+                }
+              />
+            </div>
           </div>
-        </div>
+          <hr
+            style={{
+              width: "98%",
+            }}
+          />
+        </>
       )}
-      <hr
-        style={{
-          width: "98%",
-        }}
-      />
       <div className="containertabs">{tabs[tab]?.component}</div>
     </div>
   );

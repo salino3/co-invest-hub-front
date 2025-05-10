@@ -49,6 +49,20 @@ export const AboutUs: React.FC<Props> = (props) => {
           rows={10}
           cols={50}
         />
+        <BasicInput
+          lbl={t("sector")}
+          name="sector"
+          type="text"
+          change={handleChange("sector")}
+          value={formData?.sector || ""}
+        />
+        <BasicInput
+          lbl={t("location")}
+          name="location"
+          type="text"
+          change={handleChange("location")}
+          value={formData?.location || ""}
+        />
       </div>
     </div>
   );
