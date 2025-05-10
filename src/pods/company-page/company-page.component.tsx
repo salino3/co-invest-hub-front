@@ -28,7 +28,12 @@ export const CompanyPage: React.FC = () => {
     hashtags: [],
     sector: "",
     location: "",
-    contacts: [],
+    contacts: [
+      {
+        type: "",
+        value: "",
+      },
+    ],
     multimedia: [],
   });
 

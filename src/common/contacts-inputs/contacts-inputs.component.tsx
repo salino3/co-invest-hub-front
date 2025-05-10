@@ -24,7 +24,7 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
 
     setContacts((prev: any) => ({
       ...prev,
-      contacts: updated, // actualiza solo la propiedad contacts
+      contacts: updated,
     }));
   };
 
@@ -65,9 +65,11 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
             value={contact.value}
           />
 
-          <button type="button" onClick={() => removeContact(index)}>
-            Remove
-          </button>
+          {contacts?.length > 1 && (
+            <button type="button" onClick={() => removeContact(index)}>
+              Remove
+            </button>
+          )}
         </div>
       ))}
       <button type="button" onClick={addContact}>
