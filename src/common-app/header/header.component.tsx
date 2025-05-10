@@ -81,9 +81,11 @@ export const Header: React.FC = () => {
   }, [showSettings]);
 
   useEffect(() => {
-    ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) =>
-      setListMyCompanies(res.data)
-    );
+    if (currentUser?.id) {
+      ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) =>
+        setListMyCompanies(res.data)
+      );
+    }
   }, [currentUser?.id]);
 
   return (
