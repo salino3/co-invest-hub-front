@@ -84,7 +84,7 @@ export const Header: React.FC = () => {
     ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) =>
       setListMyCompanies(res.data)
     );
-  }, []);
+  }, [currentUser?.id]);
 
   return (
     <header className="rootHeader">
