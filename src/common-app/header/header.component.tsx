@@ -81,10 +81,12 @@ export const Header: React.FC = () => {
   }, [showSettings]);
 
   useEffect(() => {
-    ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) =>
-      setListMyCompanies(res.data)
-    );
-  }, []);
+    if (currentUser?.id) {
+      ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) =>
+        setListMyCompanies(res.data)
+      );
+    }
+  }, [currentUser?.id]);
 
   return (
     <header className="rootHeader">
@@ -147,10 +149,12 @@ export const Header: React.FC = () => {
             <span>
               Settings <SettingIcon />
             </span>
-            <Settings
-              showSettings={showSettings}
-              setShowSettings={setShowSettings}
-            />
+            {showSettings && (
+              <Settings
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
+              />
+            )}
           </div>
         </div>
       </div>

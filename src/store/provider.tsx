@@ -21,7 +21,7 @@ export const useProvider = create<PropsProvider>()(
         root.style.setProperty("--global-05", isDark ? "#d4af37" : "#d4af37");
         root.style.setProperty("--global-06", isDark ? "#e2e8f0" : "#1b1b1b");
         root.style.setProperty("--global-07", isDark ? "#1b1b1b" : "#f5f5f5");
-        root.style.setProperty("--global-08", isDark ? "#718096" : "#4a5568");
+        root.style.setProperty("--global-08", isDark ? "#f3f3f3" : "#4a5568");
         root.style.setProperty(
           "--color-01",
           isDark ? "rgba(74, 85, 104, 0.5)" : "rgba(113, 128, 150, 0.5)"

@@ -16,7 +16,7 @@ export const NavigationCompany: React.FC<Props> = (props) => {
         {tabs &&
           tabs?.length > 0 &&
           tabs.map((tab) => (
-            <div className="companyTab">
+            <div key={tab?.key} className="companyTab">
               <span
                 className={` ${
                   navigation === tab?.key ? "selectedTab" : "unselectedTab"

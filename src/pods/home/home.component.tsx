@@ -167,6 +167,7 @@ export const HomePage: React.FC = () => {
   return (
     <div className="rootHomePage">
       <h1>{t("welcome")}</h1>
+      <br />
       <div className="containerHomePage">
         <div className="boxButtonHome">
           <Button

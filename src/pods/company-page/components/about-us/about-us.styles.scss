@@ -1,0 +1,21 @@
+.rootAboutUs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+
+  #formAboutUs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 3rem;
+
+    input {
+      width: 400px;
+    }
+  }
+}

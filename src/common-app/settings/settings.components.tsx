@@ -1,5 +1,7 @@
 import { Dispatch, MouseEvent, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
+import { useProviderSelector } from "../../store";
+import { Switcher } from "../../common/switcher";
 import { Arrow02 } from "../../common/icons";
 import "./settings.styles.scss";
 
@@ -13,6 +15,11 @@ export const Settings: React.FC<Props> = ({
   setShowSettings,
 }) => {
   const { t } = useTranslation("main");
+
+  const { theme, changeGlobalColors } = useProviderSelector(
+    "theme",
+    "changeGlobalColors"
+  );
 
   if (showSettings === null) {
     return null;
@@ -32,6 +39,12 @@ export const Settings: React.FC<Props> = ({
         {t("close")} <Arrow02 />
         <Arrow02 />
       </button>
+      <Switcher
+        t={t}
+        currentValue={theme}
+        first={"dark"}
+        toggle={changeGlobalColors}
+      />
     </div>
   );
 };

@@ -1,3 +1,8 @@
+export interface Contacts {
+  type: string;
+  value: string;
+}
+
 export interface PropsCompany {
   id?: number;
   // companyCode: string;
@@ -8,7 +13,7 @@ export interface PropsCompany {
   location: string;
   investmentMin?: number;
   investmentMax?: number;
-  contacts: Record<string, string>;
+  contacts: Contacts[];
   multimedia: Record<string, string>[];
   logo?: string;
   createdAt?: string;
@@ -54,4 +59,17 @@ export interface PropsTabs {
   key: number;
   title: string;
   component: React.ReactNode;
+}
+
+export interface PropsCompanyError {
+  name: string;
+  description: string;
+  hashtags: string;
+  sector: string;
+  location: string;
+  investmentMin: string;
+  investmentMax: string;
+  contacts: string;
+  multimedia: string;
+  logo: string;
 }

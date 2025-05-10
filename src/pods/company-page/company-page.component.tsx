@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { PropsCompany, PropsTabs, useProviderSelector } from "../../store";
+import {
+  PropsCompany,
+  PropsCompanyError,
+  PropsTabs,
+  useProviderSelector,
+} from "../../store";
 import { ServicesApp } from "../../services";
 import { StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
+import { AboutUs } from "./components";
 import "./company-page.styles.scss";
 
 export const CompanyPage: React.FC = () => {
@@ -16,21 +22,53 @@ export const CompanyPage: React.FC = () => {
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
   const [flagFavorite, setFlagFavorite] = useState<boolean>(false);
-  const [companydata, setCompanyData] = useState<PropsCompany>({
+  const [companyData, setCompanyData] = useState<PropsCompany>({
     name: "",
     description: "",
     hashtags: [],
     sector: "",
     location: "",
-    contacts: {},
+    contacts: [
+      {
+        type: "",
+        value: "",
+      },
+    ],
     multimedia: [],
   });
+
+  const [companyDataError, setCompanyDataError] = useState<PropsCompanyError>({
+    name: "",
+    description: "",
+    hashtags: "",
+    sector: "",
+    location: "",
+    investmentMax: "",
+    investmentMin: "",
+    contacts: "",
+    multimedia: "",
+    logo: "",
+  });
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    console.log("clog2", companyData);
+  };
 
   const tabs: PropsTabs[] = [
     {
       key: 0,
-      title: t("about"),
-      component: <>About</>,
+      title: t("about_us"),
+      component: (
+        <AboutUs
+          t={t}
+          setFormData={setCompanyData}
+          formData={companyData}
+          setFormDataError={setCompanyDataError}
+          formDataError={companyDataError}
+          handleSubmit={handleSubmit}
+        />
+      ),
     },
     {
       key: 1,
@@ -65,37 +103,39 @@ export const CompanyPage: React.FC = () => {
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
       {params?.id && (
-        <div className="infoAboutCompnay">
-          <StarIcon
-            click={() =>
-              ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
-                account_id: isFavorited
-                  ? String(currentUser?.id)
-                  : Number(currentUser?.id),
-                company_id: isFavorited
-                  ? String(params?.id)
-                  : Number(params?.id),
-              }).then(() => setFlagFavorite(!flagFavorite))
-            }
-            fill={isFavorited ? "gold" : "currentColor"}
-          />
-          * <h4>{params?.name}</h4> *
-          <div className="boxLogoCompany">
-            <img
-              src={companydata?.logo || "/assets/icons/group_3.svg"}
-              alt="Logo"
-              onError={(e) =>
-                (e.currentTarget.src = "/assets/icons/group_3.svg")
+        <div className="containerInfoAboutCompany">
+          <div className="infoAboutCompany">
+            <StarIcon
+              click={() =>
+                ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
+                  account_id: isFavorited
+                    ? String(currentUser?.id)
+                    : Number(currentUser?.id),
+                  company_id: isFavorited
+                    ? String(params?.id)
+                    : Number(params?.id),
+                }).then(() => setFlagFavorite(!flagFavorite))
               }
+              fill={isFavorited ? "gold" : "currentColor"}
             />
+            <h4>* {params?.name} * </h4>
+            <div className="boxLogoCompany">
+              <img
+                src={companyData?.logo || "/assets/icons/group_3.svg"}
+                alt="Logo"
+                onError={(e) =>
+                  (e.currentTarget.src = "/assets/icons/group_3.svg")
+                }
+              />
+            </div>
           </div>
+          <hr
+            style={{
+              width: "98%",
+            }}
+          />
         </div>
       )}
-      <hr
-        style={{
-          width: "98%",
-        }}
-      />
       <div className="containertabs">{tabs[tab]?.component}</div>
     </div>
   );

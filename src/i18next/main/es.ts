@@ -1,7 +1,9 @@
 export const es = {
   welcome: "¡Bienvenido a mi sitio web!",
   login_welcome: "¡Bienvenido a la Página de Login!",
-  description: "Este es un ejemplo sencillo de traducción.",
+  name: "Nombre",
+  description: "Descripción",
+  description_example: "Este es un ejemplo sencillo de traducción.",
   home_page: "Inicio",
   login_page: "Página de login",
   email: "Correo eletrónico",
