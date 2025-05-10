@@ -50,6 +50,11 @@ export const CompanyPage: React.FC = () => {
     logo: "",
   });
 
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    console.log("clog2", companyData);
+  };
+
   const tabs: PropsTabs[] = [
     {
       key: 0,
@@ -61,6 +66,7 @@ export const CompanyPage: React.FC = () => {
           formData={companyData}
           setFormDataError={setCompanyDataError}
           formDataError={companyDataError}
+          handleSubmit={handleSubmit}
         />
       ),
     },

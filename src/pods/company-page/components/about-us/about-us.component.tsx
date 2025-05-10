@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { PropsCompany, PropsCompanyError } from "../../../../store";
-import { BasicInput, ContactsInputs } from "../../../../common";
+import { BasicInput, Button, ContactsInputs } from "../../../../common";
 import { TFunction } from "i18next";
 import "./about-us.styles.scss";
 
@@ -10,10 +10,18 @@ interface Props {
   formData: PropsCompany;
   setFormDataError: React.Dispatch<React.SetStateAction<PropsCompanyError>>;
   formDataError: PropsCompanyError;
+  handleSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
-  const { t, setFormData, formData, setFormDataError, formDataError } = props;
+  const {
+    t,
+    setFormData,
+    formData,
+    setFormDataError,
+    formDataError,
+    handleSubmit,
+  } = props;
 
   const handleChange =
     (key: keyof PropsCompany) =>
@@ -34,7 +42,7 @@ export const AboutUs: React.FC<Props> = (props) => {
 
   return (
     <div className="rootAboutUs">
-      <div id="formAboutUs">
+      <form id="formAboutUs" onSubmit={handleSubmit}>
         <BasicInput
           lbl={t("name")}
           name="name"
@@ -72,7 +80,9 @@ export const AboutUs: React.FC<Props> = (props) => {
             setContacts={setFormData}
           />
         </div>
-      </div>
+        <br />
+        <Button type="submit" text="Confirm" />
+      </form>
     </div>
   );
 };
