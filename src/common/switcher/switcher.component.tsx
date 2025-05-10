@@ -5,7 +5,7 @@ import "./switcher.styles.scss";
 interface Props {
   first: any;
   currentValue: any;
-  toggle: () => void;
+  toggle: (() => void) | undefined;
   t: (i: string) => string;
 }
 
@@ -19,7 +19,7 @@ export const Switcher: React.FC<Props> = (props) => {
       </label>
       <ReactSwitch
         name="switcher"
-        onChange={toggle}
+        onChange={() => toggle?.()}
         checked={currentValue !== first}
       />
     </section>

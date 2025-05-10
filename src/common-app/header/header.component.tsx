@@ -147,10 +147,12 @@ export const Header: React.FC = () => {
             <span>
               Settings <SettingIcon />
             </span>
-            <Settings
-              showSettings={showSettings}
-              setShowSettings={setShowSettings}
-            />
+            {showSettings && (
+              <Settings
+                showSettings={showSettings}
+                setShowSettings={setShowSettings}
+              />
+            )}
           </div>
         </div>
       </div>
