@@ -55,3 +55,16 @@ export interface PropsTabs {
   title: string;
   component: React.ReactNode;
 }
+
+export interface PropsCompanyError {
+  name: string;
+  description: string;
+  hashtags: string;
+  sector: string;
+  location: string;
+  investmentMin: string;
+  investmentMax: string;
+  contacts: string;
+  multimedia: string;
+  logo: string;
+}
