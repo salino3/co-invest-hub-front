@@ -32,16 +32,23 @@ export const AboutUs: React.FC<Props> = (props) => {
 
   return (
     <div className="rootAboutUs">
-      <div className="continerAboutUs">
-        <div id="formAboutUs">
-          <BasicInput
-            lbl={t("name")}
-            name="name"
-            type="text"
-            change={handleChange("name")}
-            value={formData?.name || ""}
-          />
-        </div>
+      <div id="formAboutUs">
+        <BasicInput
+          lbl={t("name")}
+          name="name"
+          type="text"
+          change={handleChange("name")}
+          value={formData?.name || ""}
+        />
+        <BasicInput
+          lbl={t("description")}
+          name="description"
+          type="textarea"
+          change={handleChange("description")}
+          value={formData?.description || ""}
+          rows={10}
+          cols={50}
+        />
       </div>
     </div>
   );
