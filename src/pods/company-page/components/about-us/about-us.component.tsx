@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PropsCompany, PropsCompanyError } from "../../../../store";
-import { BasicInput } from "../../../../common";
+import { BasicInput, ContactsInputs } from "../../../../common";
 import { TFunction } from "i18next";
 import "./about-us.styles.scss";
 
@@ -14,6 +14,12 @@ interface Props {
 
 export const AboutUs: React.FC<Props> = (props) => {
   const { t, setFormData, formData, setFormDataError, formDataError } = props;
+  const [contacts, setContacts] = useState<
+    {
+      type: string;
+      value: string;
+    }[]
+  >([{ type: "", value: "" }]);
 
   const handleChange =
     (key: keyof PropsCompany) =>
@@ -29,6 +35,15 @@ export const AboutUs: React.FC<Props> = (props) => {
         [key]: "",
       }));
     };
+
+  useEffect(() => {
+    setFormData((prev: any) => ({
+      ...prev,
+      contacts: contacts,
+    }));
+  }, [contacts]);
+
+  console.log("clog1", formData);
 
   return (
     <div className="rootAboutUs">
@@ -63,6 +78,9 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("location")}
           value={formData?.location || ""}
         />
+        <div className="boxContactsForm">
+          <ContactsInputs contacts={contacts} setContacts={setContacts} />
+        </div>
       </div>
     </div>
   );
