@@ -14,12 +14,6 @@ interface Props {
 
 export const AboutUs: React.FC<Props> = (props) => {
   const { t, setFormData, formData, setFormDataError, formDataError } = props;
-  const [contacts, setContacts] = useState<
-    {
-      type: string;
-      value: string;
-    }[]
-  >([{ type: "", value: "" }]);
 
   const handleChange =
     (key: keyof PropsCompany) =>
@@ -35,13 +29,6 @@ export const AboutUs: React.FC<Props> = (props) => {
         [key]: "",
       }));
     };
-
-  useEffect(() => {
-    setFormData((prev: any) => ({
-      ...prev,
-      contacts: contacts,
-    }));
-  }, [contacts]);
 
   console.log("clog1", formData);
 
@@ -79,7 +66,11 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.location || ""}
         />
         <div className="boxContactsForm">
-          <ContactsInputs contacts={contacts} setContacts={setContacts} />
+          <ContactsInputs
+            t={t}
+            contacts={formData.contacts || []}
+            setContacts={setFormData}
+          />
         </div>
       </div>
     </div>

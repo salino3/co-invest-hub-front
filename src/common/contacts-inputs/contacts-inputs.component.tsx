@@ -1,51 +1,68 @@
+import { TFunction } from "i18next";
+import { Contacts, PropsCompany } from "../../store";
+import { BasicInput } from "../basic-input";
 import "./contacts-inputs.styles.scss";
 
-type Contact = {
-  type: string;
-  value: string;
-};
-
 type ContactInputsProps = {
-  contacts: Contact[];
-  setContacts: React.Dispatch<React.SetStateAction<Contact[]>>;
+  t: TFunction<"main", undefined>;
+  contacts: PropsCompany["contacts"];
+  setContacts: React.Dispatch<React.SetStateAction<PropsCompany>>;
 };
 
 export const ContactsInputs: React.FC<ContactInputsProps> = ({
+  t,
   contacts,
   setContacts,
 }) => {
-  const handleChange = (index: number, field: keyof Contact, value: string) => {
+  const handleChange = (
+    index: number,
+    field: keyof Contacts,
+    value: string
+  ) => {
     const updated = [...contacts];
     updated[index][field] = value;
-    setContacts(updated);
+
+    setContacts((prev: any) => ({
+      ...prev,
+      contacts: updated, // actualiza solo la propiedad contacts
+    }));
   };
 
   const addContact = () => {
-    setContacts([...contacts, { type: "", value: "" }]);
+    setContacts((prev: any) => ({
+      ...prev,
+      contacts: [...(prev.contacts || []), { type: "", value: "" }],
+    }));
   };
 
   const removeContact = (index: number) => {
-    const updated = contacts.filter((_, i) => i !== index);
-    setContacts(updated);
+    setContacts((prev: any) => ({
+      ...prev,
+      contacts: (prev.contacts || []).filter(
+        (_: any, i: number) => i !== index
+      ),
+    }));
   };
+
   console.log("Contacts", contacts);
   return (
     <div className="rootContactsInputs">
       <h3>Contacts</h3>
       {contacts.map((contact, index) => (
         <div key={index} className="boxInputsContactsInputs">
-          <input
+          <BasicInput
+            lbl={t("Type (e.g. email)")}
+            name="type"
             type="text"
-            placeholder="Type (e.g. email)"
             value={contact.type}
-            onChange={(e) => handleChange(index, "type", e.target.value)}
+            change={(e) => handleChange(index, "type", e.target.value)}
           />
-
-          <input
+          <BasicInput
+            lbl={t("Value (e.g. contact@site.com)")}
+            name="value"
             type="text"
-            placeholder="Value (e.g. contact@site.com)"
+            change={(e) => handleChange(index, "value", e.target.value)}
             value={contact.value}
-            onChange={(e) => handleChange(index, "value", e.target.value)}
           />
 
           <button type="button" onClick={() => removeContact(index)}>

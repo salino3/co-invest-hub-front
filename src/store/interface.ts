@@ -1,3 +1,8 @@
+export interface Contacts {
+  type: string;
+  value: string;
+}
+
 export interface PropsCompany {
   id?: number;
   // companyCode: string;
@@ -8,7 +13,7 @@ export interface PropsCompany {
   location: string;
   investmentMin?: number;
   investmentMax?: number;
-  contacts: Record<string, string>;
+  contacts: Contacts[];
   multimedia: Record<string, string>[];
   logo?: string;
   createdAt?: string;
