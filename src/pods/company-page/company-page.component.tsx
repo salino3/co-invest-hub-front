@@ -92,8 +92,8 @@ export const CompanyPage: React.FC = () => {
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
       {params?.id && (
-        <>
-          <div className="infoAboutCompnay">
+        <div className="containerInfoAboutCompany">
+          <div className="infoAboutCompany">
             <StarIcon
               click={() =>
                 ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
@@ -107,7 +107,7 @@ export const CompanyPage: React.FC = () => {
               }
               fill={isFavorited ? "gold" : "currentColor"}
             />
-            * <h4>{params?.name}</h4> *
+            <h4>* {params?.name} * </h4>
             <div className="boxLogoCompany">
               <img
                 src={companyData?.logo || "/assets/icons/group_3.svg"}
@@ -123,7 +123,7 @@ export const CompanyPage: React.FC = () => {
               width: "98%",
             }}
           />
-        </>
+        </div>
       )}
       <div className="containertabs">{tabs[tab]?.component}</div>
     </div>
