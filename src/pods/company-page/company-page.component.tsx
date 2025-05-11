@@ -134,9 +134,19 @@ export const CompanyPage: React.FC = () => {
         role: "required_field",
       }));
 
-      // TODO: Create function 'checkDataFormCompany'
-      // checkDataFormCompany()
+      // Scroll to the input with error
+      const inputWithError = document.getElementById("roleID");
+      setTabs(0);
+      if (inputWithError) {
+        inputWithError.scrollIntoView({ behavior: "smooth", block: "center" });
+        inputWithError.focus(); // Optional: set focus
+      }
+
+      return;
     }
+
+    // TODO: Create function 'checkDataFormCompany'
+    // checkDataFormCompany()
 
     ServicesApp?.createCompany(companyData).then((res: any) => {
       const id: number = Number(currentUser?.id);

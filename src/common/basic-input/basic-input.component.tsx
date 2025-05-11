@@ -53,7 +53,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
         {type === "textarea" ? (
           <textarea
             className={`${checkError ? "inputError" : ""}`}
-            id={name}
+            id={name + "ID"}
             name={name}
             value={value}
             onClick={click}
@@ -69,7 +69,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             //   required
             //   onInvalid={handleInvalid} // Handle errors
             min={min}
-            id={name}
+            id={name + "ID"}
             name={name}
             type={type}
             value={value}
