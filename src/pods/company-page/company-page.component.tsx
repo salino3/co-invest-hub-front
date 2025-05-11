@@ -68,6 +68,7 @@ export const CompanyPage: React.FC = () => {
         company_id: res?.data?.company_id,
         role: roleAccount,
       };
+      // TODO: Move this execution to backend
       ServicesApp?.createRelationAccountCompany(body).then(() =>
         ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
           (res) => setMyCompanies && setMyCompanies(res.data)
@@ -106,7 +107,6 @@ export const CompanyPage: React.FC = () => {
   ];
 
   useEffect(() => {
-    console.log("clog4", params);
     if (params?.id) {
       ServicesApp?.getFavoriteCompanies(String(currentUser?.id)).then((res) =>
         setMyFavorites(res.data)

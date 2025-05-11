@@ -82,7 +82,7 @@ export const Header: React.FC = () => {
   }, [showSettings]);
 
   useEffect(() => {
-    if (currentUser?.id) {
+    if (currentUser?.id && myCompanies?.length === 0) {
       ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
         (res) => setMyCompanies && setMyCompanies(res.data)
       );
