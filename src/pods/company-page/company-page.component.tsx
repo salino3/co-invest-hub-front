@@ -133,6 +133,9 @@ export const CompanyPage: React.FC = () => {
         ...prev,
         role: "required_field",
       }));
+
+      // TODO: Create function 'checkDataFormCompany'
+      // checkDataFormCompany()
     }
 
     ServicesApp?.createCompany(companyData).then((res: any) => {
