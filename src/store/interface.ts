@@ -23,6 +23,7 @@ export interface PropsCompany {
 export interface MyCompany {
   id: number;
   name: string;
+  role: string;
 }
 
 export interface PropsCurrentUser {
@@ -79,6 +80,7 @@ export interface PropsCompanyError {
   contacts: string;
   multimedia: string;
   logo: string;
+  role: string;
 }
 
 export interface CreateRelationData {

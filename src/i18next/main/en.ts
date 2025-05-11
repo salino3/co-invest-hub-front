@@ -21,6 +21,7 @@ export const en = {
   role_description: "Role description",
   profile_picture: "Profile picture",
   confirm: "Confrim",
+  cancel: "Cancel",
   empty_or_incorrect: "is empty or with incorrect format",
   is_required: "is required",
   at_least_6: "must be at least 6 characters long",
@@ -32,4 +33,5 @@ export const en = {
   min_18: "You must be adult",
   no_companies: "No companies...",
   add_company: "Add company",
+  required_field: "This field is required",
 };
