@@ -2,14 +2,20 @@ import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 import { immer } from "zustand/middleware/immer";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { PropsCurrentUser, PropsProvider } from "./interface";
+import { MyCompany, PropsCurrentUser, PropsProvider } from "./interface";
 
 export const useProvider = create<PropsProvider>()(
   persist(
     immer((set, get) => ({
       currentUser: null,
       companies: [],
+      myCompanies: [],
       theme: "dark",
+      setMyCompanies: (companies: MyCompany[]) => {
+        set((state) => {
+          state.myCompanies = companies;
+        });
+      },
       changeGlobalColors() {
         const root = document.documentElement;
         const isDark = get().theme === "dark";

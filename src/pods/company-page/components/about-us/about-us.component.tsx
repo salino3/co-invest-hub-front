@@ -11,6 +11,8 @@ interface Props {
   setFormDataError: React.Dispatch<React.SetStateAction<PropsCompanyError>>;
   formDataError: PropsCompanyError;
   handleSubmit: React.FormEventHandler<HTMLFormElement>;
+  roleAccount: string;
+  setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -21,6 +23,8 @@ export const AboutUs: React.FC<Props> = (props) => {
     setFormDataError,
     formDataError,
     handleSubmit,
+    roleAccount,
+    setRoleAccount,
   } = props;
 
   const handleChange =
@@ -72,6 +76,15 @@ export const AboutUs: React.FC<Props> = (props) => {
           type="text"
           change={handleChange("location")}
           value={formData?.location || ""}
+        />
+        <BasicInput
+          lbl={t("role")}
+          name="role"
+          type="text"
+          change={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setRoleAccount(e.target.value)
+          }
+          value={roleAccount || ""}
         />
         <div className="boxContactsForm">
           <ContactsInputs

@@ -12,7 +12,11 @@ import "./header.styles.scss";
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");
 
-  const { currentUser } = useProviderSelector("currentUser");
+  const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
+    "currentUser",
+    "myCompanies",
+    "setMyCompanies"
+  );
   const { closeSession } = useAppFunctions();
 
   // My Companies
@@ -21,9 +25,6 @@ export const Header: React.FC = () => {
   const [openSelectCompanies, setOpenSelectCompanies] = useState(false);
   const [fadeClose, setFadeClose] = useState(false);
   const [showSettings, setShowSettings] = useState<boolean | null>(null);
-  const [listMyCompanies, setListMyCompanies] = useState<
-    { id: number; name: string }[]
-  >([]);
 
   //
   const handleCompanies = () => {
@@ -82,8 +83,8 @@ export const Header: React.FC = () => {
 
   useEffect(() => {
     if (currentUser?.id) {
-      ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) =>
-        setListMyCompanies(res.data)
+      ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+        (res) => setMyCompanies && setMyCompanies(res.data)
       );
     }
   }, [currentUser?.id]);
@@ -124,8 +125,8 @@ export const Header: React.FC = () => {
               {openSelectCompanies && (
                 <DropDown
                   setShow={setOpenSelectCompanies}
-                  array={listMyCompanies && listMyCompanies}
-                  height={listMyCompanies && listMyCompanies?.length * 42 + 35}
+                  array={myCompanies ? myCompanies : []}
+                  height={myCompanies && myCompanies?.length * 42 + 35}
                   t={t}
                 />
               )}
