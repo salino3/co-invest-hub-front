@@ -48,30 +48,32 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
   return (
     <div className="rootContactsInputs">
       <h3>Contacts</h3>
-      {contacts.map((contact, index) => (
-        <div key={index} className="boxInputsContactsInputs">
-          <BasicInput
-            lbl={t("Type (e.g. email)")}
-            name="type"
-            type="text"
-            value={contact.type}
-            change={(e) => handleChange(index, "type", e.target.value)}
-          />
-          <BasicInput
-            lbl={t("Value (e.g. contact@site.com)")}
-            name="value"
-            type="text"
-            change={(e) => handleChange(index, "value", e.target.value)}
-            value={contact.value}
-          />
+      {contacts &&
+        contacts?.length > 0 &&
+        contacts.map((contact, index) => (
+          <div key={index} className="boxInputsContactsInputs">
+            <BasicInput
+              lbl={t("Type (e.g. email)")}
+              name="type"
+              type="text"
+              value={contact.type}
+              change={(e) => handleChange(index, "type", e.target.value)}
+            />
+            <BasicInput
+              lbl={t("Value (e.g. contact@site.com)")}
+              name="value"
+              type="text"
+              change={(e) => handleChange(index, "value", e.target.value)}
+              value={contact.value}
+            />
 
-          {contacts?.length > 1 && (
-            <button type="button" onClick={() => removeContact(index)}>
-              Remove
-            </button>
-          )}
-        </div>
-      ))}
+            {contacts?.length > 1 && (
+              <button type="button" onClick={() => removeContact(index)}>
+                Remove
+              </button>
+            )}
+          </div>
+        ))}
       <button type="button" onClick={addContact}>
         Add Contact
       </button>

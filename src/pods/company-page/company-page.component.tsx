@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
+  CreateRelationData,
+  MyCompany,
   PropsCompany,
   PropsCompanyError,
   PropsTabs,
   useProviderSelector,
 } from "../../store";
 import { ServicesApp } from "../../services";
-import { StarIcon } from "../../common";
+import { Button, StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
 import { AboutUs } from "./components";
 import "./company-page.styles.scss";
@@ -17,7 +19,11 @@ export const CompanyPage: React.FC = () => {
   const { t } = useTranslation("main");
 
   const params = useParams();
-  const { currentUser } = useProviderSelector("currentUser");
+  const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
+    "currentUser",
+    "myCompanies",
+    "setMyCompanies"
+  );
 
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
@@ -48,12 +54,41 @@ export const CompanyPage: React.FC = () => {
     contacts: "",
     multimedia: "",
     logo: "",
+    role: "",
   });
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    console.log("clog2", companyData);
-  };
+  const [roleAccount, setRoleAccount] = useState<string>("");
+
+  function clearAllFormSetters() {
+    setCompanyData({
+      name: "",
+      description: "",
+      hashtags: [],
+      sector: "",
+      location: "",
+      contacts: [
+        {
+          type: "",
+          value: "",
+        },
+      ],
+      multimedia: [],
+    });
+    setRoleAccount("");
+    setCompanyDataError({
+      name: "",
+      description: "",
+      hashtags: "",
+      sector: "",
+      location: "",
+      investmentMax: "",
+      investmentMin: "",
+      contacts: "",
+      multimedia: "",
+      logo: "",
+      role: "",
+    });
+  }
 
   const tabs: PropsTabs[] = [
     {
@@ -66,7 +101,8 @@ export const CompanyPage: React.FC = () => {
           formData={companyData}
           setFormDataError={setCompanyDataError}
           formDataError={companyDataError}
-          handleSubmit={handleSubmit}
+          roleAccount={roleAccount}
+          setRoleAccount={setRoleAccount}
         />
       ),
     },
@@ -82,22 +118,63 @@ export const CompanyPage: React.FC = () => {
     },
   ];
 
+  const isFavorited =
+    myFavorites &&
+    myFavorites?.length > 0 &&
+    myFavorites.some((f) => f === Number(params?.id));
+
+  // handleSubmit
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    console.log("clog2", companyData);
+
+    if (!roleAccount.trim()) {
+      setCompanyDataError((prev: PropsCompanyError) => ({
+        ...prev,
+        role: "required_field",
+      }));
+
+      // TODO: Create function 'checkDataFormCompany'
+      // checkDataFormCompany()
+    }
+
+    ServicesApp?.createCompany(companyData).then((res: any) => {
+      const id: number = Number(currentUser?.id);
+      const body: CreateRelationData = {
+        idCreator: id,
+        account_id: id,
+        company_id: res?.data?.company_id,
+        role: roleAccount.trim(),
+      };
+      // TODO: Move this execution to backend
+      ServicesApp?.createRelationAccountCompany(body).then(() =>
+        ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+          (res) => setMyCompanies && setMyCompanies(res.data)
+        )
+      );
+    });
+  };
+
+  //
   useEffect(() => {
     if (params?.id) {
       ServicesApp?.getFavoriteCompanies(String(currentUser?.id)).then((res) =>
         setMyFavorites(res.data)
       );
-
       ServicesApp?.getCompany(params?.id).then((res) =>
         setCompanyData(res.data)
       );
+    } else {
+      clearAllFormSetters();
     }
-  }, [currentUser?.id, !!params?.id, flagFavorite]);
 
-  const isFavorited =
-    myFavorites &&
-    myFavorites?.length > 0 &&
-    myFavorites.some((f) => f === Number(params?.id));
+    const found: string =
+      (myCompanies &&
+        myCompanies.length > 0 &&
+        myCompanies.find((c) => String(c?.id) === params?.id)?.role) ||
+      "";
+    setRoleAccount(found);
+  }, [currentUser?.id, params?.id, flagFavorite]);
 
   return (
     <div className="rootCompanyPage">
@@ -136,7 +213,14 @@ export const CompanyPage: React.FC = () => {
           />
         </div>
       )}
-      <div className="containertabs">{tabs[tab]?.component}</div>
+      <form onSubmit={handleSubmit} id="formCompanyPage">
+        {tabs[tab]?.component}
+
+        <div className="boxButtonsForm">
+          <Button type="submit" text={t("confirm")} />
+          <Button click={clearAllFormSetters} type="reset" text={t("cancel")} />
+        </div>
+      </form>
     </div>
   );
 };

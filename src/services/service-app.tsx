@@ -1,6 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import { apisApp } from ".";
-import { AccountLoginForm, AccountRegisterForm, PropsCompany } from "../store";
+import {
+  AccountLoginForm,
+  AccountRegisterForm,
+  CreateRelationData,
+  PropsCompany,
+} from "../store";
 // import { useAppFunctions } from "../hooks";
 
 const { baseBackend } = apisApp;
@@ -13,9 +18,14 @@ export class ServicesApp {
   public static async registerAccount(
     user: AccountRegisterForm
   ): Promise<AxiosResponse> {
-    return await axios.post(`${baseBackend}/auth/register`, user, {
-      withCredentials: true,
-    });
+    return await axios
+      .post(`${baseBackend}/auth/register`, user, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
   }
 
   public static async loginAccount(
@@ -45,13 +55,34 @@ export class ServicesApp {
 
   //*  Companies
   public static async getCompanies(): Promise<AxiosResponse<PropsCompany[]>> {
-    return await axios.get(`${baseBackend}/api/companies`);
+    return await axios.get(`${baseBackend}/api/companies`).catch((err) => {
+      console.error(err);
+      return Promise.reject(err);
+    });
   }
 
   public static async getCompany(
     id: string
   ): Promise<AxiosResponse<PropsCompany>> {
-    return await axios.get(`${baseBackend}/api/companies/${id}`);
+    return await axios
+      .get(`${baseBackend}/api/companies/${id}`)
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
+  public static async createCompany(
+    company: PropsCompany
+  ): Promise<AxiosResponse<PropsCompany>> {
+    return await axios
+      .post(`${baseBackend}/api/companies`, company, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
   }
 
   //* Favorites
@@ -94,6 +125,20 @@ export class ServicesApp {
           withCredentials: true,
         }
       )
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
+  // Relation Accounts Company
+  public static async createRelationAccountCompany(
+    body: CreateRelationData
+  ): Promise<AxiosResponse<CreateRelationData>> {
+    return await axios
+      .post(`${baseBackend}/relation/account/companies`, body, {
+        withCredentials: true,
+      })
       .catch((err) => {
         console.error(err);
         return Promise.reject(err);

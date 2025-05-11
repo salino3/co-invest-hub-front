@@ -1,6 +1,6 @@
 import React from "react";
 import { PropsCompany, PropsCompanyError } from "../../../../store";
-import { BasicInput, Button, ContactsInputs } from "../../../../common";
+import { BasicInput, ContactsInputs } from "../../../../common";
 import { TFunction } from "i18next";
 import "./about-us.styles.scss";
 
@@ -10,7 +10,8 @@ interface Props {
   formData: PropsCompany;
   setFormDataError: React.Dispatch<React.SetStateAction<PropsCompanyError>>;
   formDataError: PropsCompanyError;
-  handleSubmit: React.FormEventHandler<HTMLFormElement>;
+  roleAccount: string;
+  setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -20,7 +21,8 @@ export const AboutUs: React.FC<Props> = (props) => {
     formData,
     setFormDataError,
     formDataError,
-    handleSubmit,
+    roleAccount,
+    setRoleAccount,
   } = props;
 
   const handleChange =
@@ -42,7 +44,7 @@ export const AboutUs: React.FC<Props> = (props) => {
 
   return (
     <div className="rootAboutUs">
-      <form id="formAboutUs" onSubmit={handleSubmit}>
+      <div className="inputsAboutUs">
         <BasicInput
           lbl={t("name")}
           name="name"
@@ -73,6 +75,17 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("location")}
           value={formData?.location || ""}
         />
+        <BasicInput
+          lbl={t("role")}
+          name="role"
+          type="text"
+          change={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setRoleAccount(e.target.value)
+          }
+          value={roleAccount || ""}
+          checkError={!!formDataError?.role}
+          errMsg={formDataError?.role}
+        />
         <div className="boxContactsForm">
           <ContactsInputs
             t={t}
@@ -80,9 +93,7 @@ export const AboutUs: React.FC<Props> = (props) => {
             setContacts={setFormData}
           />
         </div>
-        <br />
-        <Button type="submit" text="Confirm" />
-      </form>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { TFunction } from "i18next";
+import { MyCompany } from "../../store";
 import { MoreIcon } from "../../common/icons";
 import { rootDropDown } from "./drop-down.styles";
 import { routesApp } from "../../router";
@@ -21,8 +22,8 @@ export const DivStyled = styled.div<DivStyledProps>`
 // <DropDown> with inside <DivStyled>
 export const DropDown: React.FC<{
   setShow: Dispatch<SetStateAction<boolean>>;
-  array: { id: number; name: string }[];
-  height: number;
+  array: MyCompany[];
+  height: number | undefined;
   t: TFunction<"main", undefined>;
 }> = ({ setShow, array, height, t }) => {
   return (
@@ -31,7 +32,7 @@ export const DropDown: React.FC<{
       onClick={(event) => event?.stopPropagation()}
     >
       {array && array?.length > 0 ? (
-        array.map((item: { id: number; name: string }) => (
+        array.map((item: MyCompany) => (
           <Link
             to={routesApp?.company(item?.name, String(item?.id))}
             onClick={() => setShow(() => false)}

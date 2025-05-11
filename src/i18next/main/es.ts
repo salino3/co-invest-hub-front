@@ -21,6 +21,7 @@ export const es = {
   role_description: "Descripción rol",
   profile_picture: "Imagen Perfil",
   confirm: "Confirmar",
+  cancel: "Cancelar",
   empty_or_incorrect: "está vacío o con formato incorrecto",
   is_required: "es requerido",
   at_least_6: "debe contener al menos 6 caracteres",
@@ -32,4 +33,5 @@ export const es = {
   min_18: "Tiene que ser mayor de edad",
   no_companies: "No hay empresas...",
   add_company: "Add company",
+  required_field: "Este campo es requerido",
 };

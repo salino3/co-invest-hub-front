@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
 import "./basic-input.styles.scss";
 
@@ -34,6 +35,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
     rows = 3,
     cols = 30,
   } = props;
+  const { t } = useTranslation("main");
 
   const { theme } = useProviderSelector("theme");
 
@@ -92,7 +94,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
           />
         )}
       </div>
-      {errMsg && <small>{errMsg}</small>}
+      {errMsg && <small>{t(errMsg)}</small>}
     </div>
   );
 };

@@ -20,6 +20,12 @@ export interface PropsCompany {
   updatedAt?: string;
 }
 
+export interface MyCompany {
+  id: number;
+  name: string;
+  role: string;
+}
+
 export interface PropsCurrentUser {
   id?: number;
   email: string;
@@ -47,8 +53,10 @@ export interface AccountLoginForm {
 
 export interface PropsProvider {
   companies: PropsCompany[];
+  myCompanies: MyCompany[];
   currentUser: PropsCurrentUser | null;
   theme: "dark" | "light";
+  setMyCompanies: (companies: MyCompany[]) => void;
   changeGlobalColors(): void;
   loginAccount: (user: PropsCurrentUser) => void;
   logoutAccount: () => void;
@@ -72,4 +80,12 @@ export interface PropsCompanyError {
   contacts: string;
   multimedia: string;
   logo: string;
+  role: string;
+}
+
+export interface CreateRelationData {
+  idCreator: number;
+  account_id: number;
+  company_id: number;
+  role: string;
 }
