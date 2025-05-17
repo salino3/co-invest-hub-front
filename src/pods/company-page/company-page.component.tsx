@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   CreateRelationData,
-  MyCompany,
   PropsCompany,
   PropsCompanyError,
   PropsTabs,
@@ -28,7 +27,7 @@ export const CompanyPage: React.FC = () => {
 
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
-  const [flagFavorite, setFlagFavorite] = useState<boolean>(false);
+  const [flag, setFlag] = useState<boolean>(false);
   const [companyData, setCompanyData] = useState<PropsCompany>({
     name: "",
     description: "",
@@ -179,6 +178,9 @@ export const CompanyPage: React.FC = () => {
         );
       }
       //
+      ServicesApp?.updateCompany(String(params?.id), companyData).then(() =>
+        setFlag((prev) => !prev)
+      );
     }
   };
 
@@ -201,7 +203,7 @@ export const CompanyPage: React.FC = () => {
         myCompanies.find((c) => String(c?.id) === params?.id)?.role) ||
       "";
     setRoleAccount(found);
-  }, [currentUser?.id, params?.id, flagFavorite]);
+  }, [currentUser?.id, params?.id, flag]);
 
   return (
     <div className="rootCompanyPage">
@@ -218,7 +220,7 @@ export const CompanyPage: React.FC = () => {
                   company_id: isFavorited
                     ? String(params?.id)
                     : Number(params?.id),
-                }).then(() => setFlagFavorite(!flagFavorite))
+                }).then(() => setFlag(!flag))
               }
               fill={isFavorited ? "gold" : "currentColor"}
             />

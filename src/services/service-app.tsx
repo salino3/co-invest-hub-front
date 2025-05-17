@@ -99,6 +99,20 @@ export class ServicesApp {
       });
   }
 
+  public static async updateCompany(
+    id: string,
+    company: PropsCompany
+  ): Promise<AxiosResponse<{ id: string; company: PropsCompany }>> {
+    return await axios
+      .put(`${baseBackend}/api/companies/${id}`, company, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   //* Favorites
 
   public static async addFavorite(ids: {
