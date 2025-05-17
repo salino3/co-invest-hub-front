@@ -13,7 +13,7 @@ import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
 import { Button, StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
-import { AboutUs } from "./components";
+import { AboutUs, Contacts } from "./components";
 import "./company-page.styles.scss";
 
 export const CompanyPage: React.FC = () => {
@@ -113,9 +113,13 @@ export const CompanyPage: React.FC = () => {
       key: 1,
       title: t("contact"),
       component: (
-        <>
-          <input type="text" />
-        </>
+        <Contacts
+          t={t}
+          setFormData={setCompanyData}
+          formData={companyData}
+          setFormDataError={setCompanyDataError}
+          formDataError={companyDataError}
+        />
       ),
     },
     {
