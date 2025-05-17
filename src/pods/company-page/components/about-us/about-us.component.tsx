@@ -51,6 +51,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           type="text"
           change={handleChange("name")}
           value={formData?.name || ""}
+          errMsg={formDataError?.name}
+          checkError={!!formDataError?.name}
         />
         <BasicInput
           lbl={t("description")}

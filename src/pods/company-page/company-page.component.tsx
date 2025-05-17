@@ -10,6 +10,7 @@ import {
   useProviderSelector,
 } from "../../store";
 import { ServicesApp } from "../../services";
+import { useAppFunctions } from "../../hooks";
 import { Button, StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
 import { AboutUs } from "./components";
@@ -24,6 +25,8 @@ export const CompanyPage: React.FC = () => {
     "myCompanies",
     "setMyCompanies"
   );
+
+  const { checkFormRequired } = useAppFunctions();
 
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
@@ -145,40 +148,50 @@ export const CompanyPage: React.FC = () => {
       return;
     }
 
+    let error: boolean = checkFormRequired(
+      companyData,
+      setCompanyDataError,
+      t,
+      ["contacts"]
+    );
+
     // TODO: Create function 'checkDataFormCompany'
     // checkDataFormCompany()
 
-    if (!params?.id) {
-      ServicesApp?.createCompany(companyData).then((res: any) => {
-        const id: number = Number(currentUser?.id);
-        const body: CreateRelationData = {
-          idCreator: id,
-          account_id: id,
-          company_id: res?.data?.company_id,
-          role: roleAccount.trim(),
-        };
-        // TODO: Move this execution to backend
-        ServicesApp?.createRelationAccountCompany(body).then(() =>
-          ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-            (res) => setMyCompanies && setMyCompanies(res.data)
-          )
-        );
-      });
-    } else {
-      if (roleAccount) {
-        const body: UpdateAccountCompany = {
-          account_id: currentUser?.id || 0,
-          company_id: Number(params?.id),
-          newRole: roleAccount,
-        };
-        ServicesApp?.updateRoleAccountCompany(body).then(() =>
-          ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-            (res) => setMyCompanies && setMyCompanies(res.data)
-          )
-        );
+    console.log("clog4", error, companyData);
+    if (!error) {
+      if (!params?.id) {
+        ServicesApp?.createCompany(companyData).then((res: any) => {
+          const id: number = Number(currentUser?.id);
+          const body: CreateRelationData = {
+            idCreator: id,
+            account_id: id,
+            company_id: res?.data?.company_id,
+            role: roleAccount.trim(),
+          };
+          // TODO: Move this execution to backend
+          ServicesApp?.createRelationAccountCompany(body).then(() =>
+            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+              (res) => setMyCompanies && setMyCompanies(res.data)
+            )
+          );
+        });
+      } else {
+        if (roleAccount) {
+          const body: UpdateAccountCompany = {
+            account_id: currentUser?.id || 0,
+            company_id: Number(params?.id),
+            newRole: roleAccount,
+          };
+          ServicesApp?.updateRoleAccountCompany(body).then(() =>
+            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+              (res) => setMyCompanies && setMyCompanies(res.data)
+            )
+          );
+        }
+        //
+        ServicesApp?.updateCompany(String(params?.id), companyData);
       }
-      //
-      ServicesApp?.updateCompany(String(params?.id), companyData);
     }
   };
 
