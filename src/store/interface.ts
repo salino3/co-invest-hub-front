@@ -36,7 +36,7 @@ export interface PropsCurrentUser {
   updatedAt?: string;
 }
 
-//
+//-----------------------
 export interface AccountRegisterForm {
   name?: string;
   email: string;
@@ -88,4 +88,10 @@ export interface CreateRelationData {
   account_id: number;
   company_id: number;
   role: string;
+}
+
+export interface UpdateAccountCompany {
+  account_id: number;
+  company_id: number;
+  newRole: string;
 }

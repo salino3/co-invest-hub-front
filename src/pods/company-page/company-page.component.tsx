@@ -7,6 +7,7 @@ import {
   PropsCompany,
   PropsCompanyError,
   PropsTabs,
+  UpdateAccountCompany,
   useProviderSelector,
 } from "../../store";
 import { ServicesApp } from "../../services";
@@ -136,7 +137,7 @@ export const CompanyPage: React.FC = () => {
 
       // Scroll to the input with error
       const inputWithError = document.getElementById("roleID");
-      setTabs(0);
+
       if (inputWithError) {
         inputWithError.scrollIntoView({ behavior: "smooth", block: "center" });
         inputWithError.focus(); // Optional: set focus
@@ -148,21 +149,32 @@ export const CompanyPage: React.FC = () => {
     // TODO: Create function 'checkDataFormCompany'
     // checkDataFormCompany()
 
-    ServicesApp?.createCompany(companyData).then((res: any) => {
-      const id: number = Number(currentUser?.id);
-      const body: CreateRelationData = {
-        idCreator: id,
-        account_id: id,
-        company_id: res?.data?.company_id,
-        role: roleAccount.trim(),
-      };
-      // TODO: Move this execution to backend
-      ServicesApp?.createRelationAccountCompany(body).then(() =>
-        ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-          (res) => setMyCompanies && setMyCompanies(res.data)
-        )
-      );
-    });
+    if (!params?.id) {
+      ServicesApp?.createCompany(companyData).then((res: any) => {
+        const id: number = Number(currentUser?.id);
+        const body: CreateRelationData = {
+          idCreator: id,
+          account_id: id,
+          company_id: res?.data?.company_id,
+          role: roleAccount.trim(),
+        };
+        // TODO: Move this execution to backend
+        ServicesApp?.createRelationAccountCompany(body).then(() =>
+          ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+            (res) => setMyCompanies && setMyCompanies(res.data)
+          )
+        );
+      });
+    } else {
+      if (roleAccount) {
+        const body: UpdateAccountCompany = {
+          account_id: currentUser?.id || 0,
+          company_id: Number(params?.id),
+          newRole: roleAccount,
+        };
+        ServicesApp?.updateRoleAccountCompany(body);
+      }
+    }
   };
 
   //
