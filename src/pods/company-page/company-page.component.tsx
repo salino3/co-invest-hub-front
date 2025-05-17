@@ -178,9 +178,7 @@ export const CompanyPage: React.FC = () => {
         );
       }
       //
-      ServicesApp?.updateCompany(String(params?.id), companyData).then(() =>
-        setFlag((prev) => !prev)
-      );
+      ServicesApp?.updateCompany(String(params?.id), companyData);
     }
   };
 
