@@ -3,16 +3,17 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   CreateRelationData,
-  MyCompany,
   PropsCompany,
   PropsCompanyError,
   PropsTabs,
+  UpdateAccountCompany,
   useProviderSelector,
 } from "../../store";
 import { ServicesApp } from "../../services";
+import { useAppFunctions } from "../../hooks";
 import { Button, StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
-import { AboutUs } from "./components";
+import { AboutUs, Contacts } from "./components";
 import "./company-page.styles.scss";
 
 export const CompanyPage: React.FC = () => {
@@ -25,9 +26,11 @@ export const CompanyPage: React.FC = () => {
     "setMyCompanies"
   );
 
+  const { checkFormRequired } = useAppFunctions();
+
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
-  const [flagFavorite, setFlagFavorite] = useState<boolean>(false);
+  const [flag, setFlag] = useState<boolean>(false);
   const [companyData, setCompanyData] = useState<PropsCompany>({
     name: "",
     description: "",
@@ -109,7 +112,15 @@ export const CompanyPage: React.FC = () => {
     {
       key: 1,
       title: t("contact"),
-      component: <>Contact</>,
+      component: (
+        <Contacts
+          t={t}
+          setFormData={setCompanyData}
+          formData={companyData}
+          setFormDataError={setCompanyDataError}
+          formDataError={companyDataError}
+        />
+      ),
     },
     {
       key: 2,
@@ -128,41 +139,54 @@ export const CompanyPage: React.FC = () => {
     event.preventDefault();
     console.log("clog2", companyData);
 
-    if (!roleAccount.trim()) {
-      setCompanyDataError((prev: PropsCompanyError) => ({
-        ...prev,
-        role: "required_field",
-      }));
-
-      // Scroll to the input with error
-      const inputWithError = document.getElementById("roleID");
-      setTabs(0);
-      if (inputWithError) {
-        inputWithError.scrollIntoView({ behavior: "smooth", block: "center" });
-        inputWithError.focus(); // Optional: set focus
-      }
-
-      return;
-    }
+    let error: boolean = checkFormRequired(
+      {
+        ...companyData,
+        role: roleAccount,
+      },
+      setCompanyDataError,
+      t,
+      ["contacts"],
+      setTabs
+    );
 
     // TODO: Create function 'checkDataFormCompany'
     // checkDataFormCompany()
 
-    ServicesApp?.createCompany(companyData).then((res: any) => {
-      const id: number = Number(currentUser?.id);
-      const body: CreateRelationData = {
-        idCreator: id,
-        account_id: id,
-        company_id: res?.data?.company_id,
-        role: roleAccount.trim(),
-      };
-      // TODO: Move this execution to backend
-      ServicesApp?.createRelationAccountCompany(body).then(() =>
-        ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-          (res) => setMyCompanies && setMyCompanies(res.data)
-        )
-      );
-    });
+    if (!error) {
+      if (!params?.id) {
+        ServicesApp?.createCompany(companyData).then((res: any) => {
+          const id: number = Number(currentUser?.id);
+          const body: CreateRelationData = {
+            idCreator: id,
+            account_id: id,
+            company_id: res?.data?.company_id,
+            role: roleAccount.trim(),
+          };
+          // TODO: Move this execution to backend
+          ServicesApp?.createRelationAccountCompany(body).then(() =>
+            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+              (res) => setMyCompanies && setMyCompanies(res.data)
+            )
+          );
+        });
+      } else {
+        if (roleAccount) {
+          const body: UpdateAccountCompany = {
+            account_id: currentUser?.id || 0,
+            company_id: Number(params?.id),
+            newRole: roleAccount,
+          };
+          ServicesApp?.updateRoleAccountCompany(body).then(() =>
+            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+              (res) => setMyCompanies && setMyCompanies(res.data)
+            )
+          );
+        }
+        //
+        ServicesApp?.updateCompany(String(params?.id), companyData);
+      }
+    }
   };
 
   //
@@ -184,11 +208,12 @@ export const CompanyPage: React.FC = () => {
         myCompanies.find((c) => String(c?.id) === params?.id)?.role) ||
       "";
     setRoleAccount(found);
-  }, [currentUser?.id, params?.id, flagFavorite]);
+  }, [currentUser?.id, params?.id, flag]);
 
   return (
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
+      <br /> <br />
       {params?.id && (
         <div className="containerInfoAboutCompany">
           <div className="infoAboutCompany">
@@ -201,7 +226,7 @@ export const CompanyPage: React.FC = () => {
                   company_id: isFavorited
                     ? String(params?.id)
                     : Number(params?.id),
-                }).then(() => setFlagFavorite(!flagFavorite))
+                }).then(() => setFlag(!flag))
               }
               fill={isFavorited ? "gold" : "currentColor"}
             />

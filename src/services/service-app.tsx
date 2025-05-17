@@ -5,6 +5,7 @@ import {
   AccountRegisterForm,
   CreateRelationData,
   PropsCompany,
+  UpdateAccountCompany,
 } from "../store";
 // import { useAppFunctions } from "../hooks";
 
@@ -53,6 +54,19 @@ export class ServicesApp {
       });
   }
 
+  public static async updateRoleAccountCompany(
+    body: UpdateAccountCompany
+  ): Promise<AxiosResponse<void>> {
+    return await axios
+      .patch(`${baseBackend}/relation/account/companies`, body, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   //*  Companies
   public static async getCompanies(): Promise<AxiosResponse<PropsCompany[]>> {
     return await axios.get(`${baseBackend}/api/companies`).catch((err) => {
@@ -77,6 +91,20 @@ export class ServicesApp {
   ): Promise<AxiosResponse<PropsCompany>> {
     return await axios
       .post(`${baseBackend}/api/companies`, company, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
+  public static async updateCompany(
+    id: string,
+    company: PropsCompany
+  ): Promise<AxiosResponse<{ id: string; company: PropsCompany }>> {
+    return await axios
+      .put(`${baseBackend}/api/companies/${id}`, company, {
         withCredentials: true,
       })
       .catch((err) => {
