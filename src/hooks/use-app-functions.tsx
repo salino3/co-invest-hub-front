@@ -192,16 +192,32 @@ export const useAppFunctions = () => {
     listNoRequired: string[]
   ): boolean {
     let hasError = false;
+    let inputWithError: HTMLElement | null = null;
     for (let key in formData) {
-      if (!listNoRequired.includes(key) && !formData[key]) {
+      if (
+        !listNoRequired.includes(key) &&
+        (!formData[key] ||
+          (typeof formData[key] === "string" && !formData[key].trim()))
+      ) {
         setFormDataError((prev: any) => ({
           ...prev,
           [key]: t("required"),
         }));
+
+        if (!inputWithError) {
+          inputWithError = document.getElementById(key + "ID");
+        }
+
         hasError = true;
       }
     }
-
+    if (inputWithError) {
+      inputWithError.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      inputWithError.focus();
+    }
     return hasError;
   }
 
@@ -220,5 +236,6 @@ export const useAppFunctions = () => {
     getAvailableDays,
     //
     checkFormRequired,
+    // checkDataFormCompany
   };
 };

@@ -131,34 +131,23 @@ export const CompanyPage: React.FC = () => {
     event.preventDefault();
     console.log("clog2", companyData);
 
-    if (!roleAccount.trim()) {
-      setCompanyDataError((prev: PropsCompanyError) => ({
-        ...prev,
-        role: "required_field",
-      }));
-
-      // Scroll to the input with error
-      const inputWithError = document.getElementById("roleID");
-
-      if (inputWithError) {
-        inputWithError.scrollIntoView({ behavior: "smooth", block: "center" });
-        inputWithError.focus(); // Optional: set focus
-      }
-
-      return;
-    }
-
     let error: boolean = checkFormRequired(
-      companyData,
+      {
+        ...companyData,
+        role: roleAccount,
+      },
       setCompanyDataError,
       t,
-      ["contacts"]
+      ["contacts", "sector"]
     );
 
     // TODO: Create function 'checkDataFormCompany'
     // checkDataFormCompany()
 
-    console.log("clog4", error, companyData);
+    console.log("clog4", error, {
+      ...companyData,
+      role: roleAccount,
+    });
     if (!error) {
       if (!params?.id) {
         ServicesApp?.createCompany(companyData).then((res: any) => {
