@@ -153,10 +153,6 @@ export const CompanyPage: React.FC = () => {
     // TODO: Create function 'checkDataFormCompany'
     // checkDataFormCompany()
 
-    console.log("clog4", error, {
-      ...companyData,
-      role: roleAccount,
-    });
     if (!error) {
       if (!params?.id) {
         ServicesApp?.createCompany(companyData).then((res: any) => {
