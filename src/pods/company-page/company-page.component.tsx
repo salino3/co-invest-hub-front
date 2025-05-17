@@ -172,8 +172,13 @@ export const CompanyPage: React.FC = () => {
           company_id: Number(params?.id),
           newRole: roleAccount,
         };
-        ServicesApp?.updateRoleAccountCompany(body);
+        ServicesApp?.updateRoleAccountCompany(body).then(() =>
+          ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+            (res) => setMyCompanies && setMyCompanies(res.data)
+          )
+        );
       }
+      //
     }
   };
 
