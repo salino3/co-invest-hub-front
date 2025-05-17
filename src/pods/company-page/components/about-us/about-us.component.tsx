@@ -81,9 +81,13 @@ export const AboutUs: React.FC<Props> = (props) => {
           lbl={t("role")}
           name="role"
           type="text"
-          change={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setRoleAccount(e.target.value)
-          }
+          change={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setRoleAccount(e.target.value);
+            setFormDataError((prev) => ({
+              ...prev,
+              ["role"]: "",
+            }));
+          }}
           value={roleAccount || ""}
           checkError={!!formDataError?.role}
           errMsg={formDataError?.role}

@@ -112,7 +112,11 @@ export const CompanyPage: React.FC = () => {
     {
       key: 1,
       title: t("contact"),
-      component: <>Contact</>,
+      component: (
+        <>
+          <input type="text" />
+        </>
+      ),
     },
     {
       key: 2,
@@ -138,7 +142,8 @@ export const CompanyPage: React.FC = () => {
       },
       setCompanyDataError,
       t,
-      ["contacts", "sector"]
+      ["contacts", "sector"],
+      setTabs
     );
 
     // TODO: Create function 'checkDataFormCompany'
@@ -208,6 +213,7 @@ export const CompanyPage: React.FC = () => {
   return (
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
+      <br /> <br />
       {params?.id && (
         <div className="containerInfoAboutCompany">
           <div className="infoAboutCompany">

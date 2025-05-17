@@ -185,14 +185,27 @@ export const useAppFunctions = () => {
   }
 
   //
+  const scrollToErrorInput = (
+    setTabs: React.Dispatch<React.SetStateAction<number>>,
+    tab: number
+  ): Promise<void> => {
+    return new Promise((resolve) => {
+      setTabs(tab);
+      resolve();
+    });
+  };
+
+  //
   function checkFormRequired(
     formData: any,
     setFormDataError: any,
     t: TFunction<"main", undefined>,
-    listNoRequired: string[]
+    listNoRequired: string[],
+    setTabs?: React.Dispatch<React.SetStateAction<number>>
   ): boolean {
     let hasError = false;
     let inputWithError: HTMLElement | null = null;
+    let input: string | null = null;
     for (let key in formData) {
       if (
         !listNoRequired.includes(key) &&
@@ -205,18 +218,44 @@ export const useAppFunctions = () => {
         }));
 
         if (!inputWithError) {
+          input = key + "ID";
           inputWithError = document.getElementById(key + "ID");
         }
 
         hasError = true;
       }
     }
-    if (inputWithError) {
-      inputWithError.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+    if (setTabs) {
+      const pages: Record<number, string[]> = {
+        0: ["roleID", "nameID"],
+        1: ["dpruebaID"],
+        2: ["otherID"],
+      };
+
+      const choosingTab: string | undefined = Object.entries(pages).find(
+        ([_, ids]: [string, string[]]) => ids.includes(input || "")
+      )?.[0];
+
+      const tabIndex: number =
+        choosingTab !== undefined ? parseInt(choosingTab) : 0;
+
+      scrollToErrorInput(setTabs, tabIndex).then(() => {
+        if (inputWithError) {
+          inputWithError.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          inputWithError.focus();
+        }
       });
-      inputWithError.focus();
+    } else {
+      if (inputWithError) {
+        inputWithError.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        inputWithError.focus();
+      }
     }
     return hasError;
   }
