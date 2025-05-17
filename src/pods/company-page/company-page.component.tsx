@@ -146,7 +146,7 @@ export const CompanyPage: React.FC = () => {
       },
       setCompanyDataError,
       t,
-      ["contacts", "sector"],
+      ["contacts"],
       setTabs
     );
 

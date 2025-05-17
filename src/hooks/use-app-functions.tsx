@@ -228,7 +228,7 @@ export const useAppFunctions = () => {
     if (setTabs) {
       const pages: Record<number, string[]> = {
         0: ["roleID", "nameID"],
-        1: ["dpruebaID"],
+        1: ["sectorID"],
         2: ["otherID"],
       };
 
@@ -240,13 +240,10 @@ export const useAppFunctions = () => {
         choosingTab !== undefined ? parseInt(choosingTab) : 0;
 
       scrollToErrorInput(setTabs, tabIndex).then(() => {
-        if (inputWithError) {
-          inputWithError.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          inputWithError.focus();
-        }
+        checkFormRequired(formData, setFormDataError, t, [
+          "contacts",
+          "sector",
+        ]);
       });
     } else {
       if (inputWithError) {
