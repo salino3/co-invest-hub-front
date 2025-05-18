@@ -22,6 +22,13 @@
     min-height: 100px;
     border: solid 2px var(--global-05);
     background-color: var(--global-08);
+
+    #musicBosaNova {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.5rem;
+    }
+
     .boxUp {
       flex-grow: 2;
       flex-basis: 2;

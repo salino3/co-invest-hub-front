@@ -14,6 +14,7 @@ interface PropsBasicInput {
   ref?: React.Ref<HTMLInputElement> | undefined;
   errMsg?: string;
   checkError?: boolean;
+  readonly?: boolean;
   min?: string | number | undefined;
   rows?: number;
   cols?: number;
@@ -31,6 +32,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
     ref,
     errMsg,
     checkError = false,
+    readonly = false,
     min,
     rows = 3,
     cols = 30,
@@ -60,6 +62,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             onChange={change}
             rows={rows}
             cols={cols}
+            readOnly={readonly}
           ></textarea>
         ) : (
           <input
@@ -73,6 +76,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             name={name}
             type={type}
             value={value}
+            readOnly={readonly}
             onClick={click}
             onChange={change}
             // onWheel={(e) => e.currentTarget.blur()}

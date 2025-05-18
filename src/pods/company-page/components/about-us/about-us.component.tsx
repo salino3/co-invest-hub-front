@@ -1,5 +1,9 @@
 import React from "react";
-import { PropsCompany, PropsCompanyError } from "../../../../store";
+import {
+  PropsCompany,
+  PropsCompanyError,
+  PropsCompanyReadOnly,
+} from "../../../../store";
 import { BasicInput, ContactsInputs } from "../../../../common";
 import { TFunction } from "i18next";
 import "./about-us.styles.scss";
@@ -12,6 +16,8 @@ interface Props {
   formDataError: PropsCompanyError;
   roleAccount: string;
   setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
+  setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
+  inputsReadOnly: PropsCompanyReadOnly;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -23,6 +29,8 @@ export const AboutUs: React.FC<Props> = (props) => {
     formDataError,
     roleAccount,
     setRoleAccount,
+    inputsReadOnly,
+    setInputsReadOnly,
   } = props;
 
   const handleChange =
@@ -40,8 +48,6 @@ export const AboutUs: React.FC<Props> = (props) => {
       }));
     };
 
-  console.log("clog1", formData);
-
   return (
     <div className="rootAboutUs">
       <div className="inputsAboutUs">
@@ -53,6 +59,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.name || ""}
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
+          readonly={!inputsReadOnly?.name}
         />
         <BasicInput
           lbl={t("description")}

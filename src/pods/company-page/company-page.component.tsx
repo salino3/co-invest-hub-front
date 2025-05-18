@@ -5,6 +5,7 @@ import {
   CreateRelationData,
   PropsCompany,
   PropsCompanyError,
+  PropsCompanyReadOnly,
   PropsTabs,
   UpdateAccountCompany,
   useProviderSelector,
@@ -44,6 +45,20 @@ export const CompanyPage: React.FC = () => {
       },
     ],
     multimedia: [],
+  });
+
+  const [inputsReadOnly, setInputsReadOnly] = useState<PropsCompanyReadOnly>({
+    name: false,
+    description: false,
+    hashtags: false,
+    sector: false,
+    location: false,
+    investmentMax: false,
+    investmentMin: false,
+    contacts: false,
+    multimedia: false,
+    logo: false,
+    role: false,
   });
 
   const [companyDataError, setCompanyDataError] = useState<PropsCompanyError>({
@@ -106,6 +121,8 @@ export const CompanyPage: React.FC = () => {
           formDataError={companyDataError}
           roleAccount={roleAccount}
           setRoleAccount={setRoleAccount}
+          setInputsReadOnly={setInputsReadOnly}
+          inputsReadOnly={inputsReadOnly}
         />
       ),
     },
