@@ -3,3 +3,5 @@ export * from "./settings-icon";
 export * from "./pen-update-icon";
 export * from "./more-icon";
 export * from "./star-icon";
+export * from "./lock-icon";
+export * from "./opened-lock-icon.tsx";

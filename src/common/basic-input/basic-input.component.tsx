@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
+import { LockIcon, OpenedLockIcon, PenUpdateIcon } from "../icons";
 import "./basic-input.styles.scss";
 
 interface PropsBasicInput {
@@ -14,6 +15,8 @@ interface PropsBasicInput {
   ref?: React.Ref<HTMLInputElement> | undefined;
   errMsg?: string;
   checkError?: boolean;
+  readonly?: boolean;
+  update?: any; // Setter
   min?: string | number | undefined;
   rows?: number;
   cols?: number;
@@ -31,6 +34,8 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
     ref,
     errMsg,
     checkError = false,
+    readonly = false,
+    update = null,
     min,
     rows = 3,
     cols = 30,
@@ -47,6 +52,13 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
       }`}
     >
       <div className="contentInputBI">
+        {!!update ? (
+          readonly ? (
+            <LockIcon height={18} width={18} fill="var(--color-error)" />
+          ) : (
+            <OpenedLockIcon fill="var(--color-correct)" />
+          )
+        ) : null}
         <label className={value ? "label_01" : ""} htmlFor={name}>
           {lbl}
         </label>
@@ -60,6 +72,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             onChange={change}
             rows={rows}
             cols={cols}
+            readOnly={readonly}
           ></textarea>
         ) : (
           <input
@@ -73,6 +86,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             name={name}
             type={type}
             value={value}
+            readOnly={readonly}
             onClick={click}
             onChange={change}
             // onWheel={(e) => e.currentTarget.blur()}
@@ -92,6 +106,9 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             }}
             // onInput={() => alert("Hi!")} // It works when value change
           />
+        )}
+        {!!update && (
+          <PenUpdateIcon click={() => update()} height={16} width={16} />
         )}
       </div>
       {errMsg && <small>{t(errMsg)}</small>}

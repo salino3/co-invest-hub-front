@@ -1,5 +1,9 @@
 import React from "react";
-import { PropsCompany, PropsCompanyError } from "../../../../store";
+import {
+  PropsCompany,
+  PropsCompanyError,
+  PropsCompanyReadOnly,
+} from "../../../../store";
 import { BasicInput, ContactsInputs } from "../../../../common";
 import { TFunction } from "i18next";
 import "./about-us.styles.scss";
@@ -12,6 +16,8 @@ interface Props {
   formDataError: PropsCompanyError;
   roleAccount: string;
   setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
+  setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
+  inputsReadOnly: PropsCompanyReadOnly;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -23,6 +29,8 @@ export const AboutUs: React.FC<Props> = (props) => {
     formDataError,
     roleAccount,
     setRoleAccount,
+    inputsReadOnly,
+    setInputsReadOnly,
   } = props;
 
   const handleChange =
@@ -40,7 +48,12 @@ export const AboutUs: React.FC<Props> = (props) => {
       }));
     };
 
-  console.log("clog1", formData);
+  const handleChangeReadOnly = (input: keyof PropsCompanyReadOnly) => {
+    setInputsReadOnly((prev: PropsCompanyReadOnly) => ({
+      ...prev,
+      [input]: !prev[input],
+    }));
+  };
 
   return (
     <div className="rootAboutUs">
@@ -53,6 +66,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.name || ""}
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
+          readonly={!inputsReadOnly?.name}
+          update={() => handleChangeReadOnly("name")}
         />
         <BasicInput
           lbl={t("description")}
@@ -62,6 +77,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.description || ""}
           rows={10}
           cols={50}
+          readonly={!inputsReadOnly?.description}
+          update={() => handleChangeReadOnly("name")}
         />
         <BasicInput
           lbl={t("sector")}
@@ -77,21 +94,34 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("location")}
           value={formData?.location || ""}
         />
-        <BasicInput
-          lbl={t("role")}
-          name="role"
-          type="text"
-          change={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setRoleAccount(e.target.value);
-            setFormDataError((prev) => ({
-              ...prev,
-              ["role"]: "",
-            }));
-          }}
-          value={roleAccount || ""}
-          checkError={!!formDataError?.role}
-          errMsg={formDataError?.role}
-        />
+        {!!roleAccount ? (
+          <BasicInput
+            lbl={t("role")}
+            name="role"
+            type="text"
+            change={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setRoleAccount(e.target.value);
+              setFormDataError((prev) => ({
+                ...prev,
+                ["role"]: "",
+              }));
+            }}
+            value={roleAccount || ""}
+            checkError={!!formDataError?.role}
+            errMsg={formDataError?.role}
+          />
+        ) : (
+          <BasicInput
+            lbl={t("description")}
+            name="description"
+            type="textarea"
+            change={handleChange("description")}
+            value={roleAccount || ""}
+            rows={10}
+            cols={50}
+            readonly={true}
+          />
+        )}
         <div className="boxContactsForm">
           <ContactsInputs
             t={t}

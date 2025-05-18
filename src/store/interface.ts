@@ -83,6 +83,20 @@ export interface PropsCompanyError {
   role: string;
 }
 
+export interface PropsCompanyReadOnly {
+  name: boolean;
+  description: boolean;
+  hashtags: boolean;
+  sector: boolean;
+  location: boolean;
+  investmentMin: boolean;
+  investmentMax: boolean;
+  contacts: boolean;
+  multimedia: boolean;
+  logo: boolean;
+  role: boolean;
+}
+
 export interface CreateRelationData {
   idCreator: number;
   account_id: number;

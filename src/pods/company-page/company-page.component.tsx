@@ -5,6 +5,7 @@ import {
   CreateRelationData,
   PropsCompany,
   PropsCompanyError,
+  PropsCompanyReadOnly,
   PropsTabs,
   UpdateAccountCompany,
   useProviderSelector,
@@ -44,6 +45,20 @@ export const CompanyPage: React.FC = () => {
       },
     ],
     multimedia: [],
+  });
+
+  const [inputsReadOnly, setInputsReadOnly] = useState<PropsCompanyReadOnly>({
+    name: false,
+    description: false,
+    hashtags: false,
+    sector: false,
+    location: false,
+    investmentMax: false,
+    investmentMin: false,
+    contacts: false,
+    multimedia: false,
+    logo: false,
+    role: false,
   });
 
   const [companyDataError, setCompanyDataError] = useState<PropsCompanyError>({
@@ -106,6 +121,8 @@ export const CompanyPage: React.FC = () => {
           formDataError={companyDataError}
           roleAccount={roleAccount}
           setRoleAccount={setRoleAccount}
+          setInputsReadOnly={setInputsReadOnly}
+          inputsReadOnly={inputsReadOnly}
         />
       ),
     },
@@ -202,12 +219,14 @@ export const CompanyPage: React.FC = () => {
       clearAllFormSetters();
     }
 
-    const found: string =
+    const foundRole: string =
       (myCompanies &&
         myCompanies.length > 0 &&
         myCompanies.find((c) => String(c?.id) === params?.id)?.role) ||
       "";
-    setRoleAccount(found);
+    console.log("clog2", foundRole);
+
+    setRoleAccount(foundRole);
   }, [currentUser?.id, params?.id, flag]);
 
   return (
