@@ -35,7 +35,7 @@
     }
 
     .inputError {
-      border: solid 2px red;
+      border: solid 2px var(--color-error);
     }
 
     &:focus-within label {
@@ -52,18 +52,29 @@
 
     // It works after focus
     // input:invalid {
-    //   border: 2px solid red;
+    //   border: 2px solid var(--color-error);
     // }
 
     // input:valid {
     //   border: 2px solid green;
     // }
 
-    .PenUpdateIcon_x08,
-    .LockIcon_x08 {
+    .PenUpdateIcon_x08 {
       position: absolute;
       right: -1.25rem;
       top: 0.5rem;
+    }
+
+    .OpenedLockIcon_x08 {
+      position: absolute;
+      left: -1.5rem;
+      top: 0.5rem;
+    }
+
+    .LockIcon_x08 {
+      position: absolute;
+      left: -1.25rem;
+      top: 0.75rem;
     }
   }
   small {
@@ -76,7 +87,7 @@
     padding-left: 2px;
     width: 100%;
     bottom: 0;
-    color: red;
+    color: var(--color-error);
   }
 }
 

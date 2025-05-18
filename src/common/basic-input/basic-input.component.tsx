@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
-import { LockIcon, PenUpdateIcon } from "../icons";
+import { LockIcon, OpenedLockIcon, PenUpdateIcon } from "../icons";
 import "./basic-input.styles.scss";
 
 interface PropsBasicInput {
@@ -52,6 +52,11 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
       }`}
     >
       <div className="contentInputBI">
+        {!!update && readonly ? (
+          <LockIcon height={18} width={18} fill="var(--color-error)" />
+        ) : (
+          <OpenedLockIcon fill="var(--color-correct)" />
+        )}
         <label className={value ? "label_01" : ""} htmlFor={name}>
           {lbl}
         </label>
@@ -100,12 +105,9 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             // onInput={() => alert("Hi!")} // It works when value change
           />
         )}
-        {!!update &&
-          (readonly ? (
-            <LockIcon click={() => update()} height={18} width={18} />
-          ) : (
-            <PenUpdateIcon click={() => update()} height={16} width={16} />
-          ))}
+        {!!update && (
+          <PenUpdateIcon click={() => update()} height={16} width={16} />
+        )}
       </div>
       {errMsg && <small>{t(errMsg)}</small>}
     </div>
