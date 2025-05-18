@@ -48,6 +48,13 @@ export const AboutUs: React.FC<Props> = (props) => {
       }));
     };
 
+  const handleChangeReadOnly = (input: keyof PropsCompanyReadOnly) => {
+    setInputsReadOnly((prev: PropsCompanyReadOnly) => ({
+      ...prev,
+      [input]: !prev[input],
+    }));
+  };
+
   return (
     <div className="rootAboutUs">
       <div className="inputsAboutUs">
@@ -60,6 +67,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
           readonly={!inputsReadOnly?.name}
+          update={() => handleChangeReadOnly("name")}
         />
         <BasicInput
           lbl={t("description")}

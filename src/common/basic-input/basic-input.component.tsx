@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
+import { PenUpdateIcon } from "../icons";
 import "./basic-input.styles.scss";
 
 interface PropsBasicInput {
@@ -15,6 +16,7 @@ interface PropsBasicInput {
   errMsg?: string;
   checkError?: boolean;
   readonly?: boolean;
+  update?: any; // Setter
   min?: string | number | undefined;
   rows?: number;
   cols?: number;
@@ -33,6 +35,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
     errMsg,
     checkError = false,
     readonly = false,
+    update = null,
     min,
     rows = 3,
     cols = 30,
@@ -96,6 +99,9 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             }}
             // onInput={() => alert("Hi!")} // It works when value change
           />
+        )}
+        {!!update && (
+          <PenUpdateIcon click={() => update()} height={16} width={16} />
         )}
       </div>
       {errMsg && <small>{t(errMsg)}</small>}
