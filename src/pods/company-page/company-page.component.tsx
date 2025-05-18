@@ -219,12 +219,14 @@ export const CompanyPage: React.FC = () => {
       clearAllFormSetters();
     }
 
-    const found: string =
+    const foundRole: string =
       (myCompanies &&
         myCompanies.length > 0 &&
         myCompanies.find((c) => String(c?.id) === params?.id)?.role) ||
       "";
-    setRoleAccount(found);
+    console.log("clog2", foundRole);
+
+    setRoleAccount(foundRole);
   }, [currentUser?.id, params?.id, flag]);
 
   return (

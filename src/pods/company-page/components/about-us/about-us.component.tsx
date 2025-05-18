@@ -94,21 +94,34 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("location")}
           value={formData?.location || ""}
         />
-        <BasicInput
-          lbl={t("role")}
-          name="role"
-          type="text"
-          change={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setRoleAccount(e.target.value);
-            setFormDataError((prev) => ({
-              ...prev,
-              ["role"]: "",
-            }));
-          }}
-          value={roleAccount || ""}
-          checkError={!!formDataError?.role}
-          errMsg={formDataError?.role}
-        />
+        {!!roleAccount ? (
+          <BasicInput
+            lbl={t("role")}
+            name="role"
+            type="text"
+            change={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setRoleAccount(e.target.value);
+              setFormDataError((prev) => ({
+                ...prev,
+                ["role"]: "",
+              }));
+            }}
+            value={roleAccount || ""}
+            checkError={!!formDataError?.role}
+            errMsg={formDataError?.role}
+          />
+        ) : (
+          <BasicInput
+            lbl={t("description")}
+            name="description"
+            type="textarea"
+            change={handleChange("description")}
+            value={roleAccount || ""}
+            rows={10}
+            cols={50}
+            readonly={true}
+          />
+        )}
         <div className="boxContactsForm">
           <ContactsInputs
             t={t}
