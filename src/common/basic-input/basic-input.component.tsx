@@ -52,11 +52,13 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
       }`}
     >
       <div className="contentInputBI">
-        {!!update && readonly ? (
-          <LockIcon height={18} width={18} fill="var(--color-error)" />
-        ) : (
-          <OpenedLockIcon fill="var(--color-correct)" />
-        )}
+        {!!update ? (
+          readonly ? (
+            <LockIcon height={18} width={18} fill="var(--color-error)" />
+          ) : (
+            <OpenedLockIcon fill="var(--color-correct)" />
+          )
+        ) : null}
         <label className={value ? "label_01" : ""} htmlFor={name}>
           {lbl}
         </label>

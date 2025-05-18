@@ -77,6 +77,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.description || ""}
           rows={10}
           cols={50}
+          readonly={!inputsReadOnly?.description}
+          update={() => handleChangeReadOnly("name")}
         />
         <BasicInput
           lbl={t("sector")}
