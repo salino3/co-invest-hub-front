@@ -78,7 +78,7 @@ export const CompanyPage: React.FC = () => {
 
   const [roleAccount, setRoleAccount] = useState<string>("");
   // TODO: Add types
-  const [rolesCompany, setRolesCompany] = useState<any>("");
+  const [rolesCompany, setRolesCompany] = useState<MyCompany[]>([]);
 
   function clearAllFormSetters() {
     setCompanyData({
@@ -242,6 +242,8 @@ export const CompanyPage: React.FC = () => {
       setRoleAccount(foundRole);
     }
   }, [currentUser?.id, params?.id, flag]);
+
+  console.log("roleAccount", roleAccount, params?.id);
 
   return (
     <div className="rootCompanyPage">

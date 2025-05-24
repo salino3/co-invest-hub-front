@@ -69,7 +69,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
           readonly={!inputsReadOnly?.name}
-          update={() => handleChangeReadOnly("name")}
+          update={roleAccount ? () => handleChangeReadOnly("name") : null}
         />
         <BasicInput
           lbl={t("description")}
@@ -79,7 +79,9 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.description || ""}
           rows={10}
           readonly={!inputsReadOnly?.description}
-          update={() => handleChangeReadOnly("name")}
+          update={
+            roleAccount ? () => handleChangeReadOnly("description") : null
+          }
         />
         <BasicInput
           lbl={t("sector")}
@@ -87,6 +89,10 @@ export const AboutUs: React.FC<Props> = (props) => {
           type="text"
           change={handleChange("sector")}
           value={formData?.sector || ""}
+          errMsg={formDataError?.sector}
+          checkError={!!formDataError?.sector}
+          readonly={!inputsReadOnly?.sector}
+          update={roleAccount ? () => handleChangeReadOnly("sector") : null}
         />
         <BasicInput
           lbl={t("location")}
@@ -94,6 +100,10 @@ export const AboutUs: React.FC<Props> = (props) => {
           type="text"
           change={handleChange("location")}
           value={formData?.location || ""}
+          errMsg={formDataError?.location}
+          checkError={!!formDataError?.location}
+          readonly={!inputsReadOnly?.location}
+          update={roleAccount ? () => handleChangeReadOnly("location") : null}
         />
         {!!roleAccount && (
           <BasicInput
@@ -110,12 +120,14 @@ export const AboutUs: React.FC<Props> = (props) => {
             value={roleAccount || ""}
             checkError={!!formDataError?.role}
             errMsg={formDataError?.role}
+            readonly={!inputsReadOnly?.role}
+            update={roleAccount ? () => handleChangeReadOnly("role") : null}
           />
         )}
 
         {rolesCompany && rolesCompany?.length > 0 && (
-          <div className="containerRolesOtherParteners">
-            <h4>{t("roles_others_partners")}</h4>
+          <div className="containerRolesParteners">
+            <h4>{t("roles_partners")}</h4>
             {rolesCompany.map((role: any) => (
               <div key={role?.id} className="cardRolesCompany">
                 <div className="boxItem">
