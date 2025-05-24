@@ -49,6 +49,8 @@ export const useProvider = create<PropsProvider>()(
       logoutAccount: () => {
         set((state) => {
           state.currentUser = null;
+          state.myCompanies = [];
+          state.companies = [];
         });
       },
     })),
@@ -57,7 +59,10 @@ export const useProvider = create<PropsProvider>()(
       //* Storage in localStorage for default, also without include the parameter.
       storage: createJSONStorage(() => sessionStorage),
       //* For default 'persist' saves all object and arrays
-      //   partialize: (state) => ({ count: state.product }),
+      partialize: (state) => ({
+        myCompanies: state.myCompanies,
+        currentUser: state.currentUser,
+      }),
     }
   )
 );

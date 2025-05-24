@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   CreateRelationData,
+  MyCompany,
   PropsCompany,
   PropsCompanyError,
   PropsCompanyReadOnly,
@@ -16,7 +17,7 @@ import { Button, StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
 import { AboutUs, Contacts } from "./components";
 import "./company-page.styles.scss";
-
+// http://localhost:5500/company/Jim%20Doctor/15
 export const CompanyPage: React.FC = () => {
   const { t } = useTranslation("main");
 
@@ -76,6 +77,8 @@ export const CompanyPage: React.FC = () => {
   });
 
   const [roleAccount, setRoleAccount] = useState<string>("");
+  // TODO: Add types
+  const [rolesCompany, setRolesCompany] = useState<any>("");
 
   function clearAllFormSetters() {
     setCompanyData({
@@ -121,6 +124,7 @@ export const CompanyPage: React.FC = () => {
           formDataError={companyDataError}
           roleAccount={roleAccount}
           setRoleAccount={setRoleAccount}
+          rolesCompany={rolesCompany}
           setInputsReadOnly={setInputsReadOnly}
           inputsReadOnly={inputsReadOnly}
         />
@@ -219,14 +223,24 @@ export const CompanyPage: React.FC = () => {
       clearAllFormSetters();
     }
 
+    ServicesApp?.getRelationCompanyAccounts(params?.id || "").then((res) => {
+      setRolesCompany(
+        res?.data.filter((c: MyCompany) => c?.id !== currentUser?.id)
+      );
+    });
+
     const foundRole: string =
       (myCompanies &&
         myCompanies.length > 0 &&
-        myCompanies.find((c) => String(c?.id) === params?.id)?.role) ||
+        myCompanies.find((c: MyCompany) => String(c?.id) === params?.id)
+          ?.role) ||
       "";
     console.log("clog2", foundRole);
+    console.log("clog3", rolesCompany);
 
-    setRoleAccount(foundRole);
+    if (foundRole) {
+      setRoleAccount(foundRole);
+    }
   }, [currentUser?.id, params?.id, flag]);
 
   return (

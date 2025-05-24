@@ -96,7 +96,7 @@ export const Header: React.FC = () => {
         {/* <BossaAudioPlayer /> */}
         <div className="boxUp">
           <div className="boxData">
-            {t("email")}
+            {t("email")}: {currentUser?.email}
             <Button click={() => closeSession()} text={t("logout")} />
           </div>
           <div className="boxName">{t("logo")}</div>

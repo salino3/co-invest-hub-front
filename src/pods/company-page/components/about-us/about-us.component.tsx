@@ -16,6 +16,7 @@ interface Props {
   formDataError: PropsCompanyError;
   roleAccount: string;
   setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
+  rolesCompany: any;
   setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
   inputsReadOnly: PropsCompanyReadOnly;
 }
@@ -29,6 +30,7 @@ export const AboutUs: React.FC<Props> = (props) => {
     formDataError,
     roleAccount,
     setRoleAccount,
+    rolesCompany,
     inputsReadOnly,
     setInputsReadOnly,
   } = props;
@@ -94,7 +96,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("location")}
           value={formData?.location || ""}
         />
-        {!!roleAccount ? (
+        {!!roleAccount && (
           <BasicInput
             lbl={t("role")}
             name="role"
@@ -110,18 +112,26 @@ export const AboutUs: React.FC<Props> = (props) => {
             checkError={!!formDataError?.role}
             errMsg={formDataError?.role}
           />
-        ) : (
-          <BasicInput
-            lbl={t("description")}
-            name="description"
-            type="textarea"
-            change={handleChange("description")}
-            value={roleAccount || ""}
-            rows={10}
-            cols={50}
-            readonly={true}
-          />
         )}
+
+        {rolesCompany && rolesCompany?.length > 0 && (
+          <div className="containerRolesOtherParteners">
+            <h4>{t("roles_others_partners")}</h4>
+            {rolesCompany.map((role: any) => (
+              <div key={role?.id} className="cardRolesCompany">
+                <div className="boxItem">
+                  <strong className="title">{t("role")}:</strong>
+                  <span className="value">{role?.role} </span>
+                </div>
+                <div className="boxItem">
+                  <strong className="title">{t("name")}:</strong>
+                  <span className="value">{role?.name} </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="boxContactsForm">
           <ContactsInputs
             t={t}

@@ -54,6 +54,34 @@ export class ServicesApp {
       });
   }
 
+  //
+  public static async getRelationCompanyAccounts(
+    id: string
+  ): Promise<AxiosResponse> {
+    return await axios
+      .get(`${baseBackend}/relation/company/accounts/${id}`, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
+  //
+  public static async createRelationAccountCompany(
+    body: CreateRelationData
+  ): Promise<AxiosResponse<CreateRelationData>> {
+    return await axios
+      .post(`${baseBackend}/relation/account/companies`, body, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   public static async updateRoleAccountCompany(
     body: UpdateAccountCompany
   ): Promise<AxiosResponse<void>> {
@@ -153,20 +181,6 @@ export class ServicesApp {
           withCredentials: true,
         }
       )
-      .catch((err) => {
-        console.error(err);
-        return Promise.reject(err);
-      });
-  }
-
-  // Relation Accounts Company
-  public static async createRelationAccountCompany(
-    body: CreateRelationData
-  ): Promise<AxiosResponse<CreateRelationData>> {
-    return await axios
-      .post(`${baseBackend}/relation/account/companies`, body, {
-        withCredentials: true,
-      })
       .catch((err) => {
         console.error(err);
         return Promise.reject(err);
