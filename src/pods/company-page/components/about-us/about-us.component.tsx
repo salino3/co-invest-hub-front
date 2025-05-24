@@ -68,7 +68,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.name || ""}
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
-          readonly={!inputsReadOnly?.name}
+          readonly={!!roleAccount && !inputsReadOnly?.name}
           update={roleAccount ? () => handleChangeReadOnly("name") : null}
         />
         <BasicInput
@@ -80,7 +80,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           rows={10}
           errMsg={formDataError?.description}
           checkError={!!formDataError?.description}
-          readonly={!inputsReadOnly?.description}
+          readonly={!!roleAccount && !inputsReadOnly?.description}
           update={
             roleAccount ? () => handleChangeReadOnly("description") : null
           }
@@ -93,7 +93,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.sector || ""}
           errMsg={formDataError?.sector}
           checkError={!!formDataError?.sector}
-          readonly={!inputsReadOnly?.sector}
+          readonly={!!roleAccount && !inputsReadOnly?.sector}
           update={roleAccount ? () => handleChangeReadOnly("sector") : null}
         />
         <BasicInput
@@ -104,7 +104,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.location || ""}
           errMsg={formDataError?.location}
           checkError={!!formDataError?.location}
-          readonly={!inputsReadOnly?.location}
+          readonly={!!roleAccount && !inputsReadOnly?.location}
           update={roleAccount ? () => handleChangeReadOnly("location") : null}
         />
         {!!roleAccount && (
@@ -122,7 +122,7 @@ export const AboutUs: React.FC<Props> = (props) => {
             value={roleAccount || ""}
             checkError={!!formDataError?.role}
             errMsg={formDataError?.role}
-            readonly={!inputsReadOnly?.role}
+            readonly={!!roleAccount && !inputsReadOnly?.role}
             update={roleAccount ? () => handleChangeReadOnly("role") : null}
           />
         )}

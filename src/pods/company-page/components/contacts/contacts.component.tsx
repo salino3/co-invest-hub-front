@@ -34,13 +34,13 @@ export const Contacts: React.FC<Props> = (props) => {
     <div className="rootContacts">
       <div className="inputsContacts">
         <BasicInput
-          lbl={t("sector")}
-          name="sector"
-          type="text"
-          change={handleChange("sector")}
-          value={formData?.sector || ""}
-          errMsg={formDataError?.sector}
-          checkError={!!formDataError?.sector}
+          lbl={t("investment_min")}
+          name="investment_min"
+          type="number"
+          change={handleChange("investment_min")}
+          value={formData?.investment_min || ""}
+          errMsg={formDataError?.investment_min}
+          checkError={!!formDataError?.investment_min}
         />
       </div>
     </div>
