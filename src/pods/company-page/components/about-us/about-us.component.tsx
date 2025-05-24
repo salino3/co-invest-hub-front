@@ -78,7 +78,6 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("description")}
           value={formData?.description || ""}
           rows={10}
-          cols={50}
           readonly={!inputsReadOnly?.description}
           update={() => handleChangeReadOnly("name")}
         />
