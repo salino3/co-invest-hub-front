@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   CreateRelationData,
+  MyCompany,
   PropsCompany,
   PropsCompanyError,
   PropsCompanyReadOnly,
@@ -12,11 +13,11 @@ import {
 } from "../../store";
 import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
-import { Button, StarIcon } from "../../common";
+import { Button } from "../../common";
 import { NavigationCompany } from "../../common-app";
-import { AboutUs, Contacts } from "./components";
+import { AboutUs, Contacts, FirstInfoCompany } from "./components";
 import "./company-page.styles.scss";
-
+// http://localhost:5500/company/Jim%20Doctor/15
 export const CompanyPage: React.FC = () => {
   const { t } = useTranslation("main");
 
@@ -45,6 +46,7 @@ export const CompanyPage: React.FC = () => {
       },
     ],
     multimedia: [],
+    investment_min: 0,
   });
 
   const [inputsReadOnly, setInputsReadOnly] = useState<PropsCompanyReadOnly>({
@@ -53,8 +55,8 @@ export const CompanyPage: React.FC = () => {
     hashtags: false,
     sector: false,
     location: false,
-    investmentMax: false,
-    investmentMin: false,
+    investment_max: false,
+    investment_min: false,
     contacts: false,
     multimedia: false,
     logo: false,
@@ -67,8 +69,8 @@ export const CompanyPage: React.FC = () => {
     hashtags: "",
     sector: "",
     location: "",
-    investmentMax: "",
-    investmentMin: "",
+    investment_max: "",
+    investment_min: "",
     contacts: "",
     multimedia: "",
     logo: "",
@@ -76,6 +78,8 @@ export const CompanyPage: React.FC = () => {
   });
 
   const [roleAccount, setRoleAccount] = useState<string>("");
+  // TODO: Add types
+  const [rolesCompany, setRolesCompany] = useState<MyCompany[]>([]);
 
   function clearAllFormSetters() {
     setCompanyData({
@@ -99,8 +103,8 @@ export const CompanyPage: React.FC = () => {
       hashtags: "",
       sector: "",
       location: "",
-      investmentMax: "",
-      investmentMin: "",
+      investment_max: "",
+      investment_min: "",
       contacts: "",
       multimedia: "",
       logo: "",
@@ -121,6 +125,7 @@ export const CompanyPage: React.FC = () => {
           formDataError={companyDataError}
           roleAccount={roleAccount}
           setRoleAccount={setRoleAccount}
+          rolesCompany={rolesCompany}
           setInputsReadOnly={setInputsReadOnly}
           inputsReadOnly={inputsReadOnly}
         />
@@ -145,11 +150,6 @@ export const CompanyPage: React.FC = () => {
       component: <>Portfolio</>,
     },
   ];
-
-  const isFavorited =
-    myFavorites &&
-    myFavorites?.length > 0 &&
-    myFavorites.some((f) => f === Number(params?.id));
 
   // handleSubmit
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -219,14 +219,24 @@ export const CompanyPage: React.FC = () => {
       clearAllFormSetters();
     }
 
+    ServicesApp?.getRelationCompanyAccounts(params?.id || "").then((res) => {
+      setRolesCompany(
+        res?.data.filter((c: MyCompany) => c?.id !== currentUser?.id)
+      );
+    });
+
     const foundRole: string =
       (myCompanies &&
         myCompanies.length > 0 &&
-        myCompanies.find((c) => String(c?.id) === params?.id)?.role) ||
+        myCompanies.find((c: MyCompany) => String(c?.id) === params?.id)
+          ?.role) ||
       "";
     console.log("clog2", foundRole);
+    console.log("clog3", rolesCompany);
 
-    setRoleAccount(foundRole);
+    if (foundRole) {
+      setRoleAccount(foundRole);
+    }
   }, [currentUser?.id, params?.id, flag]);
 
   return (
@@ -234,38 +244,14 @@ export const CompanyPage: React.FC = () => {
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
       <br /> <br />
       {params?.id && (
-        <div className="containerInfoAboutCompany">
-          <div className="infoAboutCompany">
-            <StarIcon
-              click={() =>
-                ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
-                  account_id: isFavorited
-                    ? String(currentUser?.id)
-                    : Number(currentUser?.id),
-                  company_id: isFavorited
-                    ? String(params?.id)
-                    : Number(params?.id),
-                }).then(() => setFlag(!flag))
-              }
-              fill={isFavorited ? "gold" : "currentColor"}
-            />
-            <h4>* {params?.name} * </h4>
-            <div className="boxLogoCompany">
-              <img
-                src={companyData?.logo || "/assets/icons/group_3.svg"}
-                alt="Logo"
-                onError={(e) =>
-                  (e.currentTarget.src = "/assets/icons/group_3.svg")
-                }
-              />
-            </div>
-          </div>
-          <hr
-            style={{
-              width: "98%",
-            }}
-          />
-        </div>
+        <FirstInfoCompany
+          params={params}
+          roleAccount={roleAccount}
+          myFavorites={myFavorites}
+          cId={currentUser?.id || ""}
+          setFlag={setFlag}
+          logo={companyData?.logo || ""}
+        />
       )}
       <form onSubmit={handleSubmit} id="formCompanyPage">
         {tabs[tab]?.component}

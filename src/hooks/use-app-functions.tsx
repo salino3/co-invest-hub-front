@@ -227,23 +227,25 @@ export const useAppFunctions = () => {
     }
     if (setTabs) {
       const pages: Record<number, string[]> = {
-        0: ["roleID", "nameID"],
-        1: ["sectorID"],
+        0: ["roleID", "nameID", "description", "sector", "location"],
+        1: ["investment_minID", "investment_maxID"],
         2: ["otherID"],
       };
 
       const choosingTab: string | undefined = Object.entries(pages).find(
         ([_, ids]: [string, string[]]) => ids.includes(input || "")
       )?.[0];
-
+      console.log(
+        "choosingTab",
+        Object.entries(pages).find(([_, ids]: [string, string[]]) =>
+          ids.includes(input || "")
+        )
+      );
       const tabIndex: number =
         choosingTab !== undefined ? parseInt(choosingTab) : 0;
 
       scrollToErrorInput(setTabs, tabIndex).then(() => {
-        checkFormRequired(formData, setFormDataError, t, [
-          "contacts",
-          "sector",
-        ]);
+        checkFormRequired(formData, setFormDataError, t, ["contacts"]);
       });
     } else {
       if (inputWithError) {

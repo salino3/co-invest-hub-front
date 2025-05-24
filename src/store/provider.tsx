@@ -23,7 +23,7 @@ export const useProvider = create<PropsProvider>()(
         root.style.setProperty("--global-01", isDark ? "#1b1b1b" : "#ffffff");
         root.style.setProperty("--global-02", isDark ? "#dedede" : "#1b1b1b");
         root.style.setProperty("--global-03", isDark ? "#e76f51" : "#f4a261");
-        root.style.setProperty("--global-04", isDark ? "#f7f7f7" : "#1b1b1b");
+        root.style.setProperty("--global-04", isDark ? "#1b1b1b" : "#f7f7f7");
         root.style.setProperty("--global-05", isDark ? "#d4af37" : "#d4af37");
         root.style.setProperty("--global-06", isDark ? "#e2e8f0" : "#1b1b1b");
         root.style.setProperty("--global-07", isDark ? "#1b1b1b" : "#f5f5f5");
@@ -49,6 +49,8 @@ export const useProvider = create<PropsProvider>()(
       logoutAccount: () => {
         set((state) => {
           state.currentUser = null;
+          state.myCompanies = [];
+          state.companies = [];
         });
       },
     })),
@@ -57,7 +59,10 @@ export const useProvider = create<PropsProvider>()(
       //* Storage in localStorage for default, also without include the parameter.
       storage: createJSONStorage(() => sessionStorage),
       //* For default 'persist' saves all object and arrays
-      //   partialize: (state) => ({ count: state.product }),
+      partialize: (state) => ({
+        myCompanies: state.myCompanies,
+        currentUser: state.currentUser,
+      }),
     }
   )
 );

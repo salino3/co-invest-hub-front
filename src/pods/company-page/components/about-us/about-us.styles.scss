@@ -13,8 +13,66 @@
     align-items: center;
     width: 100%;
 
-    input {
+    input,
+    textarea {
       width: 400px;
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+        min-width: 300px;
+      }
+    }
+
+    .containerRolesParteners {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      border: dashed 1px;
+      padding: 1rem 1.5rem;
+      width: 400px;
+
+      .cardRolesCompany {
+        width: 100%;
+        border-bottom: solid 1px;
+
+        .boxItem {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+
+          strong,
+          span {
+            width: 100%;
+            padding: 0.25rem 0;
+          }
+
+          .title {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+          }
+
+          .value {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+          }
+        }
+      }
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+    }
+
+    .boxContactsForm {
     }
   }
 }

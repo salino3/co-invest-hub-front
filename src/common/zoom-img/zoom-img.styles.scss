@@ -36,14 +36,15 @@
       z-index: 9999999999999999999999999999999999;
       .buttonPopup_01 {
         border-radius: 1rem;
-        color: var(--global-02);
-        border: solid 1px var(--global-02);
+        color: var(--global-04);
+        border: solid 1px var(--global-04);
         background-color: var(--global-08);
         cursor: pointer;
       }
 
       .br_1 {
         border-radius: 1rem;
+        border: solid 1px;
       }
     }
 
@@ -65,6 +66,13 @@
         object-fit: cover;
         object-position: center;
         border-radius: 0.5rem;
+        //* No Draggable photo
+        // user-drag: none; // scss(unknownProperties)
+        -webkit-user-drag: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
       }
     }
   }

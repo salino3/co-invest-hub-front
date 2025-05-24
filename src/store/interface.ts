@@ -11,8 +11,8 @@ export interface PropsCompany {
   hashtags: string[];
   sector: string;
   location: string;
-  investmentMin?: number;
-  investmentMax?: number;
+  investment_min?: number;
+  investment_max?: number;
   contacts: Contacts[];
   multimedia: Record<string, string>[];
   logo?: string;
@@ -75,8 +75,8 @@ export interface PropsCompanyError {
   hashtags: string;
   sector: string;
   location: string;
-  investmentMin: string;
-  investmentMax: string;
+  investment_min: string;
+  investment_max: string;
   contacts: string;
   multimedia: string;
   logo: string;
@@ -89,8 +89,8 @@ export interface PropsCompanyReadOnly {
   hashtags: boolean;
   sector: boolean;
   location: boolean;
-  investmentMin: boolean;
-  investmentMax: boolean;
+  investment_min: boolean;
+  investment_max: boolean;
   contacts: boolean;
   multimedia: boolean;
   logo: boolean;

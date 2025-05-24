@@ -16,6 +16,7 @@ interface Props {
   formDataError: PropsCompanyError;
   roleAccount: string;
   setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
+  rolesCompany: any;
   setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
   inputsReadOnly: PropsCompanyReadOnly;
 }
@@ -29,6 +30,7 @@ export const AboutUs: React.FC<Props> = (props) => {
     formDataError,
     roleAccount,
     setRoleAccount,
+    rolesCompany,
     inputsReadOnly,
     setInputsReadOnly,
   } = props;
@@ -66,8 +68,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.name || ""}
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
-          readonly={!inputsReadOnly?.name}
-          update={() => handleChangeReadOnly("name")}
+          readonly={!!roleAccount && !inputsReadOnly?.name}
+          update={roleAccount ? () => handleChangeReadOnly("name") : null}
         />
         <BasicInput
           lbl={t("description")}
@@ -76,9 +78,12 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("description")}
           value={formData?.description || ""}
           rows={10}
-          cols={50}
-          readonly={!inputsReadOnly?.description}
-          update={() => handleChangeReadOnly("name")}
+          errMsg={formDataError?.description}
+          checkError={!!formDataError?.description}
+          readonly={!!roleAccount && !inputsReadOnly?.description}
+          update={
+            roleAccount ? () => handleChangeReadOnly("description") : null
+          }
         />
         <BasicInput
           lbl={t("sector")}
@@ -86,6 +91,10 @@ export const AboutUs: React.FC<Props> = (props) => {
           type="text"
           change={handleChange("sector")}
           value={formData?.sector || ""}
+          errMsg={formDataError?.sector}
+          checkError={!!formDataError?.sector}
+          readonly={!!roleAccount && !inputsReadOnly?.sector}
+          update={roleAccount ? () => handleChangeReadOnly("sector") : null}
         />
         <BasicInput
           lbl={t("location")}
@@ -93,8 +102,12 @@ export const AboutUs: React.FC<Props> = (props) => {
           type="text"
           change={handleChange("location")}
           value={formData?.location || ""}
+          errMsg={formDataError?.location}
+          checkError={!!formDataError?.location}
+          readonly={!!roleAccount && !inputsReadOnly?.location}
+          update={roleAccount ? () => handleChangeReadOnly("location") : null}
         />
-        {!!roleAccount ? (
+        {!!roleAccount && (
           <BasicInput
             lbl={t("role")}
             name="role"
@@ -109,24 +122,38 @@ export const AboutUs: React.FC<Props> = (props) => {
             value={roleAccount || ""}
             checkError={!!formDataError?.role}
             errMsg={formDataError?.role}
-          />
-        ) : (
-          <BasicInput
-            lbl={t("description")}
-            name="description"
-            type="textarea"
-            change={handleChange("description")}
-            value={roleAccount || ""}
-            rows={10}
-            cols={50}
-            readonly={true}
+            readonly={!!roleAccount && !inputsReadOnly?.role}
+            update={roleAccount ? () => handleChangeReadOnly("role") : null}
           />
         )}
+
+        {rolesCompany && rolesCompany?.length > 0 && (
+          <div className="containerRolesParteners">
+            <h4>{t("roles_partners")}</h4>
+            {rolesCompany.map((role: any) => (
+              <div key={role?.id} className="cardRolesCompany">
+                <div className="boxItem">
+                  <strong className="title">{t("role")}:</strong>
+                  <span className="value">{role?.role} </span>
+                </div>
+                <div className="boxItem">
+                  <strong className="title">{t("name")}:</strong>
+                  <span className="value">{role?.name} </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="boxContactsForm">
           <ContactsInputs
             t={t}
             contacts={formData.contacts || []}
             setContacts={setFormData}
+            formDataError={formDataError}
+            inputsReadOnly={inputsReadOnly}
+            roleAccount={roleAccount}
+            handleChangeReadOnly={handleChangeReadOnly}
           />
         </div>
       </div>
