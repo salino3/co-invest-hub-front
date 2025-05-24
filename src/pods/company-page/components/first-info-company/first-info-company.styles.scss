@@ -1,0 +1,37 @@
+.containerInfoAboutCompany {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  .infoAboutCompany {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    cursor: pointer;
+
+    .boxLogoCompany {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border: solid 1px;
+      min-width: 3rem;
+      min-height: 3rem;
+      max-width: 3rem;
+      max-height: 3rem;
+      border-radius: 50%;
+
+      img {
+        min-width: 3rem;
+        min-height: 3rem;
+        max-width: 3rem;
+        max-height: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@ import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
 import { Button, StarIcon } from "../../common";
 import { NavigationCompany } from "../../common-app";
-import { AboutUs, Contacts } from "./components";
+import { AboutUs, Contacts, FirstInfoCompany } from "./components";
 import "./company-page.styles.scss";
 // http://localhost:5500/company/Jim%20Doctor/15
 export const CompanyPage: React.FC = () => {
@@ -151,11 +151,6 @@ export const CompanyPage: React.FC = () => {
     },
   ];
 
-  const isFavorited =
-    myFavorites &&
-    myFavorites?.length > 0 &&
-    myFavorites.some((f) => f === Number(params?.id));
-
   // handleSubmit
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -244,45 +239,19 @@ export const CompanyPage: React.FC = () => {
     }
   }, [currentUser?.id, params?.id, flag]);
 
-  console.log("roleAccount", roleAccount, params?.id);
-
   return (
     <div className="rootCompanyPage">
       <NavigationCompany navigation={tab} setNavigation={setTabs} tabs={tabs} />
       <br /> <br />
       {params?.id && (
-        <div className="containerInfoAboutCompany">
-          <div className="infoAboutCompany">
-            <StarIcon
-              click={() =>
-                ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
-                  account_id: isFavorited
-                    ? String(currentUser?.id)
-                    : Number(currentUser?.id),
-                  company_id: isFavorited
-                    ? String(params?.id)
-                    : Number(params?.id),
-                }).then(() => setFlag(!flag))
-              }
-              fill={isFavorited ? "gold" : "currentColor"}
-            />
-            <h4>* {params?.name} * </h4>
-            <div className="boxLogoCompany">
-              <img
-                src={companyData?.logo || "/assets/icons/group_3.svg"}
-                alt="Logo"
-                onError={(e) =>
-                  (e.currentTarget.src = "/assets/icons/group_3.svg")
-                }
-              />
-            </div>
-          </div>
-          <hr
-            style={{
-              width: "98%",
-            }}
-          />
-        </div>
+        <FirstInfoCompany
+          params={params}
+          roleAccount={roleAccount}
+          myFavorites={myFavorites}
+          cId={currentUser?.id || ""}
+          setFlag={setFlag}
+          logo={companyData?.logo || ""}
+        />
       )}
       <form onSubmit={handleSubmit} id="formCompanyPage">
         {tabs[tab]?.component}
