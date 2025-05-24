@@ -1,5 +1,10 @@
 import { TFunction } from "i18next";
-import { Contacts, PropsCompany } from "../../store";
+import {
+  Contacts,
+  PropsCompany,
+  PropsCompanyError,
+  PropsCompanyReadOnly,
+} from "../../store";
 import { BasicInput } from "../basic-input";
 import "./contacts-inputs.styles.scss";
 
@@ -7,12 +12,20 @@ type ContactInputsProps = {
   t: TFunction<"main", undefined>;
   contacts: PropsCompany["contacts"];
   setContacts: React.Dispatch<React.SetStateAction<PropsCompany>>;
+  formDataError: PropsCompanyError;
+  inputsReadOnly: PropsCompanyReadOnly;
+  roleAccount: string;
+  handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
 };
 
 export const ContactsInputs: React.FC<ContactInputsProps> = ({
   t,
   contacts,
   setContacts,
+  formDataError,
+  inputsReadOnly,
+  roleAccount,
+  handleChangeReadOnly,
 }) => {
   const handleChange = (
     index: number,

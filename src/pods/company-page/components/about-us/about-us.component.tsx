@@ -78,6 +78,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           change={handleChange("description")}
           value={formData?.description || ""}
           rows={10}
+          errMsg={formDataError?.description}
+          checkError={!!formDataError?.description}
           readonly={!inputsReadOnly?.description}
           update={
             roleAccount ? () => handleChangeReadOnly("description") : null
@@ -148,6 +150,10 @@ export const AboutUs: React.FC<Props> = (props) => {
             t={t}
             contacts={formData.contacts || []}
             setContacts={setFormData}
+            formDataError={formDataError}
+            inputsReadOnly={inputsReadOnly}
+            roleAccount={roleAccount}
+            handleChangeReadOnly={handleChangeReadOnly}
           />
         </div>
       </div>
