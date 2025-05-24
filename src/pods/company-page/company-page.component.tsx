@@ -13,7 +13,7 @@ import {
 } from "../../store";
 import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
-import { Button, StarIcon } from "../../common";
+import { Button } from "../../common";
 import { NavigationCompany } from "../../common-app";
 import { AboutUs, Contacts, FirstInfoCompany } from "./components";
 import "./company-page.styles.scss";

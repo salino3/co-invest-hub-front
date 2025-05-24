@@ -1,7 +1,8 @@
-import { ServicesApp } from "../../../../services";
-import { StarIcon } from "../../../../common";
-import "./first-info-company.styles.scss";
+import { useState } from "react";
 import { Params } from "react-router-dom";
+import { ServicesApp } from "../../../../services";
+import { StarIcon, ZoomImg } from "../../../../common";
+import "./first-info-company.styles.scss";
 
 interface Props {
   params: Readonly<Params<string>>;
@@ -14,6 +15,8 @@ interface Props {
 
 export const FirstInfoCompany: React.FC<Props> = (props) => {
   const { params, roleAccount, myFavorites, cId, setFlag, logo } = props;
+
+  const [zoomPhoto, setZoomPhoto] = useState<boolean>(false);
 
   const isFavorited =
     myFavorites &&
@@ -36,13 +39,20 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           />
         )}
         <h4>* {params?.name} * </h4>
-        <div className="boxLogoCompany">
+        <div onClick={() => setZoomPhoto(true)} className="boxLogoCompany">
           <img
             src={logo || "/assets/icons/group_3.svg"}
             alt="Logo"
             onError={(e) => (e.currentTarget.src = "/assets/icons/group_3.svg")}
           />
         </div>
+        <ZoomImg
+          img={logo || "/assets/icons/group_3.svg"}
+          alt="Logo"
+          download
+          setShow={setZoomPhoto}
+          show={zoomPhoto}
+        />
       </div>
       <hr
         style={{
