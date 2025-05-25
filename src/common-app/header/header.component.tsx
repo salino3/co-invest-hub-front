@@ -99,7 +99,9 @@ export const Header: React.FC = () => {
             {t("email")}: {currentUser?.email}
             <Button click={() => closeSession()} text={t("logout")} />
           </div>
-          <div className="boxName">{t("logo")}</div>
+          <div className="boxNameCompany">
+            <img src="/assets/images/Co_Invest_Hub.png" alt={t("logo")} />
+          </div>
         </div>
         <div className="boxDown">
           <div
