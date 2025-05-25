@@ -6,7 +6,7 @@ import { useAppFunctions } from "../../hooks";
 import { SettingIcon } from "../../common/icons";
 import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
-import { Button } from "../../common/button";
+import { Button, FilterSearching } from "../../common";
 import "./header.styles.scss";
 
 export const Header: React.FC = () => {
@@ -140,7 +140,7 @@ export const Header: React.FC = () => {
               currentUser?.email ? "" : "boxVisibility"
             }`}
           >
-            <span>Searching</span>
+            <FilterSearching />
           </div>
           <div
             onClick={() => setShowSettings(true)}

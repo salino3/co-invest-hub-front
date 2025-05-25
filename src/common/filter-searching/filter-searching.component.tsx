@@ -10,19 +10,37 @@ export const FilterSearching: React.FC = () => {
   const [searchFilter, setSearchFilter] = useState<string>("");
   const [searchErrorFilter, setSearchErrorFilter] = useState<string>("");
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchFilter(e.target.value);
+    setSearchErrorFilter("");
+  };
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (!searchFilter) {
+      setSearchErrorFilter("required_field");
+    }
+  }
+
   return (
-    <form id="formFilterSearching" className="rootFilterSearching">
+    <form
+      id="formFilterSearching"
+      onSubmit={handleSubmit}
+      className="rootFilterSearching"
+    >
       <BasicInput
         name="searching"
+        lbl="searching"
         value={searchFilter}
         type="text"
-        change={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setSearchFilter(e.target.value)
-        }
+        change={handleChange}
         errMsg={searchErrorFilter}
         checkError={!!searchErrorFilter}
       />
-      <Button text={t("search")} type="submit" />
+      <div className="boxButton_21">
+        <Button text={t("search")} type="submit" />
+      </div>
     </form>
   );
 };

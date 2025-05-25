@@ -5,3 +5,4 @@ export * from "./icons";
 export * from "./button";
 export * from "./contacts-inputs";
 export * from "./audio-player-01";
+export * from "./filter-searching";
