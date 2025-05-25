@@ -1,11 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useShallow } from "zustand/shallow";
 import { useTranslation } from "react-i18next";
+import { useProvider } from "../../store";
+import { ServicesApp } from "../../services";
 import { BasicInput } from "../basic-input";
 import { Button } from "../button";
+import { routesApp } from "../../router";
 import "./filter-searching.styles.scss";
 
 export const FilterSearching: React.FC = () => {
   const { t } = useTranslation("main");
+
+  const navigate = useNavigate();
+
+  const setCompanies = useProvider(useShallow((state) => state.setCompanies));
 
   const [searchFilter, setSearchFilter] = useState<string>("");
   const [searchErrorFilter, setSearchErrorFilter] = useState<string>("");
@@ -20,6 +29,15 @@ export const FilterSearching: React.FC = () => {
 
     if (!searchFilter) {
       setSearchErrorFilter("required_field");
+    } else {
+      const body = {
+        searching: searchFilter,
+        offset: 0,
+      };
+      ServicesApp?.getSearchingCompanies(body).then((res) => {
+        setCompanies && setCompanies(res?.data);
+        navigate(routesApp?.dashboard);
+      });
     }
   }
 

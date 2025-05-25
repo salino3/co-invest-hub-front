@@ -2,7 +2,12 @@ import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 import { immer } from "zustand/middleware/immer";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { MyCompany, PropsCurrentUser, PropsProvider } from "./interface";
+import {
+  MyCompany,
+  PropsCompany,
+  PropsCurrentUser,
+  PropsProvider,
+} from "./interface";
 
 export const useProvider = create<PropsProvider>()(
   persist(
@@ -11,6 +16,11 @@ export const useProvider = create<PropsProvider>()(
       companies: [],
       myCompanies: [],
       theme: "dark",
+      setCompanies: (companies: PropsCompany[]) => {
+        set((state) => {
+          state.companies = companies;
+        });
+      },
       setMyCompanies: (companies: MyCompany[]) => {
         set((state) => {
           state.myCompanies = companies;
