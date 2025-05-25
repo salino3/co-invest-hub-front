@@ -34,4 +34,5 @@ export const en = {
   no_companies: "No companies...",
   add_company: "Add company",
   required_field: "This field is required",
+  search: "Search",
 };

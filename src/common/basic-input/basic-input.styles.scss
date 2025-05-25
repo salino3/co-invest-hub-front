@@ -63,6 +63,11 @@
       position: absolute;
       right: -1.25rem;
       top: 0.5rem;
+      transition: transform 0.1s ease;
+    }
+
+    .PenUpdateIcon_x67:active {
+      transform: scale(0.92);
     }
 
     .OpenedLockIcon_x08 {

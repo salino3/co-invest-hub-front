@@ -5,6 +5,7 @@ interface Props {
   height?: number;
   fill?: string;
   click?: MouseEventHandler<SVGSVGElement> | undefined;
+  customStyles?: string;
 }
 
 export const PenUpdateIcon: React.FC<Props> = ({
@@ -12,6 +13,7 @@ export const PenUpdateIcon: React.FC<Props> = ({
   height = 24,
   fill = "currentColor",
   click,
+  customStyles,
 }) => {
   return (
     <svg
@@ -21,7 +23,7 @@ export const PenUpdateIcon: React.FC<Props> = ({
       fill={fill}
       width={width}
       height={height}
-      className="PenUpdateIcon_x08"
+      className={`${customStyles} PenUpdateIcon_x08`}
       onClick={click}
     >
       <path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25z" />

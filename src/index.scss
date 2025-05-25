@@ -118,4 +118,11 @@ body {
   input[type="number"] {
     -moz-appearance: textfield; /* Firefox */
   }
+
+  // TODO: fill them with my colors
+  // input:-webkit-autofill {
+  //   box-shadow: 0 0 0px 1000px transparent inset !important;
+  //   -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  //   -webkit-text-fill-color: #fff !important;
+  // }
 }

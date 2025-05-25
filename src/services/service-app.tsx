@@ -114,6 +114,20 @@ export class ServicesApp {
       });
   }
 
+  public static async getSearchingCompanies(body: {
+    searching: string;
+    offset: number;
+  }): Promise<AxiosResponse<PropsCompany[]>> {
+    return await axios
+      .post(`${baseBackend}/api/searching/companies`, body, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   public static async createCompany(
     company: PropsCompany
   ): Promise<AxiosResponse<PropsCompany>> {

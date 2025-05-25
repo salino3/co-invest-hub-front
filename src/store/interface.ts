@@ -56,6 +56,7 @@ export interface PropsProvider {
   myCompanies: MyCompany[];
   currentUser: PropsCurrentUser | null;
   theme: "dark" | "light";
+  setCompanies: (companies: PropsCompany[]) => void;
   setMyCompanies: (companies: MyCompany[]) => void;
   changeGlobalColors(): void;
   loginAccount: (user: PropsCurrentUser) => void;

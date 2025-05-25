@@ -45,6 +45,9 @@
       .br_1 {
         border-radius: 1rem;
         border: solid 1px;
+        background-color: var(--global-04);
+        border: solid 1px var(--global-08);
+        color: var(--global-08);
       }
     }
 

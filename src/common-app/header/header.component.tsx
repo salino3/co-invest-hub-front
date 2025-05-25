@@ -6,9 +6,8 @@ import { useAppFunctions } from "../../hooks";
 import { SettingIcon } from "../../common/icons";
 import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
-import { Button } from "../../common/button";
+import { Button, FilterSearching } from "../../common";
 import "./header.styles.scss";
-import { BossaAudioPlayer } from "../../common/audio-player-01";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");
@@ -99,7 +98,9 @@ export const Header: React.FC = () => {
             {t("email")}: {currentUser?.email}
             <Button click={() => closeSession()} text={t("logout")} />
           </div>
-          <div className="boxName">{t("logo")}</div>
+          <div className="boxNameCompany">
+            <img src="/assets/images/Co_Invest_Hub.png" alt={t("logo")} />
+          </div>
         </div>
         <div className="boxDown">
           <div
@@ -139,7 +140,7 @@ export const Header: React.FC = () => {
               currentUser?.email ? "" : "boxVisibility"
             }`}
           >
-            <span>Searching</span>
+            <FilterSearching />
           </div>
           <div
             onClick={() => setShowSettings(true)}
