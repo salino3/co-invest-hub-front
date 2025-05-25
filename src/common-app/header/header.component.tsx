@@ -8,7 +8,6 @@ import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
 import { Button } from "../../common/button";
 import "./header.styles.scss";
-import { BossaAudioPlayer } from "../../common/audio-player-01";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");

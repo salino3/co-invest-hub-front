@@ -108,7 +108,12 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
           />
         )}
         {!!update && (
-          <PenUpdateIcon click={() => update()} height={16} width={16} />
+          <PenUpdateIcon
+            customStyles={"PenUpdateIcon_x67"}
+            click={() => update()}
+            height={16}
+            width={16}
+          />
         )}
       </div>
       {errMsg && <small>{t(errMsg)}</small>}
