@@ -15,8 +15,11 @@ export const FilterSearching: React.FC = () => {
   const navigate = useNavigate();
 
   const setCompanies = useProvider(useShallow((state) => state.setCompanies));
+  const searchData = JSON.parse(localStorage.getItem("searchData") || "{}");
 
-  const [searchFilter, setSearchFilter] = useState<string>("");
+  const [searchFilter, setSearchFilter] = useState<string>(
+    searchData?.searching || ""
+  );
   const [searchErrorFilter, setSearchErrorFilter] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,11 +34,12 @@ export const FilterSearching: React.FC = () => {
       setSearchErrorFilter("required_field");
     } else {
       const body = {
-        searching: searchFilter,
+        searching: searchFilter || searchData?.searching,
         offset: 0,
       };
       ServicesApp?.getSearchingCompanies(body).then((res) => {
         setCompanies && setCompanies(res?.data);
+        localStorage.setItem("searchData", JSON.stringify(body));
         navigate(routesApp?.dashboard);
       });
     }
@@ -50,7 +54,7 @@ export const FilterSearching: React.FC = () => {
       <BasicInput
         name="searching"
         lbl="searching"
-        value={searchFilter}
+        value={searchFilter || ""}
         type="text"
         change={handleChange}
         errMsg={searchErrorFilter}

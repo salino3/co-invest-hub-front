@@ -47,6 +47,7 @@ export const useAppFunctions = () => {
   //
   const closeSession = (): void => {
     const cookies = document.cookie.split(";");
+    localStorage.removeItem("searchData");
 
     for (let i = 0; i < cookies.length; i++) {
       const [key] = cookies[i].trim().split("=");
