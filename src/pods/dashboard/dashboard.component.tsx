@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ServicesApp } from "../../services";
-import { PropsCompany, useProvider, useProviderSelector } from "../../store";
-import { useShallow } from "zustand/shallow";
+import { PropsCompany, useProviderSelector } from "../../store";
+import { CardCompany } from "./components";
 import "./dashboard.styles.scss";
 
 export const Dashboard: React.FC = () => {
@@ -30,14 +30,12 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="rootDashboard">
-      <h1>{t("dashboard_page")}</h1>
+      <h1 className="titleDashboardPage">{t("dashboard_page")}</h1>
       <div className="listCompanies">
         {companies &&
           companies?.length > 0 &&
           companies.map((c: PropsCompany) => (
-            <div key={c?.id} className="cardCompany">
-              <span>{c?.name}</span>
-            </div>
+            <CardCompany company={c} key={c?.id} />
           ))}
       </div>
     </div>

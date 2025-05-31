@@ -81,6 +81,30 @@ export const CompanyPage: React.FC = () => {
   // TODO: Add types
   const [rolesCompany, setRolesCompany] = useState<MyCompany[]>([]);
 
+  //
+  const handleChange =
+    (key: keyof PropsCompany) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value } = event.target;
+      if (roleAccount) {
+        setCompanyData((prev) => ({
+          ...prev,
+          [key]: value,
+        }));
+      }
+      setCompanyDataError((prev) => ({
+        ...prev,
+        [key]: "",
+      }));
+    };
+
+  const handleChangeReadOnly = (input: keyof PropsCompanyReadOnly) => {
+    setInputsReadOnly((prev: PropsCompanyReadOnly) => ({
+      ...prev,
+      [input]: !prev[input],
+    }));
+  };
+
   function clearAllFormSetters() {
     setCompanyData({
       name: "",
@@ -126,8 +150,9 @@ export const CompanyPage: React.FC = () => {
           roleAccount={roleAccount}
           setRoleAccount={setRoleAccount}
           rolesCompany={rolesCompany}
-          setInputsReadOnly={setInputsReadOnly}
           inputsReadOnly={inputsReadOnly}
+          handleChange={handleChange}
+          handleChangeReadOnly={handleChangeReadOnly}
         />
       ),
     },
@@ -141,6 +166,12 @@ export const CompanyPage: React.FC = () => {
           formData={companyData}
           setFormDataError={setCompanyDataError}
           formDataError={companyDataError}
+          roleAccount={roleAccount}
+          setRoleAccount={setRoleAccount}
+          rolesCompany={rolesCompany}
+          inputsReadOnly={inputsReadOnly}
+          handleChange={handleChange}
+          handleChangeReadOnly={handleChangeReadOnly}
         />
       ),
     },

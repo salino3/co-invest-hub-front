@@ -38,7 +38,17 @@
       border: solid 2px var(--color-error);
     }
 
+    .readonly {
+      pointer-events: none;
+    }
+
     &:focus-within label {
+      top: -11px;
+      bottom: translateY(100%);
+      font-size: 0.9rem;
+    }
+
+    .labelReadonly {
       top: -11px;
       bottom: translateY(100%);
       font-size: 0.9rem;

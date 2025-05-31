@@ -1,5 +1,9 @@
 import React from "react";
-import { PropsCompany, PropsCompanyError } from "../../../../store";
+import {
+  PropsCompany,
+  PropsCompanyError,
+  PropsCompanyReadOnly,
+} from "../../../../store";
 import { BasicInput } from "../../../../common";
 import { TFunction } from "i18next";
 import "./contacts.styles.scss";
@@ -10,25 +14,32 @@ interface Props {
   formData: PropsCompany;
   setFormDataError: React.Dispatch<React.SetStateAction<PropsCompanyError>>;
   formDataError: PropsCompanyError;
+  roleAccount: string;
+  setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
+  rolesCompany: any;
+  inputsReadOnly: PropsCompanyReadOnly;
+  handleChange: (
+    key: keyof PropsCompany
+  ) => (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
 }
 
 export const Contacts: React.FC<Props> = (props) => {
-  const { t, setFormData, formData, setFormDataError, formDataError } = props;
-
-  const handleChange =
-    (key: keyof PropsCompany) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
-      setFormData((prev) => ({
-        ...prev,
-        [key]: value,
-      }));
-
-      setFormDataError((prev) => ({
-        ...prev,
-        [key]: "",
-      }));
-    };
+  const {
+    t,
+    setFormData,
+    formData,
+    setFormDataError,
+    formDataError,
+    roleAccount,
+    setRoleAccount,
+    rolesCompany,
+    inputsReadOnly,
+    handleChange,
+    handleChangeReadOnly,
+  } = props;
 
   return (
     <div className="rootContacts">
@@ -41,6 +52,12 @@ export const Contacts: React.FC<Props> = (props) => {
           value={formData?.investment_min || ""}
           errMsg={formDataError?.investment_min}
           checkError={!!formDataError?.investment_min}
+          readonly={
+            !roleAccount || (!!roleAccount && !inputsReadOnly?.investment_min)
+          }
+          update={
+            roleAccount ? () => handleChangeReadOnly("investment_min") : null
+          }
         />
       </div>
     </div>
