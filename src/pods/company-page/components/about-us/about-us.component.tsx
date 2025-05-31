@@ -17,8 +17,14 @@ interface Props {
   roleAccount: string;
   setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
   rolesCompany: any;
-  setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
+  // setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
   inputsReadOnly: PropsCompanyReadOnly;
+  handleChange: (
+    key: keyof PropsCompany
+  ) => (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -32,31 +38,9 @@ export const AboutUs: React.FC<Props> = (props) => {
     setRoleAccount,
     rolesCompany,
     inputsReadOnly,
-    setInputsReadOnly,
+    handleChange,
+    handleChangeReadOnly,
   } = props;
-
-  const handleChange =
-    (key: keyof PropsCompany) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
-      if (roleAccount) {
-        setFormData((prev) => ({
-          ...prev,
-          [key]: value,
-        }));
-      }
-      setFormDataError((prev) => ({
-        ...prev,
-        [key]: "",
-      }));
-    };
-
-  const handleChangeReadOnly = (input: keyof PropsCompanyReadOnly) => {
-    setInputsReadOnly((prev: PropsCompanyReadOnly) => ({
-      ...prev,
-      [input]: !prev[input],
-    }));
-  };
 
   console.log("role", roleAccount, inputsReadOnly?.name);
   return (

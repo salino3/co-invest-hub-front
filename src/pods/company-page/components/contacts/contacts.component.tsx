@@ -17,8 +17,13 @@ interface Props {
   roleAccount: string;
   setRoleAccount: React.Dispatch<React.SetStateAction<string>>;
   rolesCompany: any;
-  setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
   inputsReadOnly: PropsCompanyReadOnly;
+  handleChange: (
+    key: keyof PropsCompany
+  ) => (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
 }
 
 export const Contacts: React.FC<Props> = (props) => {
@@ -32,23 +37,9 @@ export const Contacts: React.FC<Props> = (props) => {
     setRoleAccount,
     rolesCompany,
     inputsReadOnly,
-    setInputsReadOnly,
+    handleChange,
+    handleChangeReadOnly,
   } = props;
-
-  const handleChange =
-    (key: keyof PropsCompany) =>
-    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
-      setFormData((prev) => ({
-        ...prev,
-        [key]: value,
-      }));
-
-      setFormDataError((prev) => ({
-        ...prev,
-        [key]: "",
-      }));
-    };
 
   return (
     <div className="rootContacts">
@@ -61,8 +52,12 @@ export const Contacts: React.FC<Props> = (props) => {
           value={formData?.investment_min || ""}
           errMsg={formDataError?.investment_min}
           checkError={!!formDataError?.investment_min}
-          readonly={!roleAccount || (!!roleAccount && !inputsReadOnly?.name)}
-          // update={roleAccount ? () => handleChangeReadOnly("investment_min") : null}
+          readonly={
+            !roleAccount || (!!roleAccount && !inputsReadOnly?.investment_min)
+          }
+          update={
+            roleAccount ? () => handleChangeReadOnly("investment_min") : null
+          }
         />
       </div>
     </div>
