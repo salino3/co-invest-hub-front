@@ -141,6 +141,11 @@ export const CompanyPage: React.FC = () => {
           formData={companyData}
           setFormDataError={setCompanyDataError}
           formDataError={companyDataError}
+          roleAccount={roleAccount}
+          setRoleAccount={setRoleAccount}
+          rolesCompany={rolesCompany}
+          setInputsReadOnly={setInputsReadOnly}
+          inputsReadOnly={inputsReadOnly}
         />
       ),
     },
