@@ -30,13 +30,14 @@ export const FilterSearching: React.FC = () => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!searchFilter) {
+    if (!searchFilter.trim()) {
       setSearchErrorFilter("required_field");
     } else {
       const body = {
-        searching: searchFilter || searchData?.searching,
+        searching: searchFilter.trim() || searchData?.searching,
         offset: 0,
       };
+      console.log("clog2", body);
       ServicesApp?.getSearchingCompanies(body).then((res) => {
         setCompanies && setCompanies(res?.data);
         localStorage.setItem("searchData", JSON.stringify(body));
