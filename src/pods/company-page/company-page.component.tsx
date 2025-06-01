@@ -172,6 +172,7 @@ export const CompanyPage: React.FC = () => {
           inputsReadOnly={inputsReadOnly}
           handleChange={handleChange}
           handleChangeReadOnly={handleChangeReadOnly}
+          id={params?.id}
         />
       ),
     },
