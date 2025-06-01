@@ -35,7 +35,7 @@ export const Dashboard: React.FC = () => {
         {companies &&
           companies?.length > 0 &&
           companies.map((c: PropsCompany) => (
-            <CardCompany company={c} key={c?.id} />
+            <CardCompany t={t} company={c} key={c?.id} />
           ))}
       </div>
     </div>

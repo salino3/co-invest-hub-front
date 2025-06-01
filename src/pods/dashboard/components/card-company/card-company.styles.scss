@@ -27,7 +27,6 @@
       align-items: center;
       width: 100%;
       height: 100%;
-      gap: 0.5rem;
 
       hr {
         width: 1px;
@@ -41,8 +40,10 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         gap: 0.5rem;
+        width: 100%;
+
         .boxLogoCompany {
           display: flex;
           flex-direction: row;
@@ -90,8 +91,18 @@
         align-items: center;
         align-self: stretch;
         gap: 0.5rem;
-        border: solid 1px;
-        height: auto;
+        padding: 0 0.5rem;
+        width: 100%;
+
+        .infoLocation,
+        .infoSector {
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+        }
       }
 
       .boxRightUp {
@@ -101,7 +112,19 @@
         align-items: center;
         align-self: stretch;
         gap: 0.5rem;
+        padding: 0 0.5rem;
         height: auto;
+        width: 100%;
+
+        .infoIMin,
+        .infoIMax {
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+        }
       }
     }
 
