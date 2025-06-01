@@ -268,6 +268,8 @@ export const CompanyPage: React.FC = () => {
 
     if (foundRole) {
       setRoleAccount(foundRole);
+    } else {
+      setRoleAccount("");
     }
   }, [currentUser?.id, params?.id, flag]);
 
@@ -288,10 +290,16 @@ export const CompanyPage: React.FC = () => {
       <form onSubmit={handleSubmit} id="formCompanyPage">
         {tabs[tab]?.component}
 
-        <div className="boxButtonsForm">
-          <Button type="submit" text={t("confirm")} />
-          <Button click={clearAllFormSetters} type="reset" text={t("cancel")} />
-        </div>
+        {(!params?.id || roleAccount) && (
+          <div className="boxButtonsForm">
+            <Button type="submit" text={t("confirm")} />
+            <Button
+              click={clearAllFormSetters}
+              type="reset"
+              text={t("cancel")}
+            />
+          </div>
+        )}
       </form>
     </div>
   );
