@@ -30,7 +30,11 @@
       gap: 0.5rem;
 
       hr {
-        height: 99%;
+        width: 1px;
+        height: auto;
+        background-color: var(--global-05);
+        border: none;
+        align-self: stretch;
       }
 
       .boxLeftUp {
@@ -84,9 +88,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        align-self: stretch;
         gap: 0.5rem;
         border: solid 1px;
-        height: 100%;
+        height: auto;
       }
 
       .boxRightUp {
@@ -94,7 +99,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        align-self: stretch;
         gap: 0.5rem;
+        height: auto;
       }
     }
 
