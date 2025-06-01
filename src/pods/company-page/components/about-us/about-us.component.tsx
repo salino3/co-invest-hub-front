@@ -25,6 +25,7 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
+  id: any;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -40,6 +41,7 @@ export const AboutUs: React.FC<Props> = (props) => {
     inputsReadOnly,
     handleChange,
     handleChangeReadOnly,
+    id,
   } = props;
 
   console.log("role", roleAccount, inputsReadOnly?.name);
@@ -54,7 +56,9 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.name || ""}
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
-          readonly={!roleAccount || (!!roleAccount && !inputsReadOnly?.name)}
+          readonly={
+            (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.name)
+          }
           update={roleAccount ? () => handleChangeReadOnly("name") : null}
         />
         <BasicInput
@@ -81,7 +85,9 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.sector || ""}
           errMsg={formDataError?.sector}
           checkError={!!formDataError?.sector}
-          readonly={!roleAccount || (!!roleAccount && !inputsReadOnly?.sector)}
+          readonly={
+            (!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.sector)
+          }
           update={roleAccount ? () => handleChangeReadOnly("sector") : null}
         />
         <BasicInput

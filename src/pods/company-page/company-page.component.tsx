@@ -86,12 +86,11 @@ export const CompanyPage: React.FC = () => {
     (key: keyof PropsCompany) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
-      if (roleAccount) {
-        setCompanyData((prev) => ({
-          ...prev,
-          [key]: value,
-        }));
-      }
+      setCompanyData((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+
       setCompanyDataError((prev) => ({
         ...prev,
         [key]: "",
@@ -153,6 +152,7 @@ export const CompanyPage: React.FC = () => {
           inputsReadOnly={inputsReadOnly}
           handleChange={handleChange}
           handleChangeReadOnly={handleChangeReadOnly}
+          id={params?.id}
         />
       ),
     },
