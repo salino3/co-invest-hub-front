@@ -25,7 +25,7 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
-  id: any;
+  id: string | undefined;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -44,7 +44,6 @@ export const AboutUs: React.FC<Props> = (props) => {
     id,
   } = props;
 
-  console.log("role", roleAccount, inputsReadOnly?.name);
   return (
     <div className="rootAboutUs">
       <div className="inputsAboutUs">
@@ -71,7 +70,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.description}
           checkError={!!formDataError?.description}
           readonly={
-            !roleAccount || (!!roleAccount && !inputsReadOnly?.description)
+            (!!id && !roleAccount) ||
+            (!!roleAccount && !inputsReadOnly?.description)
           }
           update={
             roleAccount ? () => handleChangeReadOnly("description") : null
@@ -99,7 +99,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.location}
           checkError={!!formDataError?.location}
           readonly={
-            !roleAccount || (!!roleAccount && !inputsReadOnly?.location)
+            (!!id && !roleAccount) ||
+            (!!roleAccount && !inputsReadOnly?.location)
           }
           update={roleAccount ? () => handleChangeReadOnly("location") : null}
         />
@@ -118,7 +119,9 @@ export const AboutUs: React.FC<Props> = (props) => {
             value={roleAccount || ""}
             checkError={!!formDataError?.role}
             errMsg={formDataError?.role}
-            readonly={!roleAccount || (!!roleAccount && !inputsReadOnly?.role)}
+            readonly={
+              (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.role)
+            }
             update={roleAccount ? () => handleChangeReadOnly("role") : null}
           />
         )}

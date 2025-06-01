@@ -24,6 +24,7 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
+  id: string | undefined;
 }
 
 export const Contacts: React.FC<Props> = (props) => {
@@ -39,6 +40,7 @@ export const Contacts: React.FC<Props> = (props) => {
     inputsReadOnly,
     handleChange,
     handleChangeReadOnly,
+    id,
   } = props;
 
   return (
@@ -53,7 +55,8 @@ export const Contacts: React.FC<Props> = (props) => {
           errMsg={formDataError?.investment_min}
           checkError={!!formDataError?.investment_min}
           readonly={
-            !roleAccount || (!!roleAccount && !inputsReadOnly?.investment_min)
+            (!!id && !roleAccount) ||
+            (!!roleAccount && !inputsReadOnly?.investment_min)
           }
           update={
             roleAccount ? () => handleChangeReadOnly("investment_min") : null
