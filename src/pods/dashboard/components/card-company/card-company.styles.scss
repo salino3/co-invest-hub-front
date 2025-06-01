@@ -18,44 +18,128 @@
     color: inherit;
     text-decoration: none;
     padding: 0.5rem;
+    gap: 0.5rem;
 
-    .boxLogoCompany {
+    .boxUp {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      border: solid 1px;
-      min-width: 6rem;
-      min-height: 6rem;
-      max-width: 6rem;
-      max-height: 6rem;
-      border-radius: 50%;
-      cursor: pointer;
+      width: 100%;
+      height: 100%;
 
-      img {
-        min-width: 6rem;
-        min-height: 6rem;
-        max-width: 6rem;
-        max-height: 6rem;
-        border-radius: 50%;
-        object-fit: cover;
-        //* No Draggable photo
-        // user-drag: none; // scss(unknownProperties)
-        -webkit-user-drag: none;
-        user-select: none;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
+      hr {
+        width: 1px;
+        height: auto;
+        background-color: var(--global-05);
+        border: none;
+        align-self: stretch;
+      }
+
+      .boxLeftUp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0.5rem;
+        width: 100%;
+
+        .boxLogoCompany {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border: solid 1px;
+          min-width: 6rem;
+          min-height: 6rem;
+          max-width: 6rem;
+          max-height: 6rem;
+          border-radius: 50%;
+          cursor: pointer;
+
+          img {
+            min-width: 6rem;
+            min-height: 6rem;
+            max-width: 6rem;
+            max-height: 6rem;
+            border-radius: 50%;
+            object-fit: cover;
+            //* No Draggable photo
+            // user-drag: none; // scss(unknownProperties)
+            -webkit-user-drag: none;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+          }
+        }
+
+        .textName {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          font-size: 22px;
+        }
+      }
+
+      .boxCenterUp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-self: stretch;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+        width: 100%;
+
+        .infoLocation,
+        .infoSector {
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+        }
+      }
+
+      .boxRightUp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-self: stretch;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+        height: auto;
+        width: 100%;
+
+        .infoIMin,
+        .infoIMax {
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+        }
       }
     }
 
-    .textName {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      font-size: 22px;
+    .boxDown {
+      .hashtagsList {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+
+        span {
+          color: var(--color-evidenced);
+        }
+      }
     }
   }
 

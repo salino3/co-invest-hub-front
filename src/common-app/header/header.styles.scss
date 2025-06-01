@@ -113,7 +113,6 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        position: relative;
       }
 
       .boxVisibility {
@@ -138,6 +137,33 @@
           gap: 0.5rem;
         }
       }
+
+      @media screen and (max-width: 600px) {
+        display: grid;
+        grid-template-areas:
+          "a a a"
+          "b . c";
+
+        .boxLeft {
+          grid-area: b;
+        }
+
+        .boxCenter {
+          grid-area: a;
+        }
+
+        .boxRight {
+          grid-area: c;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    min-height: 205px;
+
+    .containerHeader {
+      min-height: 205px;
     }
   }
 }

@@ -25,6 +25,7 @@ interface Props {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
+  id: string | undefined;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -40,9 +41,9 @@ export const AboutUs: React.FC<Props> = (props) => {
     inputsReadOnly,
     handleChange,
     handleChangeReadOnly,
+    id,
   } = props;
 
-  console.log("role", roleAccount, inputsReadOnly?.name);
   return (
     <div className="rootAboutUs">
       <div className="inputsAboutUs">
@@ -54,7 +55,9 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.name || ""}
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
-          readonly={!roleAccount || (!!roleAccount && !inputsReadOnly?.name)}
+          readonly={
+            (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.name)
+          }
           update={roleAccount ? () => handleChangeReadOnly("name") : null}
         />
         <BasicInput
@@ -67,7 +70,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.description}
           checkError={!!formDataError?.description}
           readonly={
-            !roleAccount || (!!roleAccount && !inputsReadOnly?.description)
+            (!!id && !roleAccount) ||
+            (!!roleAccount && !inputsReadOnly?.description)
           }
           update={
             roleAccount ? () => handleChangeReadOnly("description") : null
@@ -81,7 +85,9 @@ export const AboutUs: React.FC<Props> = (props) => {
           value={formData?.sector || ""}
           errMsg={formDataError?.sector}
           checkError={!!formDataError?.sector}
-          readonly={!roleAccount || (!!roleAccount && !inputsReadOnly?.sector)}
+          readonly={
+            (!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.sector)
+          }
           update={roleAccount ? () => handleChangeReadOnly("sector") : null}
         />
         <BasicInput
@@ -93,7 +99,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.location}
           checkError={!!formDataError?.location}
           readonly={
-            !roleAccount || (!!roleAccount && !inputsReadOnly?.location)
+            (!!id && !roleAccount) ||
+            (!!roleAccount && !inputsReadOnly?.location)
           }
           update={roleAccount ? () => handleChangeReadOnly("location") : null}
         />
@@ -112,7 +119,9 @@ export const AboutUs: React.FC<Props> = (props) => {
             value={roleAccount || ""}
             checkError={!!formDataError?.role}
             errMsg={formDataError?.role}
-            readonly={!roleAccount || (!!roleAccount && !inputsReadOnly?.role)}
+            readonly={
+              (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.role)
+            }
             update={roleAccount ? () => handleChangeReadOnly("role") : null}
           />
         )}

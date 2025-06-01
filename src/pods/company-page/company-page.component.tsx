@@ -86,12 +86,11 @@ export const CompanyPage: React.FC = () => {
     (key: keyof PropsCompany) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
-      if (roleAccount) {
-        setCompanyData((prev) => ({
-          ...prev,
-          [key]: value,
-        }));
-      }
+      setCompanyData((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+
       setCompanyDataError((prev) => ({
         ...prev,
         [key]: "",
@@ -153,6 +152,7 @@ export const CompanyPage: React.FC = () => {
           inputsReadOnly={inputsReadOnly}
           handleChange={handleChange}
           handleChangeReadOnly={handleChangeReadOnly}
+          id={params?.id}
         />
       ),
     },
@@ -172,6 +172,7 @@ export const CompanyPage: React.FC = () => {
           inputsReadOnly={inputsReadOnly}
           handleChange={handleChange}
           handleChangeReadOnly={handleChangeReadOnly}
+          id={params?.id}
         />
       ),
     },
@@ -267,6 +268,8 @@ export const CompanyPage: React.FC = () => {
 
     if (foundRole) {
       setRoleAccount(foundRole);
+    } else {
+      setRoleAccount("");
     }
   }, [currentUser?.id, params?.id, flag]);
 
@@ -287,10 +290,16 @@ export const CompanyPage: React.FC = () => {
       <form onSubmit={handleSubmit} id="formCompanyPage">
         {tabs[tab]?.component}
 
-        <div className="boxButtonsForm">
-          <Button type="submit" text={t("confirm")} />
-          <Button click={clearAllFormSetters} type="reset" text={t("cancel")} />
-        </div>
+        {(!params?.id || roleAccount) && (
+          <div className="boxButtonsForm">
+            <Button type="submit" text={t("confirm")} />
+            <Button
+              click={clearAllFormSetters}
+              type="reset"
+              text={t("cancel")}
+            />
+          </div>
+        )}
       </form>
     </div>
   );
