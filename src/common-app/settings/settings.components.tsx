@@ -44,7 +44,14 @@ export const Settings: React.FC<Props> = ({
         currentValue={theme}
         first={"dark"}
         toggle={changeGlobalColors}
+        text1="light"
+        text2="dark"
       />
+      <div className="containerSwitchLanguages">
+        <div className="bodySwitchLanguages">
+          <h3>{t("languages")}</h3>
+        </div>
+      </div>
     </div>
   );
 };

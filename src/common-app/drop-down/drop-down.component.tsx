@@ -1,11 +1,6 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import styled from "@emotion/styled";
-import { TFunction } from "i18next";
-import { MyCompany } from "../../store";
-import { MoreIcon } from "../../common/icons";
 import { rootDropDown } from "./drop-down.styles";
-import { routesApp } from "../../router";
 
 interface DivStyledProps {
   className?: string;
@@ -21,39 +16,15 @@ export const DivStyled = styled.div<DivStyledProps>`
 
 // <DropDown> with inside <DivStyled>
 export const DropDown: React.FC<{
-  setShow: Dispatch<SetStateAction<boolean>>;
-  array: MyCompany[];
   height: number | undefined;
-  t: TFunction<"main", undefined>;
-}> = ({ setShow, array, height, t }) => {
+  children: React.ReactNode;
+}> = ({ height, children }) => {
   return (
     <DivStyled
       $dropdownHeight={String(height == 35 ? 80 : height)}
       onClick={(event) => event?.stopPropagation()}
     >
-      {array && array?.length > 0 ? (
-        array.map((item: MyCompany) => (
-          <Link
-            to={routesApp?.company(item?.name, String(item?.id))}
-            onClick={() => setShow(() => false)}
-            className="company_02"
-            key={item?.id}
-          >
-            {item?.name}
-          </Link>
-        ))
-      ) : (
-        <div className="opacityStyles" key={"xxx"}>
-          {t("no_companies")}
-        </div>
-      )}
-      <Link
-        className="addCompany opacityStyles"
-        onClick={() => setShow(() => false)}
-        to={routesApp?.create_company}
-      >
-        {t("add_company")} <MoreIcon width={16} height={16} />
-      </Link>
+      {children}
     </DivStyled>
   );
 };

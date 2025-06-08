@@ -8,6 +8,7 @@ import { DropDown } from "../drop-down";
 import { Settings } from "../settings";
 import { Button, FilterSearching } from "../../common";
 import "./header.styles.scss";
+import { ExpandableMyCompanies } from "../expandable-my-companies";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");
@@ -126,12 +127,13 @@ export const Header: React.FC = () => {
               ${fadeClose ? "fadeClose" : ""}`}
             >
               {openSelectCompanies && (
-                <DropDown
-                  setShow={setOpenSelectCompanies}
-                  array={myCompanies ? myCompanies : []}
-                  height={myCompanies && myCompanies?.length * 42 + 35}
-                  t={t}
-                />
+                <DropDown height={myCompanies && myCompanies?.length * 42 + 40}>
+                  <ExpandableMyCompanies
+                    setShow={setOpenSelectCompanies}
+                    array={myCompanies ? myCompanies : []}
+                    t={t}
+                  />
+                </DropDown>
               )}
             </div>
           </div>
