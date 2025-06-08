@@ -123,7 +123,7 @@ export const Settings: React.FC<Props> = ({
               ${fadeClose ? "fadeClose" : ""}`}
           >
             {openSelectLanguages && (
-              <DropDown height={[{ hola: "" }]?.length * 42 + 40}>
+              <DropDown height={84}>
                 <ListLanguages />
               </DropDown>
             )}
