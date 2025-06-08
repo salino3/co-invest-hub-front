@@ -31,7 +31,8 @@ export const rootDropDown = (height: string) => css`
   height: 100%;
   width: 100%;
   z-index: 999999999;
-  background-color: black;
+  background-color: var(--global-02);
+  border: solid 1px var(--global-01);
   max-height: 350px;
   overflow-y: ${Number(height) > 350 ? "scroll" : null};
   cursor: default;
@@ -50,36 +51,5 @@ export const rootDropDown = (height: string) => css`
     background-color: #555; // Scrollbar thumb color
     border-radius: 0.5rem; // Rounded corners
     border: 1px solid #222; // Optional: border to match the track
-  }
-
-  & > .company_02 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.25rem;
-    border-bottom: solid 1px;
-    padding-bottom: 2px;
-    width: 100%;
-    cursor: pointer;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .opacityStyles {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.5);
-    padding: 0.1rem 0.5rem;
-    border-radius: 0.5rem;
-  }
-
-  .addCompany {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.25rem;
-    cursor: pointer;
-    text-decoration: none;
   }
 `;
