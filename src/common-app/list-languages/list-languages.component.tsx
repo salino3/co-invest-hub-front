@@ -28,7 +28,11 @@ export const ListLanguages: React.FC = () => {
   return (
     <div className="rootListLanguages">
       {languages.map((l: PropsLanguages) => (
-        <div key={l.lng} className="boxL" onClick={() => changeLanguage(l.lng)}>
+        <div
+          key={l.lng}
+          className="boxL"
+          onClick={() => changeLanguage(l.lng.toLowerCase())}
+        >
           <span>{t(l.lng)}</span>
           <img src={l.img} alt={t(l.lng)} />
         </div>
