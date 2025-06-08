@@ -14,13 +14,16 @@
     padding-bottom: 2px;
     width: 100%;
     cursor: pointer;
-    color: inherit;
+    color: var(--global-01);
     text-decoration: none;
   }
 
   .opacityStyles {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.5);
+    // background-color: rgba(255, 255, 255, 0.2);
+    // color: rgba(255, 255, 255, 0.5);
+    background-color: var(--global-08);
+    color: inherit;
+    opacity: 0.5;
     padding: 0.1rem 0.5rem;
     border-radius: 0.5rem;
   }

@@ -31,7 +31,8 @@ export const rootDropDown = (height: string) => css`
   height: 100%;
   width: 100%;
   z-index: 999999999;
-  background-color: black;
+  background-color: var(--global-02);
+  border: solid 1px var(--global-01);
   max-height: 350px;
   overflow-y: ${Number(height) > 350 ? "scroll" : null};
   cursor: default;
