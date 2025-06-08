@@ -110,12 +110,12 @@ export const Header: React.FC = () => {
             className={`boxLeft ${currentUser?.email ? "" : "boxVisibility"}`}
           >
             <img
-              className={`iconLanguage ${
+              className={`iconArrowX3${
                 !fadeClose && openSelectCompanies ? "rotateIcon" : ""
               }`}
               src={"/assets/icons/arrow_04.svg"}
-              aria-label={t("choose_language")}
-              alt={t("arrow_languages")}
+              aria-label={t("choose_companies")}
+              alt={t("arrow_companies")}
             />
             <span>{t("my_companies")}</span>
             <div

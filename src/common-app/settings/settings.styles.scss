@@ -26,6 +26,58 @@
   background-color: var(--global-08);
   width: 75%;
   z-index: 9999;
+
+  //
+
+  .containerSettings_l23 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+    height: 100%;
+
+    > button {
+      margin-bottom: 2rem;
+    }
+
+    .containerSwitchLanguages {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      .iconArrowX3 {
+        transform: rotate(0deg);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .rotateIcon {
+        transform: rotate(90deg);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .dropdownCompanies {
+        position: absolute;
+        top: 100%;
+        left: 1rem;
+        background-color: var(--color-one);
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        z-index: 99999999999;
+      }
+
+      .fadeClose {
+        animation: cover 1s forwards;
+      }
+
+      .showDropdown {
+        animation: show 1s forwards;
+      }
+    }
+  }
 }
 
 .show {
