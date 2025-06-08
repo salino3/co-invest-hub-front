@@ -100,12 +100,10 @@ export const Settings: React.FC<Props> = ({
         <div
           ref={btnToggleRef}
           onClick={() => handleLanguages()}
-          className={`containerSwitchLanguages ${
-            currentUser?.email ? "" : "boxVisibility"
-          }`}
+          className={`containerSwitchLanguages `}
         >
           <img
-            className={`iconArrowX3${
+            className={`iconArrowX3 ${
               !fadeClose && openSelectLanguages ? "rotateIcon" : ""
             }`}
             src={"/assets/icons/arrow_04.svg"}
