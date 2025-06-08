@@ -4,4 +4,26 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  width: 100%;
+
+  .boxL {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+
+    span {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+    }
+
+    img {
+      max-width: 22px;
+    }
+  }
 }
