@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DropDown } from "../drop-down";
 import "./container-drop-down.styles.scss";
+
+interface ChildProps {
+  setOpenSelectDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 interface Props {
   customStyles?: string;
   height?: number;
   title: string;
-  children: React.ReactNode;
+  children: ReactElement<ChildProps>;
 }
 
 export const ContainerDropDown: React.FC<Props> = (props) => {
@@ -54,6 +58,11 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
     };
   }, []);
 
+  // Inject prop into the child
+  const clonedChildren = React.isValidElement(children)
+    ? React.cloneElement(children, { setOpenSelectDropDown })
+    : children;
+
   return (
     <div
       ref={btnToggleRef}
@@ -76,7 +85,9 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
         }
               ${fadeClose ? "fadeClose" : ""}`}
       >
-        {openSelectDropDown && <DropDown height={height}>{children}</DropDown>}
+        {openSelectDropDown && (
+          <DropDown height={height}>{clonedChildren}</DropDown>
+        )}
       </div>
     </div>
   );
