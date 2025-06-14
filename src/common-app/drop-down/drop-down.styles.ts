@@ -10,6 +10,7 @@ export const rootDropDown = (dropdownHeight: string) => css`
   }
 
   background-color: var(--status-color);
+  --w: 300px;
 
   */
 

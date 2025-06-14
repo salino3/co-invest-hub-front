@@ -22,9 +22,8 @@ export const DropDown: React.FC<{
   return (
     <DivStyled
       $dropdownHeight={String(pxHeight && pxHeight == 35 ? 80 : pxHeight)}
-      data-status="green"
-      // className={`${pxHeight === 0 ? close : open}`}
-      // data-status-height={heightDropDown}
+      // data-status="green"
+      // data-status-width={300}
       style={{ "--dropdown-height": `${pxHeight}px` } as React.CSSProperties}
       onClick={(event) => {
         event?.stopPropagation();
