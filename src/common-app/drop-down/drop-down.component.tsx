@@ -10,7 +10,7 @@ interface DivStyledProps {
 }
 
 export const DivStyled = styled.div<DivStyledProps>`
-  ${({ $dropdownHeight }) => rootDropDown($dropdownHeight || "0px")}
+  ${({ $dropdownHeight }) => rootDropDown($dropdownHeight || "0")}
   ${({ $customStyle }) => $customStyle || ""}
 `;
 
