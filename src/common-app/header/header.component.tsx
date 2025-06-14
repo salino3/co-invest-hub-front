@@ -64,15 +64,17 @@ export const Header: React.FC = () => {
           </div>
         </div>
         <div className="boxDown">
-          <ContainerDropDown
-            height={myCompanies && myCompanies?.length * 42 + 40}
-            title={t("my_companies")}
-          >
-            <ExpandableMyCompanies
-              array={myCompanies ? myCompanies : []}
-              t={t}
-            />
-          </ContainerDropDown>
+          {currentUser?.id && (
+            <ContainerDropDown
+              height={myCompanies && myCompanies?.length * 42 + 40}
+              title={t("my_companies")}
+            >
+              <ExpandableMyCompanies
+                array={myCompanies ? myCompanies : []}
+                t={t}
+              />
+            </ContainerDropDown>
+          )}
           <div
             className={`boxCenter   ${
               currentUser?.email ? "" : "boxVisibility"

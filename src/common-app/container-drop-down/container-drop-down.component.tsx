@@ -24,7 +24,10 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
   const [openSelectDropDown, setOpenSelectDropDown] = useState(false);
   const [fadeClose, setFadeClose] = useState(false);
 
-  const handleLanguages = () => {
+  //
+  const [pxHeight, setPxHeight] = useState<number>(0);
+
+  const handleItems = () => {
     if (!openSelectDropDown) {
       setOpenSelectDropDown(true);
       setFadeClose(false);
@@ -33,6 +36,12 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       setTimeout(() => {
         setOpenSelectDropDown(false);
       }, 1000);
+    }
+    //
+    if (pxHeight === 0) {
+      setPxHeight(height || 0);
+    } else {
+      setPxHeight(0);
     }
   };
 
@@ -66,7 +75,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
   return (
     <div
       ref={btnToggleRef}
-      onClick={() => handleLanguages()}
+      onClick={() => handleItems()}
       className={`rootContainerDropDown  ${customStyles} `}
     >
       <img
@@ -85,9 +94,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
         }
               ${fadeClose ? "fadeClose" : ""}`}
       >
-        {openSelectDropDown && (
-          <DropDown height={height}>{clonedChildren}</DropDown>
-        )}
+        <DropDown pxHeight={pxHeight}>{clonedChildren}</DropDown>
       </div>
     </div>
   );

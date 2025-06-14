@@ -16,13 +16,19 @@ export const DivStyled = styled.div<DivStyledProps>`
 
 // <DropDown> with inside <DivStyled>
 export const DropDown: React.FC<{
-  height: number | undefined;
+  pxHeight: number;
   children: React.ReactNode;
-}> = ({ height, children }) => {
+}> = ({ pxHeight, children }) => {
   return (
     <DivStyled
-      $dropdownHeight={String(height == 35 ? 80 : height)}
-      onClick={(event) => event?.stopPropagation()}
+      $dropdownHeight={String(pxHeight && pxHeight == 35 ? 80 : pxHeight)}
+      data-status="green"
+      // className={`${pxHeight === 0 ? close : open}`}
+      // data-status-height={heightDropDown}
+      style={{ "--dropdown-height": `${pxHeight}px` } as React.CSSProperties}
+      onClick={(event) => {
+        event?.stopPropagation();
+      }}
     >
       {children}
     </DivStyled>
