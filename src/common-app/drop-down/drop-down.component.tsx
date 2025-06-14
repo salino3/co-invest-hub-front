@@ -10,19 +10,24 @@ interface DivStyledProps {
 }
 
 export const DivStyled = styled.div<DivStyledProps>`
-  ${({ $dropdownHeight }) => rootDropDown($dropdownHeight || "0px")}
+  ${({ $dropdownHeight }) => rootDropDown($dropdownHeight || "0")}
   ${({ $customStyle }) => $customStyle || ""}
 `;
 
 // <DropDown> with inside <DivStyled>
 export const DropDown: React.FC<{
-  height: number | undefined;
+  pxHeight: number;
   children: React.ReactNode;
-}> = ({ height, children }) => {
+}> = ({ pxHeight, children }) => {
   return (
     <DivStyled
-      $dropdownHeight={String(height == 35 ? 80 : height)}
-      onClick={(event) => event?.stopPropagation()}
+      $dropdownHeight={String(pxHeight && pxHeight == 35 ? 80 : pxHeight)}
+      // data-status="green"
+      // data-status-width={300}
+      style={{ "--dropdown-height": `${pxHeight}px` } as React.CSSProperties}
+      onClick={(event) => {
+        event?.stopPropagation();
+      }}
     >
       {children}
     </DivStyled>

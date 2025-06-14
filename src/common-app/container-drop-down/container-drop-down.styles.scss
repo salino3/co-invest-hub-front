@@ -1,0 +1,35 @@
+.rootContainerDropDown {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  .iconArrowX3 {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .rotateIcon {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .dropdownItems {
+    position: absolute;
+    top: 100%;
+    left: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 99999999999;
+  }
+
+  .fadeClose {
+    animation: cover 1s forwards;
+  }
+
+  .showDropdown {
+    animation: show 1s forwards;
+  }
+}
