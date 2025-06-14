@@ -39,7 +39,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
     }
     //
     if (pxHeight === 0) {
-      setPxHeight(height || 0);
+      setPxHeight(height && height == 35 ? 80 : height || 0);
     } else {
       setPxHeight(0);
     }
