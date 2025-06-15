@@ -54,7 +54,7 @@ export const FilterSearching: React.FC = () => {
     >
       <BasicInput
         name="searching"
-        lbl="searching"
+        lbl={t("search_02")}
         value={searchFilter || ""}
         type="text"
         change={handleChange}

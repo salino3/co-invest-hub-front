@@ -66,14 +66,14 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
         contacts.map((contact, index) => (
           <div key={index} className="boxInputsContactsInputs">
             <BasicInput
-              lbl={t("Type (e.g. email)")}
+              lbl={t("type_contact") + `${index === 0 ? " *" : ""}`}
               name="type"
               type="text"
               value={contact.type}
               change={(e) => handleChange(index, "type", e.target.value)}
             />
             <BasicInput
-              lbl={t("Value (e.g. contact@site.com)")}
+              lbl={t("value_contact") + `${index === 0 ? " *" : ""}`}
               name="value"
               type="text"
               change={(e) => handleChange(index, "value", e.target.value)}
@@ -82,13 +82,13 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
 
             {contacts?.length > 1 && (
               <button type="button" onClick={() => removeContact(index)}>
-                Remove
+                {t("remove")}
               </button>
             )}
           </div>
         ))}
       <button type="button" onClick={addContact}>
-        Add Contact
+        {t("add_contact")}
       </button>
     </div>
   );

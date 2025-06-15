@@ -48,7 +48,7 @@ export const AboutUs: React.FC<Props> = (props) => {
     <div className="rootAboutUs">
       <div className="inputsAboutUs">
         <BasicInput
-          lbl={t("name")}
+          lbl={t("name") + " *"}
           name="name"
           type="text"
           change={handleChange("name")}
@@ -61,7 +61,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           update={roleAccount ? () => handleChangeReadOnly("name") : null}
         />
         <BasicInput
-          lbl={t("description")}
+          lbl={t("description") + " *"}
           name="description"
           type="textarea"
           change={handleChange("description")}
@@ -78,7 +78,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           }
         />
         <BasicInput
-          lbl={t("sector")}
+          lbl={t("sector") + " *"}
           name="sector"
           type="text"
           change={handleChange("sector")}
@@ -91,7 +91,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           update={roleAccount ? () => handleChangeReadOnly("sector") : null}
         />
         <BasicInput
-          lbl={t("location")}
+          lbl={t("location") + " *"}
           name="location"
           type="text"
           change={handleChange("location")}
