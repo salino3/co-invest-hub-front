@@ -34,12 +34,13 @@ export const Settings: React.FC<Props> = ({
     <div className={`rootSettings ${showSettings ? "show" : "hide"}`}>
       <div className="containerSettings_l23">
         <button
+          className="btnCloseSettings"
           onClick={(event: MouseEvent<HTMLButtonElement>) => {
             event?.stopPropagation();
             setShowSettings(false);
           }}
         >
-          {t("close")} <Arrow02 />
+          {t("close")} &nbsp; <Arrow02 />
           <Arrow02 />
         </button>
         <Switcher

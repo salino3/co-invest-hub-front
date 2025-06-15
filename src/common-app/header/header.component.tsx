@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
             className="boxRight"
           >
             <span>
-              Settings <SettingIcon />
+              {t("settings")} <SettingIcon />
             </span>
             {showSettings && (
               <Settings

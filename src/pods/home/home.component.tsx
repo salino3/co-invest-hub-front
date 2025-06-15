@@ -188,14 +188,14 @@ export const HomePage: React.FC = () => {
               <BasicInput
                 type="text"
                 name={"name"}
-                lbl="name"
+                lbl={t("name")}
                 change={handleChange("name")}
                 value={(formData as AccountRegisterForm)?.name || ""}
               />
               <BasicInput
                 type="email"
                 name={"email"}
-                lbl={"email"}
+                lbl={t("email") + " *"}
                 change={handleChange("email")}
                 value={(formData as AccountRegisterForm)?.email || ""}
                 errMsg={(formDataError as AccountRegisterFormError)?.email}
@@ -206,7 +206,7 @@ export const HomePage: React.FC = () => {
               <BasicInput
                 type="password"
                 name={"password"}
-                lbl={"password"}
+                lbl={t("password") + " *"}
                 change={handleChange("password")}
                 value={(formData as AccountRegisterForm)?.password || ""}
                 errMsg={(formDataError as AccountRegisterFormError)?.password}
@@ -217,7 +217,7 @@ export const HomePage: React.FC = () => {
               <BasicInput
                 type="password"
                 name={"passwordConfirm"}
-                lbl={"passwordConfirm"}
+                lbl={t("passwordConfirm") + " *"}
                 change={handleChange("passwordConfirm")}
                 value={(formData as AccountRegisterForm)?.passwordConfirm || ""}
                 errMsg={
@@ -230,7 +230,7 @@ export const HomePage: React.FC = () => {
               <BasicInput
                 type="number"
                 name={"age"}
-                lbl={"age"}
+                lbl={t("age") + " *"}
                 change={handleChange("age")}
                 value={(formData as AccountRegisterForm)?.age || ""}
                 errMsg={(formDataError as AccountRegisterFormError)?.age}
@@ -242,7 +242,7 @@ export const HomePage: React.FC = () => {
               <BasicInput
                 type="email"
                 name={"email"}
-                lbl={"email"}
+                lbl={t("email") + " *"}
                 change={handleChange("email")}
                 value={(formData as AccountLoginForm)?.email || ""}
                 errMsg={(formDataError as AccountLoginForm)?.email}
@@ -251,7 +251,7 @@ export const HomePage: React.FC = () => {
               <BasicInput
                 type="password"
                 name={"password"}
-                lbl="password"
+                lbl={t("password") + " *"}
                 change={handleChange("password")}
                 value={(formData as AccountLoginForm)?.password || ""}
                 errMsg={(formDataError as AccountLoginForm)?.password}

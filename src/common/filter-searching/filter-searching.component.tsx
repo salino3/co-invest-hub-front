@@ -54,7 +54,7 @@ export const FilterSearching: React.FC = () => {
     >
       <BasicInput
         name="searching"
-        lbl="searching"
+        lbl={t("search_02")}
         value={searchFilter || ""}
         type="text"
         change={handleChange}
@@ -62,7 +62,7 @@ export const FilterSearching: React.FC = () => {
         checkError={!!searchErrorFilter}
       />
       <div className="boxButton_21">
-        <Button text={t("search")} type="submit" />
+        <Button customStyles="btnPrimary_01" text={t("search")} type="submit" />
       </div>
     </form>
   );
