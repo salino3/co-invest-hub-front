@@ -10,6 +10,7 @@ export const en = {
   password: "Password",
   login: "Login",
   register: "Register",
+  register_02: "Register",
   logout: "Logout",
   profile: "Profile",
   username: "Username",
@@ -37,4 +38,7 @@ export const en = {
   search: "Search",
   EN: "Enslish",
   ES: "Spanish",
+  languages: "Languages",
+  settings: "Settings",
+  close: "close",
 };
