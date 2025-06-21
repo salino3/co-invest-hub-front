@@ -7,11 +7,11 @@ import {
   PropsCompany,
   UpdateAccountCompany,
 } from "../store";
-// import { useAppFunctions } from "../hooks";
+import { useAppFunctions } from "../hooks";
 
 const { baseBackend } = apisApp;
 
-// const { getEndTokenFromCookie } = useAppFunctions();
+const { getEndTokenFromCookie } = useAppFunctions();
 
 export class ServicesApp {
   //* Auth
@@ -88,6 +88,10 @@ export class ServicesApp {
     return await axios
       .patch(`${baseBackend}/relation/account/companies`, body, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
       })
       .catch((err) => {
         console.error(err);
@@ -148,6 +152,10 @@ export class ServicesApp {
     return await axios
       .put(`${baseBackend}/api/companies/${id}`, company, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
       })
       .catch((err) => {
         console.error(err);
@@ -164,6 +172,10 @@ export class ServicesApp {
     return await axios
       .post(`${baseBackend}/api/favorites`, ids, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
       })
       .catch((err) => {
         console.error(err);
@@ -177,6 +189,10 @@ export class ServicesApp {
     return await axios
       .get(`${baseBackend}/api/favorites/${id}`, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
       })
       .catch((err) => {
         console.error(err);
@@ -193,6 +209,10 @@ export class ServicesApp {
         `${baseBackend}/api/favorites/${ids?.account_id}/${ids?.company_id}`,
         {
           withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            "end_token": getEndTokenFromCookie(),
+          },
         }
       )
       .catch((err) => {
