@@ -57,6 +57,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       ) {
         setOpenSelectDropDown(false);
         setFadeClose(false);
+        setPxHeight(0);
       }
     };
 
