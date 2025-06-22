@@ -13,12 +13,15 @@ interface Props {
   height?: number;
   title: string;
   children: ReactElement<ChildProps>;
+  al?: string | undefined;
+  tabIndex?: number | undefined;
 }
 
 export const ContainerDropDown: React.FC<Props> = (props) => {
-  const { customStyles, height, title, children } = props;
+  const { customStyles, height, title, children, al, tabIndex = 0 } = props;
 
-  const { t } = useTranslation("main");
+  // const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const btnToggleRef = useRef<HTMLDivElement>(null);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -79,14 +82,17 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       ref={btnToggleRef}
       onClick={() => handleItems()}
       className={`rootContainerDropDown  ${customStyles} `}
+      aria-label={al}
+      tabIndex={tabIndex}
     >
       <img
         className={`iconArrowX3 ${
           !fadeClose && openSelectDropDown ? "rotateIcon" : ""
         }`}
         src={"/assets/icons/arrow_04.svg"}
-        aria-label={t("choose_element")}
-        alt={t("arrow_icon")}
+        aria-label={tw("aria.choose_element")}
+        alt={tw("aria.arrow_icon")}
+        tabIndex={0}
       />
       <h3>{title}</h3>
       <div
