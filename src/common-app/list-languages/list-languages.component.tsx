@@ -9,16 +9,18 @@ interface PropsLanguages {
 
 interface Props {
   setOpenSelectDropDown?: React.Dispatch<React.SetStateAction<boolean>>;
+  setPxHeight?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ListLanguages: React.FC<Props> = (props) => {
-  const { setOpenSelectDropDown } = props;
+  const { setOpenSelectDropDown, setPxHeight } = props;
   const { t, i18n } = useTranslation("main");
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     localStorage.setItem("lng", lng);
     setOpenSelectDropDown?.(false);
+    setPxHeight?.(0);
   };
 
   const languages: PropsLanguages[] = [

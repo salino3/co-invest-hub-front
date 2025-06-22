@@ -12,6 +12,7 @@ import "./header.styles.scss";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
     "currentUser",
@@ -57,10 +58,14 @@ export const Header: React.FC = () => {
         <div className="boxUp">
           <div className="boxData">
             {t("email")}: {currentUser?.email}
-            <Button click={() => closeSession()} text={t("logout")} />
+            <Button
+              al={tw(currentUser?.email ? "aria.logout" : "aria.login")}
+              click={() => closeSession()}
+              text={t(currentUser?.email ? "logout" : "login")}
+            />
           </div>
           <div className="boxNameCompany">
-            <img src="/assets/images/Co_Invest_Hub.png" alt={t("logo")} />
+            <img src="/assets/images/Co_Invest_Hub.png" alt={tw("Logo")} />
           </div>
         </div>
         <div className="boxDown">

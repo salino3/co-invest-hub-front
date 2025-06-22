@@ -5,6 +5,7 @@ import "./container-drop-down.styles.scss";
 
 interface ChildProps {
   setOpenSelectDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+  setPxHeight: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface Props {
@@ -12,12 +13,15 @@ interface Props {
   height?: number;
   title: string;
   children: ReactElement<ChildProps>;
+  al?: string | undefined;
+  tabIndex?: number | undefined;
 }
 
 export const ContainerDropDown: React.FC<Props> = (props) => {
-  const { customStyles, height, title, children } = props;
+  const { customStyles, height, title, children, al, tabIndex = 0 } = props;
 
-  const { t } = useTranslation("main");
+  // const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const btnToggleRef = useRef<HTMLDivElement>(null);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -57,6 +61,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       ) {
         setOpenSelectDropDown(false);
         setFadeClose(false);
+        setPxHeight(0);
       }
     };
 
@@ -69,7 +74,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
 
   // Inject prop into the child
   const clonedChildren = React.isValidElement(children)
-    ? React.cloneElement(children, { setOpenSelectDropDown })
+    ? React.cloneElement(children, { setOpenSelectDropDown, setPxHeight })
     : children;
 
   return (
@@ -77,22 +82,39 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       ref={btnToggleRef}
       onClick={() => handleItems()}
       className={`rootContainerDropDown  ${customStyles} `}
+      aria-label={al}
+      tabIndex={tabIndex}
+      role="button"
+      aria-expanded={openSelectDropDown}
+      aria-controls="dropdown-list_01"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleItems();
+        } else if (e.key === "Escape") {
+          setOpenSelectDropDown?.(false);
+          setPxHeight?.(0);
+        }
+      }}
     >
       <img
         className={`iconArrowX3 ${
           !fadeClose && openSelectDropDown ? "rotateIcon" : ""
         }`}
         src={"/assets/icons/arrow_04.svg"}
-        aria-label={t("choose_element")}
-        alt={t("arrow_icon")}
+        aria-label={tw("aria.choose_element")}
+        alt={tw("aria.arrow_icon")}
+        tabIndex={0}
       />
       <h3>{title}</h3>
       <div
+        id="dropdown-list_01"
         ref={elementRef}
         className={`dropdownItems ${
           !fadeClose && openSelectDropDown ? "showDropdown" : ""
         }
               ${fadeClose ? "fadeClose" : ""}`}
+        role="listbox"
       >
         <DropDown pxHeight={pxHeight}>{clonedChildren}</DropDown>
       </div>

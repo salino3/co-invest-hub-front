@@ -7,6 +7,7 @@ interface DivStyledProps {
   key?: string;
   $customStyle?: string;
   $dropdownHeight?: string;
+  al?: string | undefined;
 }
 
 export const DivStyled = styled.div<DivStyledProps>`
@@ -18,12 +19,15 @@ export const DivStyled = styled.div<DivStyledProps>`
 export const DropDown: React.FC<{
   pxHeight: number;
   children: React.ReactNode;
-}> = ({ pxHeight, children }) => {
+  al?: string | undefined;
+  tabIndex?: number | undefined;
+}> = ({ pxHeight, children, al }) => {
   return (
     <DivStyled
       $dropdownHeight={String(pxHeight && pxHeight == 35 ? 80 : pxHeight)}
       // data-status="green"
       // data-status-width={300}
+      aria-label={al}
       style={{ "--dropdown-height": `${pxHeight}px` } as React.CSSProperties}
       onClick={(event) => {
         event?.stopPropagation();

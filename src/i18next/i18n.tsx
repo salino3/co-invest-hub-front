@@ -3,6 +3,8 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector"; // Import the language detector
 import { en as enMain } from "./main/en";
 import { es as esMain } from "./main/es";
+import { en as enWCAG } from "./wcag/en";
+import { es as esWCAG } from "./wcag/es";
 
 // Use the language detector
 i18n
@@ -12,9 +14,11 @@ i18n
     resources: {
       en: {
         main: enMain,
+        wcag: enWCAG,
       },
       es: {
         main: esMain,
+        wcag: esWCAG,
       },
     },
     lng: localStorage.getItem("lng") || undefined, // use detector to decide the language (use localStorage value if available)
