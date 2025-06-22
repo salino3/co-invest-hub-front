@@ -8,19 +8,25 @@ import "./expandable-my-companies.styles.scss";
 
 interface Props {
   setOpenSelectDropDown?: React.Dispatch<React.SetStateAction<boolean>>;
+  setPxHeight?: React.Dispatch<React.SetStateAction<number>>;
   t: TFunction<"main", undefined>;
   array: MyCompany[];
 }
 
 export const ExpandableMyCompanies: React.FC<Props> = (props) => {
-  const { setOpenSelectDropDown, t, array } = props;
+  function closingElement() {
+    setOpenSelectDropDown?.(false);
+    setPxHeight?.(0);
+  }
+
+  const { setOpenSelectDropDown, setPxHeight, t, array } = props;
   return (
     <div className="rootExpandableMyCompanies">
       {array && array?.length > 0 ? (
         array.map((item: MyCompany) => (
           <Link
             to={routesApp?.company(item?.name, String(item?.id))}
-            onClick={() => setOpenSelectDropDown?.(false)}
+            onClick={() => closingElement()}
             className="company_02"
             key={item?.id}
           >
@@ -34,7 +40,7 @@ export const ExpandableMyCompanies: React.FC<Props> = (props) => {
       )}
       <Link
         className="addCompany opacityStyles"
-        onClick={() => setOpenSelectDropDown?.(false)}
+        onClick={() => closingElement()}
         to={routesApp?.create_company}
       >
         {t("add_company")} <MoreIcon width={16} height={16} />

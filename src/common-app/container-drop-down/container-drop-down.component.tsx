@@ -5,6 +5,7 @@ import "./container-drop-down.styles.scss";
 
 interface ChildProps {
   setOpenSelectDropDown: React.Dispatch<React.SetStateAction<boolean>>;
+  setPxHeight: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface Props {
@@ -70,7 +71,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
 
   // Inject prop into the child
   const clonedChildren = React.isValidElement(children)
-    ? React.cloneElement(children, { setOpenSelectDropDown })
+    ? React.cloneElement(children, { setOpenSelectDropDown, setPxHeight })
     : children;
 
   return (
