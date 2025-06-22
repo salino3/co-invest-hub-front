@@ -84,6 +84,18 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       className={`rootContainerDropDown  ${customStyles} `}
       aria-label={al}
       tabIndex={tabIndex}
+      role="button"
+      aria-expanded={openSelectDropDown}
+      aria-controls="dropdown-list_01"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleItems();
+        } else if (e.key === "Escape") {
+          setOpenSelectDropDown?.(false);
+          setPxHeight?.(0);
+        }
+      }}
     >
       <img
         className={`iconArrowX3 ${
@@ -96,11 +108,13 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       />
       <h3>{title}</h3>
       <div
+        id="dropdown-list_01"
         ref={elementRef}
         className={`dropdownItems ${
           !fadeClose && openSelectDropDown ? "showDropdown" : ""
         }
               ${fadeClose ? "fadeClose" : ""}`}
+        role="listbox"
       >
         <DropDown pxHeight={pxHeight}>{clonedChildren}</DropDown>
       </div>

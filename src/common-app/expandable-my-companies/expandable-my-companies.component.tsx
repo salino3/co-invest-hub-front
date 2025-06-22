@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TFunction } from "i18next";
 import { MyCompany } from "../../store";
 import { MoreIcon } from "../../common/icons";
@@ -14,6 +14,8 @@ interface Props {
 }
 
 export const ExpandableMyCompanies: React.FC<Props> = (props) => {
+  const navigate = useNavigate();
+
   function closingElement() {
     setOpenSelectDropDown?.(false);
     setPxHeight?.(0);
@@ -21,12 +23,19 @@ export const ExpandableMyCompanies: React.FC<Props> = (props) => {
 
   const { setOpenSelectDropDown, setPxHeight, t, array } = props;
   return (
-    <div className="rootExpandableMyCompanies">
+    <div role="listbox" className="rootExpandableMyCompanies">
       {array && array?.length > 0 ? (
         array.map((item: MyCompany) => (
           <Link
+            role="option"
             to={routesApp?.company(item?.name, String(item?.id))}
             onClick={() => closingElement()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                closingElement();
+                navigate(routesApp.company(item.name, String(item.id)));
+              }
+            }}
             className="company_02"
             key={item?.id}
           >
@@ -41,6 +50,12 @@ export const ExpandableMyCompanies: React.FC<Props> = (props) => {
       <Link
         className="addCompany opacityStyles"
         onClick={() => closingElement()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            closingElement();
+            navigate(routesApp?.create_company);
+          }
+        }}
         to={routesApp?.create_company}
       >
         {t("add_company")} <MoreIcon width={16} height={16} />
