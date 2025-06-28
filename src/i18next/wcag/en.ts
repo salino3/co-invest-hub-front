@@ -57,5 +57,10 @@ export const en = {
     login: "Log in to your account",
     choose_element: "Click for choose a element",
     arrow_icon: "Arrow icon",
+    settings_toggle_header: "Show configuration panel",
+    close_settings_header: "Hide configuration panel",
+    about_us_l: 'Show "About us" section',
+    contact_l: 'Show "Contatcs" section',
+    portfolio_l: 'Show "Portfolio" section',
   },
 };
