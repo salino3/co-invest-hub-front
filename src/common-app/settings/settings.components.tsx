@@ -42,6 +42,11 @@ export const Settings: React.FC<Props> = ({
           onClick={(event: MouseEvent<HTMLButtonElement>) => {
             event?.stopPropagation();
             setShowSettings(false);
+
+            const openerButton = document.getElementById(
+              "spanSettingComponent"
+            );
+            openerButton?.focus();
           }}
         >
           {t("close")} &nbsp; <Arrow02 />
