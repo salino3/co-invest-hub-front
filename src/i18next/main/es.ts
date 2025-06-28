@@ -52,4 +52,7 @@ export const es = {
   location: "Ubicación",
   contacts: "contactos",
   hashtags: "Hashtags",
+  about_us_l: "Sobre nosotros",
+  contact_l: "Contactos",
+  portfolio_l: "Portfolio",
 };

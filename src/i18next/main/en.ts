@@ -52,4 +52,7 @@ export const en = {
   location: "Location",
   contacts: "Contacts",
   hashtags: "Hashtags",
+  about_us_l: "About us",
+  contact_l: "Contacts",
+  portfolio_l: "Portfolio",
 };

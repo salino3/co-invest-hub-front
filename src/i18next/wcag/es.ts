@@ -42,5 +42,8 @@ export const es = {
     arrow_icon: "Icono flecha",
     settings_toggle_header: "Mostrar panel de configuración",
     close_settings_header: "Ocultar panel de configuración",
+    about_us_l: 'Mostra sección "Sobre nosotros"',
+    contact_l: 'Mostra sección "Contactos"',
+    portfolio_l: 'Mostra sección "Portfolio"',
   },
 };

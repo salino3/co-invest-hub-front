@@ -138,7 +138,7 @@ export const CompanyPage: React.FC = () => {
   const tabs: PropsTabs[] = [
     {
       key: 0,
-      title: t("about_us"),
+      title: t("about_us_l"),
       component: (
         <AboutUs
           t={t}
@@ -158,7 +158,7 @@ export const CompanyPage: React.FC = () => {
     },
     {
       key: 1,
-      title: t("contact"),
+      title: t("contact_l"),
       component: (
         <Contacts
           t={t}
@@ -178,7 +178,7 @@ export const CompanyPage: React.FC = () => {
     },
     {
       key: 2,
-      title: t("portfolio"),
+      title: t("portfolio_l"),
       component: <>Portfolio</>,
     },
   ];
@@ -186,7 +186,6 @@ export const CompanyPage: React.FC = () => {
   // handleSubmit
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    console.log("clog2", companyData);
 
     let error: boolean = checkFormRequired(
       {
@@ -263,8 +262,6 @@ export const CompanyPage: React.FC = () => {
         myCompanies.find((c: MyCompany) => String(c?.id) === params?.id)
           ?.role) ||
       "";
-    console.log("clog2", foundRole);
-    console.log("clog3", rolesCompany);
 
     if (foundRole) {
       setRoleAccount(foundRole);
