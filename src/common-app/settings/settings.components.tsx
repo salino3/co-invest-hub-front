@@ -10,11 +10,13 @@ import "./settings.styles.scss";
 interface Props {
   showSettings: boolean | null;
   setShowSettings: Dispatch<SetStateAction<boolean | null>>;
+  id?: string | undefined;
 }
 
 export const Settings: React.FC<Props> = ({
   showSettings,
   setShowSettings,
+  id,
 }) => {
   const { t } = useTranslation("main");
 
@@ -31,9 +33,11 @@ export const Settings: React.FC<Props> = ({
     }, 1000);
 
   return (
-    <div className={`rootSettings ${showSettings ? "show" : "hide"}`}>
+    <div id={id} className={`rootSettings ${showSettings ? "show" : "hide"}`}>
       <div className="containerSettings_l23">
         <button
+          tabIndex={0}
+          aria-label={t("close_settings_header")}
           className="btnCloseSettings"
           onClick={(event: MouseEvent<HTMLButtonElement>) => {
             event?.stopPropagation();

@@ -88,9 +88,19 @@ export const Header: React.FC = () => {
             <FilterSearching />
           </div>
           <div
+            role="button"
+            tabIndex={0}
+            // aria-pressed={showSettings || "false"}
+            aria-label={t("settings_header")}
+            aria-controls="settingsPanel"
             onClick={() => setShowSettings(true)}
             style={{
               cursor: showSettings ? "default" : "pointer",
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setShowSettings(true);
+              }
             }}
             id="spanSettingComponent"
             className="boxRight"
@@ -100,6 +110,7 @@ export const Header: React.FC = () => {
             </span>
             {showSettings && (
               <Settings
+                id="settingsPanel"
                 showSettings={showSettings}
                 setShowSettings={setShowSettings}
               />
