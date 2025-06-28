@@ -250,11 +250,13 @@ export const CompanyPage: React.FC = () => {
       clearAllFormSetters();
     }
 
-    ServicesApp?.getRelationCompanyAccounts(params?.id || "").then((res) => {
-      setRolesCompany(
-        res?.data.filter((c: MyCompany) => c?.id !== currentUser?.id)
-      );
-    });
+    if (params?.id) {
+      ServicesApp?.getRelationCompanyAccounts(params?.id || "").then((res) => {
+        setRolesCompany(
+          res?.data.filter((c: MyCompany) => c?.id !== currentUser?.id)
+        );
+      });
+    }
 
     const foundRole: string =
       (myCompanies &&
