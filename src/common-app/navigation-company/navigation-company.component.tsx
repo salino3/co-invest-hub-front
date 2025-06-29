@@ -24,7 +24,7 @@ export const NavigationCompany: React.FC<Props> = (props) => {
             <div key={tab?.key} className="companyTab">
               <span
                 tabIndex={0}
-                aria-label={tw(tab?.title)}
+                aria-label={tw(`aria.${tab?.title}`)}
                 role="tab"
                 aria-selected={navigation === tab?.key}
                 // 'aria-current' redundant due to 'aria-selected'

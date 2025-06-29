@@ -32,8 +32,6 @@ const routes: PropsRoutes[] = [
     element: <Dashboard />,
     visibility: "private",
   },
-  // TODO: CreateCompanyPage
-  // the login and register, make them in <HomePage>
   {
     path: routesApp?.error404,
     element: <Navigate to={routesApp?.root} />,

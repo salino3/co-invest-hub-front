@@ -19,6 +19,7 @@ export const Settings: React.FC<Props> = ({
   id,
 }) => {
   const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const { theme, changeGlobalColors } = useProviderSelector(
     "theme",
@@ -37,7 +38,7 @@ export const Settings: React.FC<Props> = ({
       <div className="containerSettings_l23">
         <button
           tabIndex={0}
-          aria-label={t("close_settings_header")}
+          aria-label={tw("aria.close_settings_header")}
           className="btnCloseSettings"
           onClick={(event: MouseEvent<HTMLButtonElement>) => {
             event?.stopPropagation();

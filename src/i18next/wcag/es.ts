@@ -45,5 +45,10 @@ export const es = {
     about_us_l: 'Mostra sección "Sobre nosotros"',
     contact_l: 'Mostra sección "Contactos"',
     portfolio_l: 'Mostra sección "Portfolio"',
+    EN_l: "Presiona aquí para elegir idioma en inglés",
+    ES_l: "Presiona aquí para elegir idioma en español",
+    EN_img_l: "Icono bandera Inglésa",
+    ES_img_l: "Icono bandera Española",
+    switcher_item: "Conmutador de tema color web",
   },
 };

@@ -6,6 +6,7 @@ import "./container-drop-down.styles.scss";
 interface ChildProps {
   setOpenSelectDropDown: React.Dispatch<React.SetStateAction<boolean>>;
   setPxHeight: React.Dispatch<React.SetStateAction<number>>;
+  pxHeight?: number;
 }
 
 interface Props {
@@ -20,7 +21,6 @@ interface Props {
 export const ContainerDropDown: React.FC<Props> = (props) => {
   const { customStyles, height, title, children, al, tabIndex = 0 } = props;
 
-  // const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
 
   const btnToggleRef = useRef<HTMLDivElement>(null);
@@ -72,9 +72,13 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
     };
   }, []);
 
-  // Inject prop into the child
+  // Inject props into the child
   const clonedChildren = React.isValidElement(children)
-    ? React.cloneElement(children, { setOpenSelectDropDown, setPxHeight })
+    ? React.cloneElement(children, {
+        setOpenSelectDropDown,
+        setPxHeight,
+        pxHeight,
+      })
     : children;
 
   return (
@@ -114,7 +118,6 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
           !fadeClose && openSelectDropDown ? "showDropdown" : ""
         }
               ${fadeClose ? "fadeClose" : ""}`}
-        role="listbox"
       >
         <DropDown pxHeight={pxHeight}>{clonedChildren}</DropDown>
       </div>
