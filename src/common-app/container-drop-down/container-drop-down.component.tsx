@@ -21,7 +21,6 @@ interface Props {
 export const ContainerDropDown: React.FC<Props> = (props) => {
   const { customStyles, height, title, children, al, tabIndex = 0 } = props;
 
-  // const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
 
   const btnToggleRef = useRef<HTMLDivElement>(null);
@@ -73,7 +72,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
     };
   }, []);
 
-  // Inject prop into the child
+  // Inject props into the child
   const clonedChildren = React.isValidElement(children)
     ? React.cloneElement(children, {
         setOpenSelectDropDown,
