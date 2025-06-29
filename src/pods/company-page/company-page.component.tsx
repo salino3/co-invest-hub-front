@@ -138,7 +138,7 @@ export const CompanyPage: React.FC = () => {
   const tabs: PropsTabs[] = [
     {
       key: 0,
-      title: t("about_us_l"),
+      title: "about_us_l",
       component: (
         <AboutUs
           t={t}
@@ -158,7 +158,7 @@ export const CompanyPage: React.FC = () => {
     },
     {
       key: 1,
-      title: t("contact_l"),
+      title: "contact_l",
       component: (
         <Contacts
           t={t}
@@ -178,7 +178,7 @@ export const CompanyPage: React.FC = () => {
     },
     {
       key: 2,
-      title: t("portfolio_l"),
+      title: "portfolio_l",
       component: <>Portfolio</>,
     },
   ];
