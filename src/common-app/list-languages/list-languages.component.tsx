@@ -43,7 +43,7 @@ export const ListLanguages: React.FC<Props> = (props) => {
         <div
           role="button"
           tabIndex={0}
-          aria-label={tw(l.lng + "_l")}
+          aria-label={tw("aria." + l.lng + "_l")}
           key={l.lng}
           className="boxL"
           onKeyDown={(e) => {
@@ -54,7 +54,7 @@ export const ListLanguages: React.FC<Props> = (props) => {
           onClick={() => changeLanguage(l.lng.toLowerCase())}
         >
           <span>{t(l.lng)}</span>
-          <img src={l.img} alt={tw(l.lng + "_img_l")} />
+          <img src={l.img} alt={tw("aria." + l.lng + "_img_l")} />
         </div>
       ))}
     </div>

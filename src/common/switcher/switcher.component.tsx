@@ -27,7 +27,7 @@ export const Switcher: React.FC<Props> = (props) => {
             toggle?.();
           }
         }}
-        aria-label={tw("switcher_item")}
+        aria-label={tw("aria.switcher_item")}
         name="switcher"
         onChange={() => toggle?.()}
         checked={currentValue !== first}

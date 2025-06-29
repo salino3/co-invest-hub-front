@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
             role="button"
             tabIndex={0}
             // aria-pressed={showSettings || "false"}
-            aria-label={t("settings_header")}
+            aria-label={tw("settings_toggle_header")}
             aria-controls="settingsPanel"
             onClick={() => setShowSettings(true)}
             style={{
