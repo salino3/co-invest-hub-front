@@ -119,7 +119,6 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
           !fadeClose && openSelectDropDown ? "showDropdown" : ""
         }
               ${fadeClose ? "fadeClose" : ""}`}
-        role="listbox"
       >
         <DropDown pxHeight={pxHeight}>{clonedChildren}</DropDown>
       </div>

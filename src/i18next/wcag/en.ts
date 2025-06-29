@@ -62,5 +62,9 @@ export const en = {
     about_us_l: 'Show "About us" section',
     contact_l: 'Show "Contatcs" section',
     portfolio_l: 'Show "Portfolio" section',
+    EN_l: "Click for choose english language",
+    ES_l: "Click for choose spanish language",
+    EN_img_l: "English flag icon",
+    ES_img_l: "Spanish flag icon",
   },
 };
