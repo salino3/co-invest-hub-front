@@ -49,5 +49,6 @@ export const es = {
     ES_l: "Presiona aquí para elegir idioma en español",
     EN_img_l: "Icono bandera Inglésa",
     ES_img_l: "Icono bandera Española",
+    switcher_item: "Conmutador de tema color web",
   },
 };
