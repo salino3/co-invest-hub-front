@@ -75,7 +75,7 @@ export const CardCompany: React.FC<Props> = (props) => {
           <div className="hashtagsList">
             {hashtags &&
               hashtags?.length > 0 &&
-              hashtags.map((h: string) => <span>#{h}</span>)}
+              hashtags.map((h: string) => <span key={h}>#{h}</span>)}
           </div>
         </div>
       </Link>
