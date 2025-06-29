@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TFunction } from "i18next";
 import { MyCompany } from "../../store";
@@ -9,19 +9,34 @@ import "./expandable-my-companies.styles.scss";
 interface Props {
   setOpenSelectDropDown?: React.Dispatch<React.SetStateAction<boolean>>;
   setPxHeight?: React.Dispatch<React.SetStateAction<number>>;
+  pxHeight?: number;
   t: TFunction<"main", undefined>;
   array: MyCompany[];
 }
 
 export const ExpandableMyCompanies: React.FC<Props> = (props) => {
+  const { setOpenSelectDropDown, setPxHeight, pxHeight, t, array } = props;
   const navigate = useNavigate();
+  const [isClose, setIsClose] = useState(false);
 
   function closingElement() {
     setOpenSelectDropDown?.(false);
     setPxHeight?.(0);
   }
 
-  const { setOpenSelectDropDown, setPxHeight, t, array } = props;
+  useEffect(() => {
+    setTimeout(
+      () => {
+        return setIsClose((prev) => !prev);
+      },
+      pxHeight === 0 ? 1000 : 0
+    );
+  }, [pxHeight]);
+
+  if (isClose) {
+    return;
+  }
+
   return (
     <div role="listbox" className="rootExpandableMyCompanies">
       {array && array?.length > 0 ? (
