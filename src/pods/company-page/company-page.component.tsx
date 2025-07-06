@@ -20,6 +20,7 @@ import "./company-page.styles.scss";
 // http://localhost:5500/company/Jim%20Doctor/15
 export const CompanyPage: React.FC = () => {
   const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const params = useParams();
   const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
@@ -291,11 +292,16 @@ export const CompanyPage: React.FC = () => {
 
         {(!params?.id || roleAccount) && (
           <div className="boxButtonsForm">
-            <Button type="submit" text={t("confirm")} />
             <Button
+              al={tw("aria.confirmForm")}
+              type="submit"
+              text={t("confirm")}
+            />
+            <Button
+              al={tw("aria.resetForm")}
               click={clearAllFormSetters}
               type="reset"
-              text={t("cancel")}
+              text={t("reset")}
             />
           </div>
         )}

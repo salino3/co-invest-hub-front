@@ -71,6 +71,8 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
               type="text"
               value={contact.type}
               change={(e) => handleChange(index, "type", e.target.value)}
+              ariaRq
+              ariaLabeInput={t("type_contact")}
             />
             <BasicInput
               lbl={t("value_contact") + `${index === 0 ? " *" : ""}`}
@@ -78,6 +80,7 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
               type="text"
               change={(e) => handleChange(index, "value", e.target.value)}
               value={contact.value}
+              ariaLabeInput={t("value_contact")}
             />
 
             {contacts?.length > 1 && (

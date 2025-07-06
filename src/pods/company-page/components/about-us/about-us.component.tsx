@@ -59,6 +59,8 @@ export const AboutUs: React.FC<Props> = (props) => {
             (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.name)
           }
           update={roleAccount ? () => handleChangeReadOnly("name") : null}
+          ariaLabeInput={t("name")}
+          ariaRq
         />
         <BasicInput
           lbl={t("description") + " *"}
@@ -76,6 +78,8 @@ export const AboutUs: React.FC<Props> = (props) => {
           update={
             roleAccount ? () => handleChangeReadOnly("description") : null
           }
+          ariaLabeInput={t("description")}
+          ariaRq
         />
         <BasicInput
           lbl={t("sector") + " *"}
@@ -89,6 +93,8 @@ export const AboutUs: React.FC<Props> = (props) => {
             (!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.sector)
           }
           update={roleAccount ? () => handleChangeReadOnly("sector") : null}
+          ariaLabeInput={t("sector")}
+          ariaRq
         />
         <BasicInput
           lbl={t("location") + " *"}
@@ -103,6 +109,8 @@ export const AboutUs: React.FC<Props> = (props) => {
             (!!roleAccount && !inputsReadOnly?.location)
           }
           update={roleAccount ? () => handleChangeReadOnly("location") : null}
+          ariaLabeInput={t("location")}
+          ariaRq
         />
         {!!roleAccount && (
           <BasicInput
@@ -123,6 +131,8 @@ export const AboutUs: React.FC<Props> = (props) => {
               (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.role)
             }
             update={roleAccount ? () => handleChangeReadOnly("role") : null}
+            ariaLabeInput={t("role")}
+            ariaRq
           />
         )}
 

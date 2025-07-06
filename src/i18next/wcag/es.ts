@@ -35,6 +35,9 @@ export const es = {
   languages: "Idiomas",
   settings: "Ajustes",
   close: "Cerrar",
+  type_contact: "Tipo (e. correo eletrónico, tel)",
+  value_contact: "Contacto (e. contact@site.com, +34..)",
+
   aria: {
     logout: "Cerrar sesión de tu cuenta",
     login: "Iniciar sesión en tu cuenta",
@@ -50,5 +53,11 @@ export const es = {
     EN_img_l: "Icono bandera Inglésa",
     ES_img_l: "Icono bandera Española",
     switcher_item: "Conmutador de tema color web",
+    searchingInput: "Busque empresas usando nombre, sector, hashtags",
+    confirmForm: "Confirmar datos formulario",
+    goToLogin: "Ir al formulario inicio sessión",
+    goToRegister: "Ir al formulario de registro",
+    closeModal: "Acción de cerrar modal",
+    resetForm: "Resetear valores formulario",
   },
 };

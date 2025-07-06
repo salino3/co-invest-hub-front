@@ -40,5 +40,33 @@
         -ms-user-select: none;
       }
     }
+
+    .boxDeleteIconCompany {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 50%;
+      border: solid 1px transparent;
+
+      &:hover {
+        border-color: var(--color-error);
+        background-color: var(--opacified-error);
+      }
+
+      &:active {
+        transform: scale(0.97);
+      }
+    }
+  }
+
+  .modalConfirmDeleteCompany {
+    .containerModal {
+      min-width: 300px;
+      width: 90vw;
+      max-width: 700px;
+    }
   }
 }

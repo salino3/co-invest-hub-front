@@ -163,6 +163,23 @@ export class ServicesApp {
       });
   }
 
+  public static async deleteCompany(
+    id: string
+  ): Promise<AxiosResponse<{ id: string }>> {
+    return await axios
+      .delete(`${baseBackend}/api/companies/${id}`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   //* Favorites
 
   public static async addFavorite(ids: {

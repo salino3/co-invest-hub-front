@@ -1,10 +1,12 @@
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useProvider } from "./store";
 import { AppRoutes } from "./router";
 import "./App.scss";
 
 function App() {
   const theme = useProvider((state) => state.theme);
+  const { i18n } = useTranslation();
 
   useLayoutEffect(() => {
     const root = document.documentElement;
@@ -28,6 +30,10 @@ function App() {
       isDark ? "rgb(178, 164, 164)" : "rgba(0, 0, 0, 0.1)"
     );
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.language || "en";
+  }, [i18n.language]);
 
   return <AppRoutes />;
 }
