@@ -68,5 +68,8 @@ export const en = {
     ES_img_l: "Spanish flag icon",
     switcher_item: "Web color theme switcher",
     searchingInput: "Search companies using name, sector, hashtags",
+    confirmForm: "Confirm form data",
+    goToLogin: "Go to login form",
+    goToRegister: "Go to register form",
   },
 };

@@ -23,6 +23,7 @@ interface AccountRegisterFormError {
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const navigate = useNavigate();
   const { loginAccount, currentUser } = useProviderSelector(
@@ -166,16 +167,20 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="rootHomePage">
-      <h1>{t("welcome")}</h1>
+      <h1 tabIndex={0} aria-label={t("welcome")}>
+        {t("welcome")}
+      </h1>
       <br />
       <div className="containerHomePage">
         <div className="boxButtonHome">
           <Button
+            al={tw("aria.goToRegister")}
             customStyles={formType ? "btnRegister" : ""}
             click={() => setFormType(true)}
             text={t("register")}
           />
           <Button
+            al={tw("aria.goToLogin")}
             customStyles={!formType ? "btnLogin" : ""}
             click={() => setFormType(false)}
             text={t("login")}
@@ -191,6 +196,7 @@ export const HomePage: React.FC = () => {
                 lbl={t("name")}
                 change={handleChange("name")}
                 value={(formData as AccountRegisterForm)?.name || ""}
+                ariaLabeInput={t("name")}
               />
               <BasicInput
                 type="email"
@@ -202,6 +208,8 @@ export const HomePage: React.FC = () => {
                 checkError={
                   !!(formDataError as AccountRegisterFormError)?.email
                 }
+                ariaLabeInput={t("email")}
+                ariaRq
               />
               <BasicInput
                 type="password"
@@ -213,6 +221,8 @@ export const HomePage: React.FC = () => {
                 checkError={
                   !!(formDataError as AccountRegisterFormError)?.password
                 }
+                ariaLabeInput={t("password")}
+                ariaRq
               />
               <BasicInput
                 type="password"
@@ -235,6 +245,8 @@ export const HomePage: React.FC = () => {
                 value={(formData as AccountRegisterForm)?.age || ""}
                 errMsg={(formDataError as AccountRegisterFormError)?.age}
                 checkError={!!(formDataError as AccountRegisterFormError)?.age}
+                ariaLabeInput={t("age")}
+                ariaRq
               />
             </>
           ) : (
@@ -247,6 +259,8 @@ export const HomePage: React.FC = () => {
                 value={(formData as AccountLoginForm)?.email || ""}
                 errMsg={(formDataError as AccountLoginForm)?.email}
                 checkError={!!(formDataError as AccountLoginForm)?.email}
+                ariaLabeInput={t("email")}
+                ariaRq
               />
               <BasicInput
                 type="password"
@@ -256,11 +270,17 @@ export const HomePage: React.FC = () => {
                 value={(formData as AccountLoginForm)?.password || ""}
                 errMsg={(formDataError as AccountLoginForm)?.password}
                 checkError={!!(formDataError as AccountLoginForm)?.password}
+                ariaLabeInput={t("password")}
+                ariaRq
               />
             </>
           )}
 
-          <Button type="submit" text={t("confirm")} />
+          <Button
+            al={tw("aria.confirmForm")}
+            type="submit"
+            text={t("confirm")}
+          />
         </form>
       </div>
     </div>

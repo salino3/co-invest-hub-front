@@ -54,5 +54,8 @@ export const es = {
     ES_img_l: "Icono bandera Española",
     switcher_item: "Conmutador de tema color web",
     searchingInput: "Busque empresas usando nombre, sector, hashtags",
+    confirmForm: "Confirmar datos formulario",
+    goToLogin: "Ir al formulario inicio sessión",
+    goToRegister: "Ir al formulario de registro",
   },
 };
