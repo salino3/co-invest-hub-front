@@ -27,6 +27,9 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
       <div className="infoAboutCompany">
         {!roleAccount && (
           <StarIcon
+            styles={{
+              cursor: "pointer",
+            }}
             click={() =>
               ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
                 account_id: isFavorited ? String(cId) : Number(cId),
