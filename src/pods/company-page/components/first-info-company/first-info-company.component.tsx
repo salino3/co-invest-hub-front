@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Params } from "react-router-dom";
 import { ServicesApp } from "../../../../services";
-import { StarIcon, ZoomImg } from "../../../../common";
+import { BinIcon, StarIcon, ZoomImg } from "../../../../common";
 import "./first-info-company.styles.scss";
 
 interface Props {
@@ -48,6 +48,9 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             alt="Logo"
             onError={(e) => (e.currentTarget.src = "/assets/icons/group_3.svg")}
           />
+        </div>
+        <div className="boxDeleteIconCompany">
+          <BinIcon width={30} height={30} />
         </div>
         <ZoomImg
           img={logo || "/assets/icons/group_3.svg"}

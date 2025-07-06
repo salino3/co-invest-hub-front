@@ -40,5 +40,22 @@
         -ms-user-select: none;
       }
     }
+
+    .boxDeleteIconCompany {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 50%;
+      border: solid 1px transparent;
+
+      &:hover {
+        border-color: var(--color-error);
+        fill: var(--color-error) !important;
+        background-color: var(--opacified-error);
+      }
+    }
   }
 }

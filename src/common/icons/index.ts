@@ -5,3 +5,4 @@ export * from "./more-icon";
 export * from "./star-icon";
 export * from "./lock-icon";
 export * from "./opened-lock-icon.tsx";
+export * from "./bin-icon.tsx";
