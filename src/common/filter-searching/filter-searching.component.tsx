@@ -11,6 +11,7 @@ import "./filter-searching.styles.scss";
 
 export const FilterSearching: React.FC = () => {
   const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const navigate = useNavigate();
 
@@ -37,7 +38,6 @@ export const FilterSearching: React.FC = () => {
         searching: searchFilter.trim() || searchData?.searching,
         offset: 0,
       };
-      console.log("clog2", body);
       ServicesApp?.getSearchingCompanies(body).then((res) => {
         setCompanies && setCompanies(res?.data);
         localStorage.setItem("searchData", JSON.stringify(body));
@@ -60,6 +60,8 @@ export const FilterSearching: React.FC = () => {
         change={handleChange}
         errMsg={searchErrorFilter}
         checkError={!!searchErrorFilter}
+        ariaRq
+        ariaLabeInput={tw("aria.searchingInput")}
       />
       <div className="boxButton_21">
         <Button customStyles="btnPrimary_01" text={t("search")} type="submit" />

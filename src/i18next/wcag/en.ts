@@ -67,5 +67,6 @@ export const en = {
     EN_img_l: "English flag icon",
     ES_img_l: "Spanish flag icon",
     switcher_item: "Web color theme switcher",
+    searchingInput: "Search companies using name, sector, hashtags",
   },
 };

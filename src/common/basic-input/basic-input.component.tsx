@@ -20,6 +20,10 @@ interface PropsBasicInput {
   min?: string | number | undefined;
   rows?: number;
   cols?: number;
+  ariaLabelLbl?: string;
+  ariaLabeInput?: string;
+  // aria-required: type Booleanish = boolean | "true" | "false", default false
+  ariaRq?: boolean | "true" | "false";
 }
 
 export const BasicInput: React.FC<PropsBasicInput> = (props) => {
@@ -39,6 +43,9 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
     min,
     rows = 3,
     cols = 30,
+    ariaLabelLbl,
+    ariaLabeInput,
+    ariaRq,
   } = props;
   const { t } = useTranslation("main");
 
@@ -62,7 +69,8 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
         <label
           className={`${value ? "label_01" : ""}
      ${readonly ? "labelReadonly" : ""}`}
-          htmlFor={name}
+          htmlFor={name + "ID"}
+          aria-label={ariaLabelLbl}
         >
           {lbl}
         </label>
@@ -76,9 +84,11 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             value={value}
             onClick={click}
             onChange={change}
+            aria-label={ariaLabeInput}
             rows={rows}
             cols={cols}
             readOnly={readonly}
+            aria-required={ariaRq}
           ></textarea>
         ) : (
           <input
@@ -97,6 +107,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
             readOnly={readonly}
             onClick={click}
             onChange={change}
+            aria-label={ariaLabeInput}
             // onWheel={(e) => e.currentTarget.blur()}
             onFocus={(e) => {
               e.currentTarget.addEventListener(
@@ -113,6 +124,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
               );
             }}
             // onInput={() => alert("Hi!")} // It works when value change
+            aria-required={ariaRq}
           />
         )}
         {!!update && (
@@ -124,7 +136,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
           />
         )}
       </div>
-      {errMsg && <small>{t(errMsg)}</small>}
+      {errMsg && <small role="alert">{t(errMsg)}</small>}
     </div>
   );
 };
