@@ -23,6 +23,7 @@ export const en = {
   profile_picture: "Profile picture",
   confirm: "Confrim",
   cancel: "Cancel",
+  reset: "Reset",
   empty_or_incorrect: "is empty or with incorrect format",
   is_required: "is required",
   at_least_6: "must be at least 6 characters long",

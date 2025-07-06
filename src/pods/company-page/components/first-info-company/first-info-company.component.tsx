@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Params } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ServicesApp } from "../../../../services";
 import { BinIcon, StarIcon, ZoomImg } from "../../../../common";
+import { ModalWeb } from "../../../../common-app";
 import "./first-info-company.styles.scss";
 
 interface Props {
@@ -15,6 +17,8 @@ interface Props {
 
 export const FirstInfoCompany: React.FC<Props> = (props) => {
   const { params, roleAccount, myFavorites, cId, setFlag, logo } = props;
+
+  const { t } = useTranslation("main");
 
   const [zoomPhoto, setZoomPhoto] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -76,7 +80,16 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           width: "98%",
         }}
       />
-      {showDeleteModal && <>{showDeleteModal}</>}
+      {showDeleteModal && (
+        <ModalWeb
+          customStyles="modalConfirmDeleteCompany"
+          msg={t("confirmDelete")}
+          show={showDeleteModal}
+          setShow={setShowDeleteModal}
+          content={showDeleteModal}
+          customMaxHeight={"40vh"}
+        />
+      )}
     </div>
   );
 };

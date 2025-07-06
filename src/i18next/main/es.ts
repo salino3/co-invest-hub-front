@@ -23,6 +23,7 @@ export const es = {
   profile_picture: "Imagen Perfil",
   confirm: "Confirmar",
   cancel: "Cancelar",
+  reset: "Resetear",
   empty_or_incorrect: "está vacío o con formato incorrecto",
   is_required: "es requerido",
   at_least_6: "debe contener al menos 6 caracteres",

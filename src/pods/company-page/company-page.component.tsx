@@ -298,9 +298,10 @@ export const CompanyPage: React.FC = () => {
               text={t("confirm")}
             />
             <Button
+              al={tw("aria.resetForm")}
               click={clearAllFormSetters}
               type="reset"
-              text={t("cancel")}
+              text={t("reset")}
             />
           </div>
         )}

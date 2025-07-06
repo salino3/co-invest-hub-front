@@ -57,5 +57,7 @@ export const es = {
     confirmForm: "Confirmar datos formulario",
     goToLogin: "Ir al formulario inicio sessión",
     goToRegister: "Ir al formulario de registro",
+    closeModal: "Acción de cerrar modal",
+    resetForm: "Resetear valores formulario",
   },
 };

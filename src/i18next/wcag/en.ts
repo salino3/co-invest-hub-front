@@ -71,5 +71,7 @@ export const en = {
     confirmForm: "Confirm form data",
     goToLogin: "Go to login form",
     goToRegister: "Go to register form",
+    closeModal: "Action to close modal",
+    resetForm: "Reset form values",
   },
 };
