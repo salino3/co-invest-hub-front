@@ -53,8 +53,11 @@
 
       &:hover {
         border-color: var(--color-error);
-        fill: var(--color-error) !important;
         background-color: var(--opacified-error);
+      }
+
+      &:active {
+        transform: scale(0.97);
       }
     }
   }

@@ -17,6 +17,8 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
   const { params, roleAccount, myFavorites, cId, setFlag, logo } = props;
 
   const [zoomPhoto, setZoomPhoto] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<string | null>("");
 
   const isFavorited =
     myFavorites &&
@@ -49,8 +51,17 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             onError={(e) => (e.currentTarget.src = "/assets/icons/group_3.svg")}
           />
         </div>
-        <div className="boxDeleteIconCompany">
-          <BinIcon width={30} height={30} />
+        <div
+          onClick={() => setShowDeleteModal(String(cId))}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="boxDeleteIconCompany"
+        >
+          <BinIcon
+            stroke={isHovered ? "var(--color-error)" : "currentColor"}
+            width={30}
+            height={30}
+          />
         </div>
         <ZoomImg
           img={logo || "/assets/icons/group_3.svg"}
@@ -65,6 +76,7 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           width: "98%",
         }}
       />
+      {showDeleteModal && <>{showDeleteModal}</>}
     </div>
   );
 };
