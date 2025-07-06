@@ -35,6 +35,9 @@ export const es = {
   languages: "Idiomas",
   settings: "Ajustes",
   close: "Cerrar",
+  type_contact: "Tipo (e. correo eletrónico, tel)",
+  value_contact: "Contacto (e. contact@site.com, +34..)",
+
   aria: {
     logout: "Cerrar sesión de tu cuenta",
     login: "Iniciar sesión en tu cuenta",

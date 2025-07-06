@@ -42,7 +42,7 @@ export const en = {
   languages: "Languages",
   settings: "Settings",
   close: "close",
-  type_contact: "Type (e. correo eletrónico, tel)",
+  type_contact: "Type (e. email, tel)",
   value_contact: "Contact (e. contact@site.com, +34..)",
   remove: "Remove",
   add_contact: "Add contact",
