@@ -10,10 +10,12 @@ interface Props {
   content?: any;
   text2?: string;
   textBtn: string;
+  ariaLabel: string;
 }
 
 export const ConfirmingDelete: React.FC<Props> = (props) => {
-  const { data, setData, endpoint, text1, content, text2, textBtn } = props;
+  const { data, setData, endpoint, text1, content, text2, ariaLabel, textBtn } =
+    props;
 
   const confirmBtnf = useRef<HTMLButtonElement>(null);
 
@@ -53,6 +55,7 @@ export const ConfirmingDelete: React.FC<Props> = (props) => {
         </div>
         <div className="boxBtnsForm">
           <button
+            aria-label={ariaLabel}
             onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
               if (e.key === "Tab" && !e.shiftKey) {
                 e.preventDefault();

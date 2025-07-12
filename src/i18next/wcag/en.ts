@@ -73,5 +73,10 @@ export const en = {
     goToRegister: "Go to register form",
     closeModal: "Action to close modal",
     resetForm: "Reset form values",
+    startIcon01: "Add company ",
+    startIcon02: " to prefers",
+    startIcon03: "Remove company ",
+    startIcon04: " from prefers",
+    deleteCompany01: "Open modal for delete company",
   },
 };

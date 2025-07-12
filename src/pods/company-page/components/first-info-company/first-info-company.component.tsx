@@ -19,6 +19,7 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
   const { params, roleAccount, myFavorites, cId, setFlag, logo } = props;
 
   const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const [zoomPhoto, setZoomPhoto] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -35,6 +36,16 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           <div
             className="boxStar"
             tabIndex={0}
+            role="button"
+            aria-label={
+              isFavorited
+                ? `${tw("aria.startIcon03")}"${params?.name}"${tw(
+                    "aria.startIcon04"
+                  )}`
+                : `${tw("aria.startIcon01")}"${params?.name}"${tw(
+                    "aria.startIcon02"
+                  )}`
+            }
             onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
               if (e.key === "Enter") {
                 ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
@@ -73,6 +84,8 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
         {roleAccount && (
           <div
             tabIndex={0}
+            role="button"
+            aria-label={`${tw("aria.deleteCompany01")} "${params?.name}"`}
             id="handleModalBinCompany"
             onClick={() => setShowDeleteModal(String(cId))}
             onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -116,7 +129,9 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             data={showDeleteModal}
             setData={setShowDeleteModal}
             endpoint=""
+            text1=""
             textBtn={t("confirm")}
+            ariaLabel={t("confirmDeleteCompany")}
           />
         </ModalWeb>
       )}
