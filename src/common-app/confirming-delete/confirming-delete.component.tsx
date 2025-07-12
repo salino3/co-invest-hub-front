@@ -7,6 +7,7 @@ interface Props {
   data: any;
   setData: React.Dispatch<SetStateAction<any>>;
   endpoint: string;
+  body: any;
   text1?: string;
   content?: any;
   text2?: string;
@@ -15,16 +16,26 @@ interface Props {
 }
 
 export const ConfirmingDelete: React.FC<Props> = (props) => {
-  const { data, setData, endpoint, text1, content, text2, ariaLabel, textBtn } =
-    props;
+  const {
+    data,
+    setData,
+    endpoint,
+    body,
+    text1,
+    content,
+    text2,
+    ariaLabel,
+    textBtn,
+  } = props;
 
-  const confirmBtnf = useRef<HTMLButtonElement>(null);
+  const confirmBtnf = useRef<HTMLButtonElement>(body);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    // (ServicesApp as any)?.[endpoint](data).then(() => {});
-    setData(null);
+    //TODO: Why unauthorized
+    (ServicesApp as any)?.[endpoint](body).then(() => {
+      setData(null);
+    });
   }
 
   useEffect(() => {

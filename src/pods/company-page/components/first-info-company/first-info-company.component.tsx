@@ -30,6 +30,8 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
     myFavorites &&
     myFavorites?.length > 0 &&
     myFavorites.some((f) => f === Number(params?.id));
+
+  console.log("clog2", params);
   return (
     <div className="containerInfoAboutCompany">
       <div className="infoAboutCompany">
@@ -129,7 +131,8 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           <ConfirmingDelete
             data={showDeleteModal}
             setData={setShowDeleteModal}
-            endpoint=""
+            endpoint="deleteCompany"
+            body={params?.id}
             text1={`${t("text1DeleteCompany")} "<strong>${
               params?.name
             }</strong>"?`}
