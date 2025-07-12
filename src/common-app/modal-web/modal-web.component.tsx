@@ -1,10 +1,10 @@
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { CrossIcon } from "../../common/icons";
 import "./modal-web.styles.scss";
 
 interface Props {
-  content: any;
+  children: React.ReactNode;
   show: any;
   setShow: React.Dispatch<SetStateAction<any>>;
   msg: string;
@@ -14,7 +14,7 @@ interface Props {
 
 export const ModalWeb: React.FC<Props> = (props) => {
   const {
-    content,
+    children,
     show,
     setShow,
     msg,
@@ -22,6 +22,18 @@ export const ModalWeb: React.FC<Props> = (props) => {
     customMaxHeight = "auto",
   } = props;
   const { t: tw } = useTranslation("wcag");
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [show]);
 
   return (
     <div className={`rootModalWeb ${customStyles}`}>
@@ -37,6 +49,7 @@ export const ModalWeb: React.FC<Props> = (props) => {
           <div
             role="button"
             tabIndex={0}
+            id="closeModalWebButton"
             aria-label={tw("aria.closeModal")}
             className="closeIcon"
             onKeyDown={(e) => {
@@ -53,7 +66,7 @@ export const ModalWeb: React.FC<Props> = (props) => {
             <CrossIcon />
           </div>
         </div>
-        <div className="bodyModal">{content}</div>
+        <div className="bodyModal">{children}</div>
       </div>
     </div>
   );

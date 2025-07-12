@@ -6,3 +6,4 @@ export * from "./expandable-my-companies";
 export * from "./list-languages";
 export * from "./container-drop-down";
 export * from "./modal-web";
+export * from "./confirming-delete";
