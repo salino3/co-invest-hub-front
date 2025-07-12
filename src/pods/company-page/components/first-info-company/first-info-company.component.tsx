@@ -32,20 +32,35 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
     <div className="containerInfoAboutCompany">
       <div className="infoAboutCompany">
         {!roleAccount && (
-          <StarIcon
-            styles={{
-              cursor: "pointer",
+          <div
+            className="boxStar"
+            tabIndex={0}
+            onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+              if (e.key === "Enter") {
+                ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
+                  account_id: isFavorited ? String(cId) : Number(cId),
+                  company_id: isFavorited
+                    ? String(params?.id)
+                    : Number(params?.id),
+                }).then(() => setFlag((prev: boolean) => !prev));
+              }
             }}
-            click={() =>
-              ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
-                account_id: isFavorited ? String(cId) : Number(cId),
-                company_id: isFavorited
-                  ? String(params?.id)
-                  : Number(params?.id),
-              }).then(() => setFlag((prev: boolean) => !prev))
-            }
-            fill={isFavorited ? "gold" : "currentColor"}
-          />
+          >
+            <StarIcon
+              styles={{
+                cursor: "pointer",
+              }}
+              click={() =>
+                ServicesApp?.[isFavorited ? "deleteFavorite" : "addFavorite"]({
+                  account_id: isFavorited ? String(cId) : Number(cId),
+                  company_id: isFavorited
+                    ? String(params?.id)
+                    : Number(params?.id),
+                }).then(() => setFlag((prev: boolean) => !prev))
+              }
+              fill={isFavorited ? "gold" : "currentColor"}
+            />
+          </div>
         )}
         <h4>* {params?.name} * </h4>
         <div onClick={() => setZoomPhoto(true)} className="boxLogoCompany">
@@ -55,27 +70,27 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             onError={(e) => (e.currentTarget.src = "/assets/icons/group_3.svg")}
           />
         </div>
-        <div
-          tabIndex={0}
-          id="handleModalBinCompany"
-          onClick={() => setShowDeleteModal(String(cId))}
-          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-            if (e.key === "Enter") {
-              setShowDeleteModal(String(cId));
-            }
-          }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="boxDeleteIconCompany"
-        >
-          {roleAccount && (
+        {roleAccount && (
+          <div
+            tabIndex={0}
+            id="handleModalBinCompany"
+            onClick={() => setShowDeleteModal(String(cId))}
+            onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+              if (e.key === "Enter") {
+                setShowDeleteModal(String(cId));
+              }
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="boxDeleteIconCompany"
+          >
             <BinIcon
               stroke={isHovered ? "var(--color-error)" : "currentColor"}
               width={30}
               height={30}
             />
-          )}
-        </div>
+          </div>
+        )}
         <ZoomImg
           img={logo || "/assets/icons/group_3.svg"}
           alt="Logo"
@@ -101,6 +116,7 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             data={showDeleteModal}
             setData={setShowDeleteModal}
             endpoint=""
+            textBtn={t("confirm")}
           />
         </ModalWeb>
       )}

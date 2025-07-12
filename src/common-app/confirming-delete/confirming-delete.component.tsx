@@ -9,17 +9,19 @@ interface Props {
   text1?: string;
   content?: any;
   text2?: string;
+  textBtn: string;
 }
 
 export const ConfirmingDelete: React.FC<Props> = (props) => {
-  const { data, setData, endpoint, text1, content, text2 } = props;
+  const { data, setData, endpoint, text1, content, text2, textBtn } = props;
 
   const confirmBtnf = useRef<HTMLButtonElement>(null);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    (ServicesApp as any)?.[endpoint](data).then(() => {});
+    // (ServicesApp as any)?.[endpoint](data).then(() => {});
+    setData(null);
   }
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export const ConfirmingDelete: React.FC<Props> = (props) => {
             }}
             ref={confirmBtnf}
           >
-            confirm
+            {textBtn}
           </button>
         </div>
       </form>
