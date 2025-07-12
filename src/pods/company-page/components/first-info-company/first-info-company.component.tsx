@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ServicesApp } from "../../../../services";
 import { BinIcon, StarIcon, ZoomImg } from "../../../../common";
 import { ConfirmingDelete, ModalWeb } from "../../../../common-app";
+
 import "./first-info-company.styles.scss";
 
 interface Props {
@@ -129,7 +130,9 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             data={showDeleteModal}
             setData={setShowDeleteModal}
             endpoint=""
-            text1=""
+            text1={`${t("text1DeleteCompany")} "<strong>${
+              params?.name
+            }</strong>"?`}
             textBtn={t("confirm")}
             ariaLabel={t("confirmDeleteCompany")}
           />

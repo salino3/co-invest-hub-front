@@ -57,4 +57,5 @@ export const en = {
   contact_l: "Contacts",
   portfolio_l: "Portfolio",
   confirmDeleteCompany: "Confirm Delete Company",
+  text1DeleteCompany: "Do you want delete the company",
 };

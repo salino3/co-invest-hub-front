@@ -57,4 +57,5 @@ export const es = {
   contact_l: "Contactos",
   portfolio_l: "Portfolio",
   confirmDeleteCompany: "Confirmar Eliminar Compañía",
+  text1DeleteCompany: "¿Quieres eliminar la compañía",
 };

@@ -1,4 +1,5 @@
 import { SetStateAction, useEffect, useRef } from "react";
+import DOMPurify from "dompurify";
 import { ServicesApp } from "../../services";
 import "./confirming-delete.styles.scss";
 
@@ -49,9 +50,21 @@ export const ConfirmingDelete: React.FC<Props> = (props) => {
     <div className="rootConfirmingDelete">
       <form onSubmit={handleSubmit} id="formConfirmingDelete">
         <div className="bodyText">
-          {text1 && <span>{text1}</span>}
-          {content && <span>{content}</span>}
-          {text2 && <span>{text2}</span>}
+          {text1 && (
+            <span
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(text1) }}
+            />
+          )}
+          {content && (
+            <span
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+            />
+          )}
+          {text2 && (
+            <span
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(text2) }}
+            />
+          )}
         </div>
         <div className="boxBtnsForm">
           <button
