@@ -3,7 +3,7 @@ import { Params } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ServicesApp } from "../../../../services";
 import { BinIcon, StarIcon, ZoomImg } from "../../../../common";
-import { ModalWeb } from "../../../../common-app";
+import { ConfirmingDelete, ModalWeb } from "../../../../common-app";
 import "./first-info-company.styles.scss";
 
 interface Props {
@@ -56,16 +56,25 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           />
         </div>
         <div
+          tabIndex={0}
+          id="handleModalBinCompany"
           onClick={() => setShowDeleteModal(String(cId))}
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === "Enter") {
+              setShowDeleteModal(String(cId));
+            }
+          }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className="boxDeleteIconCompany"
         >
-          <BinIcon
-            stroke={isHovered ? "var(--color-error)" : "currentColor"}
-            width={30}
-            height={30}
-          />
+          {roleAccount && (
+            <BinIcon
+              stroke={isHovered ? "var(--color-error)" : "currentColor"}
+              width={30}
+              height={30}
+            />
+          )}
         </div>
         <ZoomImg
           img={logo || "/assets/icons/group_3.svg"}
@@ -83,12 +92,17 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
       {showDeleteModal && (
         <ModalWeb
           customStyles="modalConfirmDeleteCompany"
-          msg={t("confirmDelete")}
+          msg={t("confirmDeleteCompany")}
           show={showDeleteModal}
           setShow={setShowDeleteModal}
-          content={showDeleteModal}
           customMaxHeight={"40vh"}
-        />
+        >
+          <ConfirmingDelete
+            data={showDeleteModal}
+            setData={setShowDeleteModal}
+            endpoint=""
+          />
+        </ModalWeb>
       )}
     </div>
   );

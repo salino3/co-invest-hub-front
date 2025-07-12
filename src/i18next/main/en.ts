@@ -56,4 +56,5 @@ export const en = {
   about_us_l: "About us",
   contact_l: "Contacts",
   portfolio_l: "Portfolio",
+  confirmDeleteCompany: "Confirm Delete Company",
 };

@@ -90,9 +90,11 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
             )}
           </div>
         ))}
-      <button type="button" onClick={addContact}>
-        {t("add_contact")}
-      </button>
+      {!!roleAccount && (
+        <button type="button" onClick={addContact}>
+          {t("add_contact")}
+        </button>
+      )}
     </div>
   );
 };
