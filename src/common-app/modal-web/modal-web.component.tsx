@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React, { SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { CrossIcon } from "../../common/icons";
 import "./modal-web.styles.scss";
@@ -22,6 +22,18 @@ export const ModalWeb: React.FC<Props> = (props) => {
     customMaxHeight = "auto",
   } = props;
   const { t: tw } = useTranslation("wcag");
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [show]);
 
   return (
     <div className={`rootModalWeb ${customStyles}`}>
