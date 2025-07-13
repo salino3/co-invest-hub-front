@@ -7,6 +7,15 @@
   }
 }
 
+@keyframes hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .rootModalWeb {
   display: flex;
   flex-direction: column;
@@ -81,4 +90,8 @@
       padding: 0.5rem;
     }
   }
+}
+
+.hideAnimation {
+  animation: hide 0.55s ease-in-out;
 }
