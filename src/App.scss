@@ -36,3 +36,48 @@
     border: solid 2px var(--global-05);
   }
 }
+
+.buttonStyle_03 {
+  button {
+    border-color: var(--global-04);
+    background-color: var(--global-08);
+    font-weight: bold;
+    padding: 0.5rem 1rem !important;
+    color: var(--global-04);
+  }
+
+  button:active {
+    border: solid 2px var(--global-05);
+  }
+}
+
+.buttonStyle_04 {
+  button {
+    border-color: var(--global-08);
+    background-color: var(--global-04);
+    font-weight: bold;
+    padding: 0.5rem 1rem !important;
+    color: var(--global-08);
+  }
+
+  button:active {
+    border: solid 2px var(--global-05);
+  }
+}
+
+.btnStylesApp {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  text-decoration: none;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
