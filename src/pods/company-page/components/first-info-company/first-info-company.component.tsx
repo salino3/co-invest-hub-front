@@ -132,7 +132,7 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             data={showDeleteModal}
             setData={setShowDeleteModal}
             endpoint="deleteCompany"
-            body={params?.id}
+            body={{ id: String(cId), idCompany: params?.id }}
             text1={`${t("text1DeleteCompany")} "<strong>${
               params?.name
             }</strong>"?`}

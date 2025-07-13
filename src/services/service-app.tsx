@@ -163,11 +163,12 @@ export class ServicesApp {
       });
   }
 
-  public static async deleteCompany(
-    id: string
-  ): Promise<AxiosResponse<{ id: string }>> {
+  public static async deleteCompany(body: {
+    id: string;
+    idCompany: string;
+  }): Promise<AxiosResponse<null>> {
     return await axios
-      .delete(`${baseBackend}/api/companies/${id}`, {
+      .delete(`${baseBackend}/api/companies/${body?.id}/${body?.idCompany}`, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
