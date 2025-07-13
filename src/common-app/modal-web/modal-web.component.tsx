@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CrossIcon } from "../../common/icons";
 import "./modal-web.styles.scss";
@@ -23,6 +23,8 @@ export const ModalWeb: React.FC<Props> = (props) => {
   } = props;
   const { t: tw } = useTranslation("wcag");
 
+  const [closeFlag, setCloseFlag] = useState<boolean>(false);
+
   useEffect(() => {
     if (show) {
       document.body.style.overflow = "hidden";
@@ -35,8 +37,20 @@ export const ModalWeb: React.FC<Props> = (props) => {
     };
   }, [show]);
 
+  useEffect(() => {
+    if (closeFlag) {
+      setTimeout(() => {
+        setShow((prev: any) => (typeof prev === "boolean" ? !prev : null));
+      }, 500);
+    }
+  }, [closeFlag]);
+
   return (
-    <div className={`rootModalWeb ${customStyles}`}>
+    <div
+      className={`rootModalWeb ${customStyles} ${
+        closeFlag ? "hideAnimation" : ""
+      }`}
+    >
       <div
         role="dialog"
         style={{
@@ -54,14 +68,10 @@ export const ModalWeb: React.FC<Props> = (props) => {
             className="closeIcon"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                setShow((prev: any) =>
-                  typeof prev === "boolean" ? !prev : null
-                );
+                setCloseFlag(true);
               }
             }}
-            onClick={() =>
-              setShow((prev: any) => (typeof prev === "boolean" ? !prev : null))
-            }
+            onClick={() => setCloseFlag(true)}
           >
             <CrossIcon />
           </div>
