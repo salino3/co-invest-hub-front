@@ -31,7 +31,6 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
     myFavorites?.length > 0 &&
     myFavorites.some((f) => f === Number(params?.id));
 
-  console.log("clog2", params);
   return (
     <div className="containerInfoAboutCompany">
       <div className="infoAboutCompany">
@@ -132,7 +131,7 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
             data={showDeleteModal}
             setData={setShowDeleteModal}
             endpoint="deleteCompany"
-            body={params?.id}
+            body={{ id: showDeleteModal, idCompany: params?.id }}
             text1={`${t("text1DeleteCompany")} "<strong>${
               params?.name
             }</strong>"?`}

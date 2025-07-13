@@ -1,6 +1,9 @@
 import { SetStateAction, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
+import { MyCompany, useProviderSelector } from "../../store";
 import { ServicesApp } from "../../services";
+import { routesApp } from "../../router";
 import "./confirming-delete.styles.scss";
 
 interface Props {
@@ -9,33 +12,40 @@ interface Props {
   endpoint: string;
   body: any;
   text1?: string;
-  content?: any;
   text2?: string;
   textBtn: string;
   ariaLabel: string;
 }
 
 export const ConfirmingDelete: React.FC<Props> = (props) => {
-  const {
-    data,
-    setData,
-    endpoint,
-    body,
-    text1,
-    content,
-    text2,
-    ariaLabel,
-    textBtn,
-  } = props;
+  const { data, setData, endpoint, body, text1, text2, ariaLabel, textBtn } =
+    props;
+
+  const { myCompanies, setMyCompanies } = useProviderSelector(
+    "myCompanies",
+    "setMyCompanies"
+  );
+
+  const navigate = useNavigate();
 
   const confirmBtnf = useRef<HTMLButtonElement>(body);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     //TODO: Why unauthorized
-    (ServicesApp as any)?.[endpoint](body).then(() => {
-      setData(null);
-    });
+    (ServicesApp as any)
+      ?.[endpoint](body)
+      .then(() => {
+        const newMyCompanies: MyCompany[] =
+          myCompanies && myCompanies?.length > 0
+            ? myCompanies.filter((c) => c?.id != body?.idCompany)
+            : [];
+        setMyCompanies && setMyCompanies(newMyCompanies);
+      })
+      .then(() => {
+        setData(null);
+        navigate(routesApp?.dashboard);
+      });
   }
 
   useEffect(() => {
@@ -66,9 +76,9 @@ export const ConfirmingDelete: React.FC<Props> = (props) => {
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(text1) }}
             />
           )}
-          {content && (
+          {data && (
             <span
-              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data) }}
             />
           )}
           {text2 && (
