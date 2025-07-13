@@ -105,6 +105,7 @@ export const CompanyPage: React.FC = () => {
     }));
   };
 
+  // TODO: Fix values to old values
   function clearAllFormSetters() {
     setCompanyData({
       name: "",
@@ -293,11 +294,13 @@ export const CompanyPage: React.FC = () => {
         {(!params?.id || roleAccount) && (
           <div className="boxButtonsForm">
             <Button
+              customStyles="buttonStyle_01"
               al={tw("aria.confirmForm")}
               type="submit"
               text={t("confirm")}
             />
             <Button
+              customStyles="buttonStyle_02"
               al={tw("aria.resetForm")}
               click={clearAllFormSetters}
               type="reset"

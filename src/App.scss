@@ -1,7 +1,38 @@
 .btnPrimary_01 {
   button {
     &:active {
-      background-color: rgba(255, 255, 255, 0.4);
+      // background-color: rgba(255, 255, 255, 0.4);
+      opacity: 0.4;
     }
+
+    &:hover {
+      transform: translateY(-1.5px);
+    }
+  }
+}
+
+.buttonStyle_01 {
+  button {
+    background-color: var(--color-02);
+    font-weight: bold;
+    padding: 0.5rem 1rem !important;
+    color: var(--color-text-btn);
+  }
+
+  button:active {
+    border: solid 2px var(--global-05);
+  }
+}
+
+.buttonStyle_02 {
+  button {
+    background-color: var(--global-03);
+    font-weight: bold;
+    padding: 0.5rem 1rem !important;
+    color: var(--color-text-btn);
+  }
+
+  button:active {
+    border: solid 2px var(--global-05);
   }
 }

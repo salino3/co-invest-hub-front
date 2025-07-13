@@ -59,6 +59,7 @@ export const Header: React.FC = () => {
           <div className="boxData">
             {t("email")}: {currentUser?.email}
             <Button
+              customStyles="buttonStyle_01"
               al={tw(currentUser?.email ? "aria.logout" : "aria.login")}
               click={() => closeSession()}
               text={t(currentUser?.email ? "logout" : "login")}

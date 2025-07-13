@@ -15,7 +15,7 @@ export const Button: React.FC<Props> = (props) => {
   const { customStyles, text, type, children, click, al, tabIndex = 0 } = props;
 
   return (
-    <div className={`${customStyles} rootButton_x78`}>
+    <div className={`${customStyles} rootButton_x78 btnPrimary_01`}>
       <button
         aria-label={al}
         tabIndex={tabIndex}
