@@ -25,6 +25,8 @@ function App() {
       "--color-01",
       isDark ? "rgba(113, 128, 150, 0.5)" : "rgba(74, 85, 104, 0.5)"
     );
+    root.style.setProperty("--color-02", isDark ? "#1e40af" : "#3b82f6");
+
     root.style.setProperty(
       "--global-lines",
       isDark ? "rgb(178, 164, 164)" : "rgba(0, 0, 0, 0.1)"

@@ -6,6 +6,7 @@ import {
   PropsCompanyReadOnly,
 } from "../../store";
 import { BasicInput } from "../basic-input";
+import { Button } from "../button";
 import "./contacts-inputs.styles.scss";
 
 type ContactInputsProps = {
@@ -84,16 +85,22 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
             />
 
             {contacts?.length > 1 && (
-              <button type="button" onClick={() => removeContact(index)}>
-                {t("remove")}
-              </button>
+              <Button
+                customStyles="buttonStyle_04"
+                type="button"
+                click={() => removeContact(index)}
+                text={t("remove")}
+              />
             )}
           </div>
         ))}
       {!!roleAccount && (
-        <button type="button" onClick={addContact}>
-          {t("add_contact")}
-        </button>
+        <Button
+          customStyles="buttonStyle_03"
+          type="button"
+          click={addContact}
+          text={t("add_contact")}
+        />
       )}
     </div>
   );
