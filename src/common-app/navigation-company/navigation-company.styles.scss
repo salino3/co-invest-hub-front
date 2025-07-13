@@ -8,6 +8,7 @@
   width: 100%;
   z-index: 1;
   background-color: var(--global-02);
+  max-height: 47px;
   nav {
     width: 100%;
 
@@ -15,7 +16,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
     .companyTab {
       flex-basis: 33%;
       display: flex;
@@ -29,12 +29,15 @@
     }
 
     .selectedTab {
-      border: solid 1px;
+      border: solid 1px var(--global-01) !important;
       text-decoration: underline;
+      max-height: 47px;
     }
 
     .unselectedTab {
       cursor: pointer;
+      border: solid 1px transparent;
+      max-height: 47px;
     }
   }
 }
