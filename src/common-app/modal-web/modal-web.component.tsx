@@ -50,8 +50,12 @@ export const ModalWeb: React.FC<Props> = (props) => {
       className={`rootModalWeb ${customStyles} ${
         closeFlag ? "hideAnimation" : ""
       }`}
+      onClick={() => setCloseFlag(true)}
     >
       <div
+        onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+          e.stopPropagation()
+        }
         role="dialog"
         style={{
           maxHeight: customMaxHeight,
