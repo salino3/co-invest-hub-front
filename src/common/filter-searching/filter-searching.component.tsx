@@ -64,7 +64,11 @@ export const FilterSearching: React.FC = () => {
         ariaLabeInput={tw("aria.searchingInput")}
       />
       <div className="boxButton_21">
-        <Button customStyles="btnPrimary_01" text={t("search")} type="submit" />
+        <Button
+          customStyles="buttonStyle_01"
+          text={t("search")}
+          type="submit"
+        />
       </div>
     </form>
   );
