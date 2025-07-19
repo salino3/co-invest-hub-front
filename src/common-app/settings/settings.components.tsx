@@ -1,8 +1,8 @@
-import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
 import { Switcher } from "../../common/switcher";
-import { Arrow02 } from "../../common/icons";
+import { Arrow02, CrossIcon } from "../../common/icons";
 import { ContainerDropDown } from "../container-drop-down";
 import { Button } from "../../common/button";
 import { ListLanguages } from "../list-languages";
@@ -26,6 +26,9 @@ export const Settings: React.FC<Props> = ({
     "theme",
     "changeGlobalColors"
   );
+
+  const [showModalDeleteAccount, setShowModalDeleteAccount] =
+    useState<boolean>(false);
 
   if (showSettings === null) {
     return null;
@@ -64,6 +67,13 @@ export const Settings: React.FC<Props> = ({
         <ContainerDropDown height={84} title={t("languages")}>
           <ListLanguages />
         </ContainerDropDown>
+        <Button
+          al={tw("aria.close_settings_header")}
+          customStyles="buttonStyle_02 btnCloseSettings"
+          click={() => setShowModalDeleteAccount(true)}
+        >
+          {t("delete_account")} &nbsp; <CrossIcon />
+        </Button>
       </div>
     </div>
   );
