@@ -32,7 +32,6 @@ export const ConfirmingDelete: React.FC<Props> = (props) => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    //TODO: Why unauthorized
     (ServicesApp as any)
       ?.[endpoint](body)
       .then(() => {

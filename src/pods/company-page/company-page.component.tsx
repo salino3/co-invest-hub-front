@@ -79,7 +79,6 @@ export const CompanyPage: React.FC = () => {
   });
 
   const [roleAccount, setRoleAccount] = useState<string>("");
-  // TODO: Add types
   const [rolesCompany, setRolesCompany] = useState<MyCompany[]>([]);
 
   //
@@ -213,7 +212,7 @@ export const CompanyPage: React.FC = () => {
             company_id: res?.data?.company_id,
             role: roleAccount.trim(),
           };
-          // TODO: Move this execution to backend
+          // TODO??: Move this execution to backend
           ServicesApp?.createRelationAccountCompany(body).then(() =>
             ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
               (res) => setMyCompanies && setMyCompanies(res.data)
