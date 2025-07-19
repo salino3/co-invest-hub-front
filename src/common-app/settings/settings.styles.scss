@@ -90,10 +90,12 @@
     justify-content: center;
     align-items: flex-end;
     padding: 0.5rem;
-    text-decoration: none;
 
-    button {
-      background-color: var(--color-dangerous) !important;
+    a {
+      text-decoration: none;
+      button {
+        background-color: var(--color-dangerous) !important;
+      }
     }
   }
 }

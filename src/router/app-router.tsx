@@ -2,7 +2,7 @@ import React, { JSX } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
-import { CompanyPage, Dashboard, HomePage } from "../pods";
+import { AccountPage, CompanyPage, Dashboard, HomePage } from "../pods";
 import { routesApp } from "./interface-routes";
 
 interface PropsRoutes {
@@ -20,6 +20,11 @@ const routes: PropsRoutes[] = [
   {
     path: routesApp?.company(":name", ":id"),
     element: <CompanyPage />,
+    visibility: "private",
+  },
+  {
+    path: routesApp?.account(":action"),
+    element: <AccountPage />,
     visibility: "private",
   },
   {

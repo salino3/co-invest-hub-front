@@ -68,14 +68,22 @@ export const Settings: React.FC<Props> = ({
           <ListLanguages />
         </ContainerDropDown>
         {currentUser?.id && (
-          <Link className="changePositionBtn" to={routesApp?.account("delete")}>
-            <Button
-              al={tw("aria.go_to_delete_account")}
-              customStyles="buttonStyle_02"
+          <div className="changePositionBtn">
+            <Link
+              to={routesApp?.account("delete")}
+              onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+                event?.stopPropagation();
+                setShowSettings(false);
+              }}
             >
-              {t("go_to_delete_account")} &nbsp; <CrossIcon />
-            </Button>
-          </Link>
+              <Button
+                al={tw("aria.go_to_delete_account")}
+                customStyles="buttonStyle_02"
+              >
+                {t("go_to_delete_account")} &nbsp; <CrossIcon />
+              </Button>
+            </Link>
+          </div>
         )}
       </div>
     </div>
