@@ -4,6 +4,7 @@ import { useProviderSelector } from "../../store";
 import { Switcher } from "../../common/switcher";
 import { Arrow02 } from "../../common/icons";
 import { ContainerDropDown } from "../container-drop-down";
+import { Button } from "../../common/button";
 import { ListLanguages } from "../list-languages";
 import "./settings.styles.scss";
 
@@ -36,11 +37,10 @@ export const Settings: React.FC<Props> = ({
   return (
     <div id={id} className={`rootSettings ${showSettings ? "show" : "hide"}`}>
       <div className="containerSettings_l23">
-        <button
-          tabIndex={0}
-          aria-label={tw("aria.close_settings_header")}
-          className="btnCloseSettings"
-          onClick={(event: MouseEvent<HTMLButtonElement>) => {
+        <Button
+          al={tw("aria.close_settings_header")}
+          customStyles="buttonStyle_04 btnCloseSettings"
+          click={(event: MouseEvent<HTMLButtonElement>) => {
             event?.stopPropagation();
             setShowSettings(false);
 
@@ -52,7 +52,7 @@ export const Settings: React.FC<Props> = ({
         >
           {t("close")} &nbsp; <Arrow02 />
           <Arrow02 />
-        </button>
+        </Button>
         <Switcher
           t={t}
           currentValue={theme}
