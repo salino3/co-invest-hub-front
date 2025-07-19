@@ -63,5 +63,6 @@ export const es = {
     startIcon03: "Eliminar la compañía ",
     startIcon04: " de favoritas",
     deleteCompany01: "Abrir modal para eliminar compañía",
+    delete_account: "Eliminar perfil",
   },
 };

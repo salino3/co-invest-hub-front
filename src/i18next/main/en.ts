@@ -58,4 +58,5 @@ export const en = {
   portfolio_l: "Portfolio",
   confirmDeleteCompany: "Confirm Delete Company",
   text1DeleteCompany: "Do you want delete the company",
+  delete_account: "Delete account",
 };

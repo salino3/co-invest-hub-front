@@ -78,5 +78,6 @@ export const en = {
     startIcon03: "Remove company ",
     startIcon04: " from prefers",
     deleteCompany01: "Open modal for delete company",
+    delete_account: "Delete account",
   },
 };

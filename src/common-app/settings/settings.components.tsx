@@ -68,7 +68,7 @@ export const Settings: React.FC<Props> = ({
           <ListLanguages />
         </ContainerDropDown>
         <Button
-          al={tw("aria.close_settings_header")}
+          al={tw("aria.delete_account")}
           customStyles="buttonStyle_02 changePositionBtn"
           click={() => setShowModalDeleteAccount(true)}
         >
