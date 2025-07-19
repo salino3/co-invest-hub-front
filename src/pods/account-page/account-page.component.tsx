@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { AccountRegisterForm, AccountRegisterFormError } from "../../store";
+import { Button } from "../../common";
 import { DeleteAccount } from "./components";
 import "./account-page.styles.scss";
 
@@ -37,23 +38,48 @@ export const AccountPage: React.FC = () => {
         }
   );
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e?.preventDefault();
+
+    if (!formData) {
+      setFormErrorData("required_field");
+    }
+  }
+
   return (
     <div className="rootAccountPage">
       <div className="containerAccountPage">
         <h1>
           {t(`${deletingAccount ? "delete_account" : "update_data_account"}`)}
         </h1>
-        {deletingAccount ? (
-          <DeleteAccount
-            t={t}
-            formData={formData}
-            setFormData={setFormData}
-            formErrorData={formErrorData}
-            setFormErrorData={setFormErrorData}
-          />
-        ) : (
-          <>Update</>
-        )}
+        <form id="formAccountPage" onSubmit={handleSubmit}>
+          {deletingAccount ? (
+            <DeleteAccount
+              t={t}
+              formData={formData}
+              setFormData={setFormData}
+              formErrorData={formErrorData}
+              setFormErrorData={setFormErrorData}
+            />
+          ) : (
+            <>Update</>
+          )}
+          <div className="boxButtonsForm">
+            <Button
+              customStyles="buttonStyle_02"
+              al={tw("aria.resetForm")}
+              click={() => {}}
+              type="reset"
+              text={t("reset")}
+            />{" "}
+            <Button
+              customStyles="buttonStyle_01"
+              al={tw("aria.confirmForm")}
+              type="submit"
+              text={t("confirm")}
+            />
+          </div>
+        </form>
       </div>
     </div>
   );
