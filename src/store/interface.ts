@@ -46,6 +46,15 @@ export interface AccountRegisterForm {
 }
 
 //
+export interface AccountRegisterFormError {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  age: string;
+}
+
+//
 export interface AccountLoginForm {
   email: string;
   password: string;

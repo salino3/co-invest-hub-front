@@ -58,7 +58,10 @@ export const en = {
   portfolio_l: "Portfolio",
   confirmDeleteCompany: "Confirm Delete Company",
   text1DeleteCompany: "Do you want delete the company",
-  delete_account: "Delete account",
+  update_data_account: "Updating data account",
+  delete_account: "Deleting account",
   go_to_delete_account: "Redirection to delete account",
   text1DeleteAccount: "Do you want delete your account?",
+  textDeleteAccount02: "Text in the input ",
+  textDeleteAccount03: " and click in confirm",
 };

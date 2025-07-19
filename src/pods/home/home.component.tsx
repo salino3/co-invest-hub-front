@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   AccountLoginForm,
   AccountRegisterForm,
+  AccountRegisterFormError,
   useProviderSelector,
 } from "../../store";
 import { ServicesApp } from "../../services";
@@ -12,14 +13,6 @@ import { useAppFunctions } from "../../hooks";
 import { BasicInput, Button } from "../../common";
 import { routesApp } from "../../router";
 import "./home.styles.scss";
-
-interface AccountRegisterFormError {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  age: string;
-}
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation("main");

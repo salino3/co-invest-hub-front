@@ -4,8 +4,26 @@
   justify-content: flex-start;
   align-items: center;
   height: 100%;
+  flex-grow: 1;
   width: 100%;
   gap: 1rem;
   padding: 0 1rem;
   position: relative;
+
+  .containerAccountPage {
+    border: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
+    width: 100%;
+    gap: 1rem;
+
+    h1 {
+      font-size: 22px;
+      margin-top: 1rem;
+    }
+  }
 }
