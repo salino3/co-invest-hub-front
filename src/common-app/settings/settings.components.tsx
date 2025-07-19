@@ -4,7 +4,9 @@ import { useProviderSelector } from "../../store";
 import { Switcher } from "../../common/switcher";
 import { Arrow02, CrossIcon } from "../../common/icons";
 import { ContainerDropDown } from "../container-drop-down";
+import { ModalWeb } from "../modal-web";
 import { Button } from "../../common/button";
+import { ConfirmingDelete } from "../confirming-delete";
 import { ListLanguages } from "../list-languages";
 import "./settings.styles.scss";
 
@@ -75,6 +77,28 @@ export const Settings: React.FC<Props> = ({
           {t("delete_account")} &nbsp; <CrossIcon />
         </Button>
       </div>
+
+      {showModalDeleteAccount && (
+        <ModalWeb
+          customStyles="modalConfirmDeleteCompany"
+          msg={t("confirmDeleteCompany")}
+          show={showModalDeleteAccount}
+          setShow={setShowModalDeleteAccount}
+          customMaxHeight={"40vh"}
+        >
+          <ConfirmingDelete
+            data={showModalDeleteAccount}
+            setData={setShowModalDeleteAccount}
+            endpoint="deleteCompany"
+            body={{ id: showDeleteModal, idCompany: params?.id }}
+            text1={`${t("text1DeleteCompany")} "<strong>${
+              params?.name
+            }</strong>"?`}
+            textBtn={t("confirm")}
+            ariaLabel={t("confirmDeleteCompany")}
+          />
+        </ModalWeb>
+      )}
     </div>
   );
 };
