@@ -1,10 +1,13 @@
-import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
 import { Switcher } from "../../common/switcher";
-import { Arrow02 } from "../../common/icons";
+import { Arrow02, CrossIcon } from "../../common/icons";
 import { ContainerDropDown } from "../container-drop-down";
+import { Button } from "../../common/button";
 import { ListLanguages } from "../list-languages";
+import { routesApp } from "../../router";
 import "./settings.styles.scss";
 
 interface Props {
@@ -21,7 +24,8 @@ export const Settings: React.FC<Props> = ({
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
 
-  const { theme, changeGlobalColors } = useProviderSelector(
+  const { currentUser, theme, changeGlobalColors } = useProviderSelector(
+    "currentUser",
     "theme",
     "changeGlobalColors"
   );
@@ -36,11 +40,10 @@ export const Settings: React.FC<Props> = ({
   return (
     <div id={id} className={`rootSettings ${showSettings ? "show" : "hide"}`}>
       <div className="containerSettings_l23">
-        <button
-          tabIndex={0}
-          aria-label={tw("aria.close_settings_header")}
-          className="btnCloseSettings"
-          onClick={(event: MouseEvent<HTMLButtonElement>) => {
+        <Button
+          al={tw("aria.close_settings_header")}
+          customStyles="buttonStyle_04 btnCloseSettings"
+          click={(event: MouseEvent<HTMLButtonElement>) => {
             event?.stopPropagation();
             setShowSettings(false);
 
@@ -52,7 +55,7 @@ export const Settings: React.FC<Props> = ({
         >
           {t("close")} &nbsp; <Arrow02 />
           <Arrow02 />
-        </button>
+        </Button>
         <Switcher
           t={t}
           currentValue={theme}
@@ -64,6 +67,24 @@ export const Settings: React.FC<Props> = ({
         <ContainerDropDown height={84} title={t("languages")}>
           <ListLanguages />
         </ContainerDropDown>
+        {currentUser?.id && (
+          <div className="changePositionBtn">
+            <Link
+              to={routesApp?.account("delete")}
+              onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+                event?.stopPropagation();
+                setShowSettings(false);
+              }}
+            >
+              <Button
+                al={tw("aria.go_to_delete_account")}
+                customStyles="buttonStyle_02"
+              >
+                {t("go_to_delete_account")} &nbsp; <CrossIcon />
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

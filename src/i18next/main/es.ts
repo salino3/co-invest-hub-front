@@ -57,5 +57,11 @@ export const es = {
   contact_l: "Contactos",
   portfolio_l: "Portfolio",
   confirmDeleteCompany: "Confirmar Eliminar Compañía",
+  update_data_account: "Modificar datos perfil",
   text1DeleteCompany: "¿Quieres eliminar la compañía",
+  delete_account: "Eliminación del perfil",
+  go_to_delete_account: "Redirección a eliminar cuenta",
+  text1DeleteAccount: "¿Quieres eliminar tu perfil?",
+  textDeleteAccount02: "Escribe en el input ",
+  textDeleteAccount03: " y presiona en confirmar",
 };

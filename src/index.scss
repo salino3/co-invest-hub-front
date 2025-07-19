@@ -12,6 +12,7 @@
   --color-hover: rgba(255, 255, 255, 0.15);
   --color-border: gray;
   --color-text-btn: #ffffff;
+  --color-dangerous: #f01919;
 
   // New varibles
 
@@ -52,7 +53,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p {
   padding: 0;
   margin: 0;
 }
