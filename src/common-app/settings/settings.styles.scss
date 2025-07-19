@@ -85,9 +85,12 @@
 
   .changePositionBtn {
     height: 100%;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: flex-end;
     padding: 0.5rem;
+    text-decoration: none;
 
     button {
       background-color: var(--color-dangerous) !important;

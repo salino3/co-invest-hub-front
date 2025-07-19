@@ -59,4 +59,5 @@ export const es = {
   confirmDeleteCompany: "Confirmar Eliminar Compañía",
   text1DeleteCompany: "¿Quieres eliminar la compañía",
   delete_account: "Eliminar perfil",
+  go_to_delete_account: "Redirección a eliminar cuenta",
 };

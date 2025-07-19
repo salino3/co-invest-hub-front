@@ -59,4 +59,6 @@ export const en = {
   confirmDeleteCompany: "Confirm Delete Company",
   text1DeleteCompany: "Do you want delete the company",
   delete_account: "Delete account",
+  go_to_delete_account: "Redirection to delete account",
+  text1DeleteAccount: "Do you want delete your account?",
 };

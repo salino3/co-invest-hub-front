@@ -1,13 +1,13 @@
 import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
 import { Switcher } from "../../common/switcher";
 import { Arrow02, CrossIcon } from "../../common/icons";
 import { ContainerDropDown } from "../container-drop-down";
-import { ModalWeb } from "../modal-web";
 import { Button } from "../../common/button";
-import { ConfirmingDelete } from "../confirming-delete";
 import { ListLanguages } from "../list-languages";
+import { routesApp } from "../../router";
 import "./settings.styles.scss";
 
 interface Props {
@@ -24,13 +24,11 @@ export const Settings: React.FC<Props> = ({
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
 
-  const { theme, changeGlobalColors } = useProviderSelector(
+  const { currentUser, theme, changeGlobalColors } = useProviderSelector(
+    "currentUser",
     "theme",
     "changeGlobalColors"
   );
-
-  const [showModalDeleteAccount, setShowModalDeleteAccount] =
-    useState<boolean>(false);
 
   if (showSettings === null) {
     return null;
@@ -69,36 +67,17 @@ export const Settings: React.FC<Props> = ({
         <ContainerDropDown height={84} title={t("languages")}>
           <ListLanguages />
         </ContainerDropDown>
-        <Button
-          al={tw("aria.delete_account")}
-          customStyles="buttonStyle_02 changePositionBtn"
-          click={() => setShowModalDeleteAccount(true)}
-        >
-          {t("delete_account")} &nbsp; <CrossIcon />
-        </Button>
+        {currentUser?.id && (
+          <Link className="changePositionBtn" to={routesApp?.account("delete")}>
+            <Button
+              al={tw("aria.go_to_delete_account")}
+              customStyles="buttonStyle_02"
+            >
+              {t("go_to_delete_account")} &nbsp; <CrossIcon />
+            </Button>
+          </Link>
+        )}
       </div>
-
-      {showModalDeleteAccount && (
-        <ModalWeb
-          customStyles="modalConfirmDeleteCompany"
-          msg={t("confirmDeleteCompany")}
-          show={showModalDeleteAccount}
-          setShow={setShowModalDeleteAccount}
-          customMaxHeight={"40vh"}
-        >
-          <ConfirmingDelete
-            data={showModalDeleteAccount}
-            setData={setShowModalDeleteAccount}
-            endpoint="deleteCompany"
-            body={{ id: showDeleteModal, idCompany: params?.id }}
-            text1={`${t("text1DeleteCompany")} "<strong>${
-              params?.name
-            }</strong>"?`}
-            textBtn={t("confirm")}
-            ariaLabel={t("confirmDeleteCompany")}
-          />
-        </ModalWeb>
-      )}
     </div>
   );
 };
