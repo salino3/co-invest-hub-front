@@ -123,7 +123,6 @@ export const CompanyPage: React.FC = () => {
     }));
   };
 
-  // TODO: Fix values to old values
   function clearAllFormSetters() {
     setCompanyData({
       name: params?.id ? companyOldData?.name : "",
