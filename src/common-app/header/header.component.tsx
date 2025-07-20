@@ -72,7 +72,7 @@ export const Header: React.FC = () => {
         <div className="boxDown">
           {currentUser?.id && (
             <ContainerDropDown
-              height={myCompanies && myCompanies?.length * 42 + 40}
+              height={myCompanies && myCompanies?.length * 42 + 85}
               title={t("my_companies")}
             >
               <ExpandableMyCompanies

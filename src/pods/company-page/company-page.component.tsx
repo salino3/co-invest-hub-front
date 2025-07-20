@@ -195,13 +195,14 @@ export const CompanyPage: React.FC = () => {
       },
       setCompanyDataError,
       t,
-      ["contacts"],
+      ["contacts", "investment_max", "logo"],
       setTabs
     );
 
     // TODO: Create function 'checkDataFormCompany'
     // checkDataFormCompany()
 
+    console.log("clog10", companyData, error);
     if (!error) {
       if (!params?.id) {
         ServicesApp?.createCompany(companyData).then((res: any) => {
@@ -233,7 +234,11 @@ export const CompanyPage: React.FC = () => {
           );
         }
         //
-        ServicesApp?.updateCompany(String(params?.id), companyData);
+        ServicesApp?.updateCompany(
+          String(params?.id),
+          companyData,
+          String(currentUser?.id)
+        );
       }
     }
   };

@@ -47,6 +47,10 @@ export class ServicesApp {
     return await axios
       .get(`${baseBackend}/relation/account/companies/${id}`, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
       })
       .catch((err) => {
         console.error(err);
@@ -75,6 +79,10 @@ export class ServicesApp {
     return await axios
       .post(`${baseBackend}/relation/account/companies`, body, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
       })
       .catch((err) => {
         console.error(err);
@@ -147,10 +155,11 @@ export class ServicesApp {
 
   public static async updateCompany(
     id: string,
-    company: PropsCompany
+    company: PropsCompany,
+    idAccount: string
   ): Promise<AxiosResponse> {
     return await axios
-      .put(`${baseBackend}/api/companies/${id}`, company, {
+      .put(`${baseBackend}/api/companies/${id}/${idAccount}`, company, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   PropsCompany,
   PropsCompanyError,
@@ -44,6 +45,10 @@ export const AboutUs: React.FC<Props> = (props) => {
     id,
   } = props;
 
+  const location = useLocation();
+
+  const isNewCompany = location.pathname.includes("create/new-company");
+
   return (
     <div className="rootAboutUs">
       <div className="inputsAboutUs">
@@ -56,9 +61,10 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.name}
           checkError={!!formDataError?.name}
           readonly={
-            (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.name)
+            (!isNewCompany && !!id && !roleAccount) ||
+            (!isNewCompany && !!roleAccount && !inputsReadOnly?.name)
           }
-          update={roleAccount ? () => handleChangeReadOnly("name") : null}
+          update={id && roleAccount ? () => handleChangeReadOnly("name") : null}
           ariaLabeInput={t("name")}
           ariaRq
         />
@@ -72,11 +78,11 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.description}
           checkError={!!formDataError?.description}
           readonly={
-            (!!id && !roleAccount) ||
-            (!!roleAccount && !inputsReadOnly?.description)
+            (!isNewCompany && !!id && !roleAccount) ||
+            (!isNewCompany && !!roleAccount && !inputsReadOnly?.description)
           }
           update={
-            roleAccount ? () => handleChangeReadOnly("description") : null
+            id && roleAccount ? () => handleChangeReadOnly("description") : null
           }
           ariaLabeInput={t("description")}
           ariaRq
@@ -90,9 +96,12 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.sector}
           checkError={!!formDataError?.sector}
           readonly={
-            (!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.sector)
+            (!isNewCompany && !!id && !roleAccount) ||
+            (!isNewCompany && !!roleAccount && !inputsReadOnly?.sector)
           }
-          update={roleAccount ? () => handleChangeReadOnly("sector") : null}
+          update={
+            id && roleAccount ? () => handleChangeReadOnly("sector") : null
+          }
           ariaLabeInput={t("sector")}
           ariaRq
         />
@@ -105,14 +114,17 @@ export const AboutUs: React.FC<Props> = (props) => {
           errMsg={formDataError?.location}
           checkError={!!formDataError?.location}
           readonly={
-            (!!id && !roleAccount) ||
-            (!!roleAccount && !inputsReadOnly?.location)
+            (!isNewCompany && !!id && !roleAccount) ||
+            (!isNewCompany && !!roleAccount && !inputsReadOnly?.location)
           }
-          update={roleAccount ? () => handleChangeReadOnly("location") : null}
+          update={
+            id && roleAccount ? () => handleChangeReadOnly("location") : null
+          }
           ariaLabeInput={t("location")}
           ariaRq
         />
-        {!!roleAccount && (
+
+        {(!!roleAccount || !id) && (
           <BasicInput
             lbl={t("role")}
             name="role"
@@ -127,10 +139,10 @@ export const AboutUs: React.FC<Props> = (props) => {
             value={roleAccount || ""}
             checkError={!!formDataError?.role}
             errMsg={formDataError?.role}
-            readonly={
-              (!!id && !roleAccount) || (!!roleAccount && !inputsReadOnly?.role)
+            readonly={!isNewCompany && !!roleAccount && !inputsReadOnly?.role}
+            update={
+              id && roleAccount ? () => handleChangeReadOnly("role") : null
             }
-            update={roleAccount ? () => handleChangeReadOnly("role") : null}
             ariaLabeInput={t("role")}
             ariaRq
           />

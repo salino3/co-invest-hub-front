@@ -213,6 +213,8 @@ export const useAppFunctions = () => {
         (!formData[key] ||
           (typeof formData[key] === "string" && !formData[key].trim()))
       ) {
+        console.log("Field with error:", key, "Value:", formData[key]);
+
         setFormDataError((prev: any) => ({
           ...prev,
           [key]: t("required"),
@@ -246,7 +248,7 @@ export const useAppFunctions = () => {
         choosingTab !== undefined ? parseInt(choosingTab) : 0;
 
       scrollToErrorInput(setTabs, tabIndex).then(() => {
-        checkFormRequired(formData, setFormDataError, t, ["contacts"]);
+        checkFormRequired(formData, setFormDataError, t, listNoRequired);
       });
     } else {
       if (inputWithError) {

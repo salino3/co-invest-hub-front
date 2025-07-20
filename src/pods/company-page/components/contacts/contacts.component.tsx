@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   PropsCompany,
   PropsCompanyError,
@@ -43,6 +44,10 @@ export const Contacts: React.FC<Props> = (props) => {
     id,
   } = props;
 
+  const location = useLocation();
+
+  const isNewCompany = location.pathname.includes("create/new-company");
+
   return (
     <div className="rootContacts">
       <div className="inputsContacts">
@@ -55,11 +60,13 @@ export const Contacts: React.FC<Props> = (props) => {
           errMsg={formDataError?.investment_min}
           checkError={!!formDataError?.investment_min}
           readonly={
-            (!!id && !roleAccount) ||
-            (!!roleAccount && !inputsReadOnly?.investment_min)
+            (!isNewCompany && !!id && !roleAccount) ||
+            (!isNewCompany && !!roleAccount && !inputsReadOnly?.investment_min)
           }
           update={
-            roleAccount ? () => handleChangeReadOnly("investment_min") : null
+            id && roleAccount
+              ? () => handleChangeReadOnly("investment_min")
+              : null
           }
         />
       </div>
