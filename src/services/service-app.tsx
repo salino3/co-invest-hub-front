@@ -42,6 +42,25 @@ export class ServicesApp {
       });
   }
 
+  // Accounts
+
+  public static async deleteAccount(id: string): Promise<AxiosResponse> {
+    return await axios
+      .request({
+        method: "PATCH",
+        url: `${baseBackend}/api/accounts/${id}/deactivate`,
+        headers: {
+          "Content-Type": "application/json",
+          "end_token": getEndTokenFromCookie(),
+        },
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   //* Relation account Companies
   public static async getMyCompanies(id: string): Promise<AxiosResponse> {
     return await axios

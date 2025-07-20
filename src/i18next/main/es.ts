@@ -64,4 +64,5 @@ export const es = {
   text1DeleteAccount: "¿Quieres eliminar tu perfil?",
   textDeleteAccount02: "Escribe en el input ",
   textDeleteAccount03: " y presiona en confirmar",
+  wrong_name: "Este nombre está equivocado",
 };

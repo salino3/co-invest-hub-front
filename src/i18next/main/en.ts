@@ -64,4 +64,5 @@ export const en = {
   text1DeleteAccount: "Do you want delete your account?",
   textDeleteAccount02: "Text in the input ",
   textDeleteAccount03: " and click in confirm",
+  wrong_name: "This name is wrong",
 };
