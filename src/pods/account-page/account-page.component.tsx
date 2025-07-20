@@ -6,10 +6,11 @@ import {
   AccountRegisterFormError,
   useProviderSelector,
 } from "../../store";
+import { ServicesApp } from "../../services";
+import { useAppFunctions } from "../../hooks";
 import { Button } from "../../common";
 import { DeleteAccount } from "./components";
 import "./account-page.styles.scss";
-import { ServicesApp } from "../../services";
 
 export const AccountPage: React.FC = () => {
   const { t } = useTranslation("main");
@@ -17,6 +18,7 @@ export const AccountPage: React.FC = () => {
 
   const params = useParams();
   const { currentUser } = useProviderSelector("currentUser");
+  const { closeSession } = useAppFunctions();
 
   const deletingAccount: boolean = params?.action === "delete" || false;
 
@@ -60,7 +62,10 @@ export const AccountPage: React.FC = () => {
     }
 
     if (deletingAccount) {
-      ServicesApp?.deleteAccount(String(currentUser?.id));
+      ServicesApp?.deleteAccount(String(currentUser?.id)).then(() => {
+        closeSession();
+        sessionStorage.clear();
+      });
     }
   }
 
