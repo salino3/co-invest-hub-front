@@ -79,6 +79,7 @@ export const CompanyPage: React.FC = () => {
   });
 
   const [roleAccount, setRoleAccount] = useState<string>("");
+  const [roleOldAccount, setOldRoleAccount] = useState<string>("");
   const [rolesCompany, setRolesCompany] = useState<MyCompany[]>([]);
 
   //
@@ -185,7 +186,9 @@ export const CompanyPage: React.FC = () => {
   ];
 
   // handleSubmit
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    event
+  ) => {
     event.preventDefault();
 
     let error: boolean = checkFormRequired(
@@ -221,23 +224,23 @@ export const CompanyPage: React.FC = () => {
           );
         });
       } else {
-        if (roleAccount) {
+        if (roleAccount && roleAccount != roleOldAccount) {
           const body: UpdateAccountCompany = {
             account_id: currentUser?.id || 0,
             company_id: Number(params?.id),
             newRole: roleAccount,
           };
-          ServicesApp?.updateRoleAccountCompany(body).then(() =>
-            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-              (res) => setMyCompanies && setMyCompanies(res.data)
-            )
-          );
+          await ServicesApp?.updateRoleAccountCompany(body);
         }
-        //
-        ServicesApp?.updateCompany(
+        // TODO: Check if companyData have some values difference before call endpoint
+        await ServicesApp?.updateCompany(
           String(params?.id),
           companyData,
           String(currentUser?.id)
+        ).then(() =>
+          ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+            (res) => setMyCompanies && setMyCompanies(res.data)
+          )
         );
       }
     }
@@ -273,8 +276,10 @@ export const CompanyPage: React.FC = () => {
 
     if (foundRole) {
       setRoleAccount(foundRole);
+      setOldRoleAccount(foundRole);
     } else {
       setRoleAccount("");
+      setOldRoleAccount("");
     }
   }, [currentUser?.id, params?.id, flag]);
 
