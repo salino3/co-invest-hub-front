@@ -52,6 +52,21 @@ export const CompanyPage: React.FC = () => {
     multimedia: [],
     investment_min: 0,
   });
+  const [companyOldData, setCompanyOldData] = useState<PropsCompany>({
+    name: "",
+    description: "",
+    hashtags: [],
+    sector: "",
+    location: "",
+    contacts: [
+      {
+        type: "",
+        value: "",
+      },
+    ],
+    multimedia: [],
+    investment_min: 0,
+  });
 
   const [inputsReadOnly, setInputsReadOnly] = useState<PropsCompanyReadOnly>({
     name: false,
@@ -111,20 +126,22 @@ export const CompanyPage: React.FC = () => {
   // TODO: Fix values to old values
   function clearAllFormSetters() {
     setCompanyData({
-      name: "",
-      description: "",
-      hashtags: [],
-      sector: "",
-      location: "",
-      contacts: [
-        {
-          type: "",
-          value: "",
-        },
-      ],
-      multimedia: [],
+      name: params?.id ? companyOldData?.name : "",
+      description: params?.id ? companyOldData?.description : "",
+      hashtags: params?.id ? companyOldData?.hashtags : [],
+      sector: params?.id ? companyOldData?.sector : "",
+      location: params?.id ? companyOldData?.location : "",
+      contacts: params?.id
+        ? companyOldData?.contacts
+        : [
+            {
+              type: "",
+              value: "",
+            },
+          ],
+      multimedia: params?.id ? companyOldData?.multimedia : [],
     });
-    setRoleAccount("");
+    setRoleAccount(params?.id ? roleOldAccount : "");
     setCompanyDataError({
       name: "",
       description: "",
@@ -255,9 +272,10 @@ export const CompanyPage: React.FC = () => {
       ServicesApp?.getFavoriteCompanies(String(currentUser?.id)).then((res) =>
         setMyFavorites(res.data)
       );
-      ServicesApp?.getCompany(params?.id).then((res) =>
-        setCompanyData(res.data)
-      );
+      ServicesApp?.getCompany(params?.id).then((res) => {
+        setCompanyData(res.data);
+        setCompanyOldData(res.data);
+      });
     } else {
       clearAllFormSetters();
     }
