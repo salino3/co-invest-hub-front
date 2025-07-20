@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   CreateRelationData,
@@ -16,11 +16,14 @@ import { useAppFunctions } from "../../hooks";
 import { Button } from "../../common";
 import { NavigationCompany } from "../../common-app";
 import { AboutUs, Contacts, FirstInfoCompany } from "./components";
+import { routesApp } from "../../router";
 import "./company-page.styles.scss";
 // http://localhost:5500/company/Jim%20Doctor/15
 export const CompanyPage: React.FC = () => {
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
+
+  const navigate = useNavigate();
 
   const params = useParams();
   const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
@@ -205,7 +208,6 @@ export const CompanyPage: React.FC = () => {
     // TODO: Create function 'checkDataFormCompany'
     // checkDataFormCompany()
 
-    console.log("clog10", companyData, error);
     if (!error) {
       if (!params?.id) {
         ServicesApp?.createCompany(companyData).then((res: any) => {
@@ -218,9 +220,10 @@ export const CompanyPage: React.FC = () => {
           };
           // TODO??: Move this execution to backend
           ServicesApp?.createRelationAccountCompany(body).then(() =>
-            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-              (res) => setMyCompanies && setMyCompanies(res.data)
-            )
+            ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) => {
+              setMyCompanies && setMyCompanies(res.data);
+              navigate(routesApp?.dashboard);
+            })
           );
         });
       } else {
