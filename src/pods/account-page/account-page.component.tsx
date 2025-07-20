@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AccountRegisterForm, AccountRegisterFormError } from "../../store";
+import {
+  AccountRegisterForm,
+  AccountRegisterFormError,
+  useProviderSelector,
+} from "../../store";
+import { ServicesApp } from "../../services";
+import { useAppFunctions } from "../../hooks";
 import { Button } from "../../common";
 import { DeleteAccount } from "./components";
 import "./account-page.styles.scss";
@@ -11,6 +17,9 @@ export const AccountPage: React.FC = () => {
   const { t: tw } = useTranslation("wcag");
 
   const params = useParams();
+  const { currentUser } = useProviderSelector("currentUser");
+  const { closeSession } = useAppFunctions();
+
   const deletingAccount: boolean = params?.action === "delete" || false;
 
   const [formData, setFormData] = useState<string | AccountRegisterForm>(
@@ -44,6 +53,20 @@ export const AccountPage: React.FC = () => {
     if (!formData) {
       setFormErrorData("required_field");
     }
+    if (
+      formData &&
+      typeof formData === "string" &&
+      formData.trim() != currentUser?.name
+    ) {
+      setFormErrorData("wrong_name");
+    }
+
+    if (deletingAccount) {
+      ServicesApp?.deleteAccount(String(currentUser?.id)).then(() => {
+        closeSession();
+        sessionStorage.clear();
+      });
+    }
   }
 
   return (
@@ -56,6 +79,7 @@ export const AccountPage: React.FC = () => {
           {deletingAccount ? (
             <DeleteAccount
               t={t}
+              name={currentUser?.name}
               formData={formData}
               setFormData={setFormData}
               formErrorData={formErrorData}

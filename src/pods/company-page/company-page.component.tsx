@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   CreateRelationData,
@@ -16,11 +16,14 @@ import { useAppFunctions } from "../../hooks";
 import { Button } from "../../common";
 import { NavigationCompany } from "../../common-app";
 import { AboutUs, Contacts, FirstInfoCompany } from "./components";
+import { routesApp } from "../../router";
 import "./company-page.styles.scss";
 // http://localhost:5500/company/Jim%20Doctor/15
 export const CompanyPage: React.FC = () => {
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
+
+  const navigate = useNavigate();
 
   const params = useParams();
   const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
@@ -35,6 +38,21 @@ export const CompanyPage: React.FC = () => {
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
   const [flag, setFlag] = useState<boolean>(false);
   const [companyData, setCompanyData] = useState<PropsCompany>({
+    name: "",
+    description: "",
+    hashtags: [],
+    sector: "",
+    location: "",
+    contacts: [
+      {
+        type: "",
+        value: "",
+      },
+    ],
+    multimedia: [],
+    investment_min: 0,
+  });
+  const [companyOldData, setCompanyOldData] = useState<PropsCompany>({
     name: "",
     description: "",
     hashtags: [],
@@ -79,6 +97,7 @@ export const CompanyPage: React.FC = () => {
   });
 
   const [roleAccount, setRoleAccount] = useState<string>("");
+  const [roleOldAccount, setOldRoleAccount] = useState<string>("");
   const [rolesCompany, setRolesCompany] = useState<MyCompany[]>([]);
 
   //
@@ -104,23 +123,24 @@ export const CompanyPage: React.FC = () => {
     }));
   };
 
-  // TODO: Fix values to old values
   function clearAllFormSetters() {
     setCompanyData({
-      name: "",
-      description: "",
-      hashtags: [],
-      sector: "",
-      location: "",
-      contacts: [
-        {
-          type: "",
-          value: "",
-        },
-      ],
-      multimedia: [],
+      name: params?.id ? companyOldData?.name : "",
+      description: params?.id ? companyOldData?.description : "",
+      hashtags: params?.id ? companyOldData?.hashtags : [],
+      sector: params?.id ? companyOldData?.sector : "",
+      location: params?.id ? companyOldData?.location : "",
+      contacts: params?.id
+        ? companyOldData?.contacts
+        : [
+            {
+              type: "",
+              value: "",
+            },
+          ],
+      multimedia: params?.id ? companyOldData?.multimedia : [],
     });
-    setRoleAccount("");
+    setRoleAccount(params?.id ? roleOldAccount : "");
     setCompanyDataError({
       name: "",
       description: "",
@@ -185,7 +205,9 @@ export const CompanyPage: React.FC = () => {
   ];
 
   // handleSubmit
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    event
+  ) => {
     event.preventDefault();
 
     let error: boolean = checkFormRequired(
@@ -195,7 +217,7 @@ export const CompanyPage: React.FC = () => {
       },
       setCompanyDataError,
       t,
-      ["contacts"],
+      ["contacts", "investment_max", "logo"],
       setTabs
     );
 
@@ -214,26 +236,31 @@ export const CompanyPage: React.FC = () => {
           };
           // TODO??: Move this execution to backend
           ServicesApp?.createRelationAccountCompany(body).then(() =>
-            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-              (res) => setMyCompanies && setMyCompanies(res.data)
-            )
+            ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) => {
+              setMyCompanies && setMyCompanies(res.data);
+              navigate(routesApp?.dashboard);
+            })
           );
         });
       } else {
-        if (roleAccount) {
+        if (roleAccount && roleAccount != roleOldAccount) {
           const body: UpdateAccountCompany = {
             account_id: currentUser?.id || 0,
             company_id: Number(params?.id),
             newRole: roleAccount,
           };
-          ServicesApp?.updateRoleAccountCompany(body).then(() =>
-            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-              (res) => setMyCompanies && setMyCompanies(res.data)
-            )
-          );
+          await ServicesApp?.updateRoleAccountCompany(body);
         }
-        //
-        ServicesApp?.updateCompany(String(params?.id), companyData);
+        // TODO: Check if companyData have some values difference before call endpoint
+        await ServicesApp?.updateCompany(
+          String(params?.id),
+          companyData,
+          String(currentUser?.id)
+        ).then(() =>
+          ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+            (res) => setMyCompanies && setMyCompanies(res.data)
+          )
+        );
       }
     }
   };
@@ -244,9 +271,10 @@ export const CompanyPage: React.FC = () => {
       ServicesApp?.getFavoriteCompanies(String(currentUser?.id)).then((res) =>
         setMyFavorites(res.data)
       );
-      ServicesApp?.getCompany(params?.id).then((res) =>
-        setCompanyData(res.data)
-      );
+      ServicesApp?.getCompany(params?.id).then((res) => {
+        setCompanyData(res.data);
+        setCompanyOldData(res.data);
+      });
     } else {
       clearAllFormSetters();
     }
@@ -268,8 +296,10 @@ export const CompanyPage: React.FC = () => {
 
     if (foundRole) {
       setRoleAccount(foundRole);
+      setOldRoleAccount(foundRole);
     } else {
       setRoleAccount("");
+      setOldRoleAccount("");
     }
   }, [currentUser?.id, params?.id, flag]);
 
