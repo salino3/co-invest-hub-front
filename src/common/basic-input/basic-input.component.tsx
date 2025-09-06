@@ -48,6 +48,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
     ariaRq,
   } = props;
   const { t } = useTranslation("main");
+  const { t: tw } = useTranslation("wcag");
 
   const { theme } = useProviderSelector("theme");
 
@@ -130,6 +131,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
         {!!update && (
           <PenUpdateIcon
             customStyles={"PenUpdateIcon_x67"}
+            arialabel={tw("aria.penBtn")}
             click={() => update()}
             height={16}
             width={16}

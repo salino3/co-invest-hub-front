@@ -6,6 +6,7 @@ interface Props {
   fill?: string;
   click?: MouseEventHandler<SVGSVGElement> | undefined;
   customStyles?: string;
+  arialabel?: string;
 }
 
 export const PenUpdateIcon: React.FC<Props> = ({
@@ -14,9 +15,13 @@ export const PenUpdateIcon: React.FC<Props> = ({
   fill = "currentColor",
   click,
   customStyles,
+  arialabel,
 }) => {
   return (
     <svg
+      tabIndex={0}
+      aria-label={arialabel}
+      onKeyDown={(e) => e.key === "Enter" && click?.(e as any)}
       style={{ cursor: click ? "pointer" : "default" }}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
