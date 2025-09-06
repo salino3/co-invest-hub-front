@@ -65,5 +65,6 @@ export const es = {
     deleteCompany01: "Abrir modal para eliminar compañía",
     delete_account: "Eliminación del perfil",
     go_to_delete_account: "Redirección a eliminar cuenta",
+    penBtn: "Abrir/Cerrar possibilidad para actualizar",
   },
 };

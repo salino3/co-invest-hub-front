@@ -81,5 +81,6 @@ export const en = {
     delete_account: "Deleting account",
     go_to_delete_account: "Redirection to delete account",
     text1DeleteAccount: "Do you want delete your account?",
+    penBtn: "Open/Close possibility to update",
   },
 };
