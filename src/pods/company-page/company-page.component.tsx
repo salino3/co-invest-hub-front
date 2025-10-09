@@ -179,7 +179,7 @@ export const CompanyPage: React.FC = () => {
     },
     {
       key: 1,
-      title: "contact_l",
+      title: "investment_l",
       component: (
         <Investment
           t={t}
