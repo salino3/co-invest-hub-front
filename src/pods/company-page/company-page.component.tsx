@@ -15,7 +15,7 @@ import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
 import { Button } from "../../common";
 import { NavigationCompany } from "../../common-app";
-import { AboutUs, Contacts, FirstInfoCompany } from "./components";
+import { AboutUs, FirstInfoCompany, Investment } from "./components";
 import { routesApp } from "../../router";
 import "./company-page.styles.scss";
 // http://localhost:5500/company/Jim%20Doctor/15
@@ -179,9 +179,9 @@ export const CompanyPage: React.FC = () => {
     },
     {
       key: 1,
-      title: "contact_l",
+      title: "investment_l",
       component: (
-        <Contacts
+        <Investment
           t={t}
           setFormData={setCompanyData}
           formData={companyData}
@@ -217,7 +217,7 @@ export const CompanyPage: React.FC = () => {
       },
       setCompanyDataError,
       t,
-      ["contacts", "investment_max", "logo"],
+      ["contacts", "investment_min", "investment_max", "logo"],
       setTabs
     );
 

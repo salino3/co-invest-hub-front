@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppFunctions } from "../../hooks";
+import { ImageUpload } from "../image-upload";
 import "./zoom-img.styles.scss";
 
 interface Props {
@@ -8,11 +9,12 @@ interface Props {
   alt?: string;
   download?: boolean;
   show: boolean;
+  updatePhoto: boolean;
   setShow: Dispatch<SetStateAction<boolean | any>>;
 }
 
 export const ZoomImg: React.FC<Props> = (props) => {
-  const { img, alt, download, show, setShow } = props;
+  const { img, alt, download, show, updatePhoto, setShow } = props;
 
   if (!show) {
     return;
@@ -50,6 +52,7 @@ export const ZoomImg: React.FC<Props> = (props) => {
               {t("download")}
             </button>
           )}
+          {updatePhoto && <ImageUpload text={t("updatePhoto")} />}
         </section>
         <div
           id="containerImg"

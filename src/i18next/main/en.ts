@@ -55,6 +55,7 @@ export const en = {
   hashtags: "Hashtags",
   about_us_l: "About us",
   contact_l: "Contacts",
+  investment_l: "Investment",
   portfolio_l: "Portfolio",
   confirmDeleteCompany: "Confirm Delete Company",
   text1DeleteCompany: "Do you want delete the company",

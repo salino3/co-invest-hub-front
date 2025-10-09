@@ -55,6 +55,7 @@ export const es = {
   hashtags: "Hashtags",
   about_us_l: "Sobre nosotros",
   contact_l: "Contactos",
+  investment_l: "Inversión",
   portfolio_l: "Portfolio",
   confirmDeleteCompany: "Confirmar Eliminar Compañía",
   update_data_account: "Modificar datos perfil",

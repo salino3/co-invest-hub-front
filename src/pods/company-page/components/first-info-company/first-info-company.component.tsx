@@ -112,6 +112,7 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           download
           setShow={setZoomPhoto}
           show={zoomPhoto}
+          updatePhoto
         />
       </div>
       <hr
