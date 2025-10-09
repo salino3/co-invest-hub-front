@@ -8,11 +8,12 @@ interface Props {
   alt?: string;
   download?: boolean;
   show: boolean;
+  updatePhoto: boolean;
   setShow: Dispatch<SetStateAction<boolean | any>>;
 }
 
 export const ZoomImg: React.FC<Props> = (props) => {
-  const { img, alt, download, show, setShow } = props;
+  const { img, alt, download, show, updatePhoto, setShow } = props;
 
   if (!show) {
     return;
@@ -48,6 +49,11 @@ export const ZoomImg: React.FC<Props> = (props) => {
               onClick={() => downLoadImage(img || "")}
             >
               {t("download")}
+            </button>
+          )}
+          {updatePhoto && (
+            <button className="btnStylesApp buttonPopup_02">
+              {t("updatePhoto")}
             </button>
           )}
         </section>
