@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppFunctions } from "../../hooks";
+import { ImageUpload } from "../image-upload";
 import "./zoom-img.styles.scss";
 
 interface Props {
@@ -51,11 +52,7 @@ export const ZoomImg: React.FC<Props> = (props) => {
               {t("download")}
             </button>
           )}
-          {updatePhoto && (
-            <button className="btnStylesApp buttonPopup_02">
-              {t("updatePhoto")}
-            </button>
-          )}
+          {updatePhoto && <ImageUpload text={t("updatePhoto")} />}
         </section>
         <div
           id="containerImg"
