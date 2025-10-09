@@ -7,7 +7,7 @@ import {
 } from "../../../../store";
 import { BasicInput } from "../../../../common";
 import { TFunction } from "i18next";
-import "./contacts.styles.scss";
+import "./investment.styles.scss";
 
 interface Props {
   t: TFunction<"main", undefined>;
@@ -28,7 +28,7 @@ interface Props {
   id: string | undefined;
 }
 
-export const Contacts: React.FC<Props> = (props) => {
+export const Investment: React.FC<Props> = (props) => {
   const {
     t,
     setFormData,
@@ -49,8 +49,8 @@ export const Contacts: React.FC<Props> = (props) => {
   const isNewCompany = location.pathname.includes("create/new-company");
 
   return (
-    <div className="rootContacts">
-      <div className="inputsContacts">
+    <div className="rootInvestment">
+      <div className="inputsInvestment">
         <BasicInput
           lbl={t("investment_min")}
           name="investment_min"
@@ -70,7 +70,7 @@ export const Contacts: React.FC<Props> = (props) => {
           }
         />
       </div>
-      <div className="inputsContacts">
+      <div className="inputsInvestment">
         <BasicInput
           lbl={t("investment_max")}
           name="investment_max"

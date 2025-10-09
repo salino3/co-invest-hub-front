@@ -1,0 +1,20 @@
+.rootInvestment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+
+  .inputsInvestment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    input {
+      width: 400px;
+    }
+  }
+}
