@@ -83,5 +83,10 @@ export const en = {
     go_to_delete_account: "Redirection to delete account",
     text1DeleteAccount: "Do you want delete your account?",
     penBtn: "Open/Close possibility to update",
+    remove: "Clear selected file",
+    rotate_img: "Rotate image",
+    close_modal: "Close image viewer",
+    download_image: "Download image",
+    zoomPhoto: "Open image viewer",
   },
 };

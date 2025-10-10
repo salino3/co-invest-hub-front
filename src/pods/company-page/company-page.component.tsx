@@ -315,6 +315,7 @@ export const CompanyPage: React.FC = () => {
           cId={currentUser?.id || ""}
           setFlag={setFlag}
           logo={companyData?.logo || ""}
+          setCompanyData={setCompanyData}
         />
       )}
       <form onSubmit={handleSubmit} id="formCompanyPage">

@@ -67,5 +67,10 @@ export const es = {
     delete_account: "Eliminación del perfil",
     go_to_delete_account: "Redirección a eliminar cuenta",
     penBtn: "Abrir/Cerrar possibilidad para actualizar",
+    remove: "Quitar archivo seleccionado",
+    rotate_img: "Rotar imagen",
+    close_modal: "Cerrar visor de imagen",
+    download_image: "Descargar imagen",
+    zoomPhoto: "Abrir visor de imagen",
   },
 };
