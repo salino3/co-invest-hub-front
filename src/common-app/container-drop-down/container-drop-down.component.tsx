@@ -92,7 +92,7 @@ export const ContainerDropDown: React.FC<Props> = (props) => {
       aria-expanded={openSelectDropDown}
       aria-controls="dropdown-list_01"
       onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
+        if (e.key === "Enter") {
           e.preventDefault();
           handleItems();
         } else if (e.key === "Escape") {

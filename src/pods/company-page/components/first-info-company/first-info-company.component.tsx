@@ -85,7 +85,18 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           </div>
         )}
         <h4>* {params?.name} * </h4>
-        <div onClick={() => setZoomPhoto(true)} className="boxLogoCompany">
+        <div
+          tabIndex={0}
+          role="button"
+          aria-label={tw("aria.zoomPhoto")}
+          onClick={() => setZoomPhoto(true)}
+          className="boxLogoCompany"
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === "Enter") {
+              setZoomPhoto(true);
+            }
+          }}
+        >
           <img
             src={logo || "/assets/icons/group_3.svg"}
             alt="Logo"

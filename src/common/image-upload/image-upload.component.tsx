@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { CrossIcon } from "../icons";
 import "./image-upload.styles.scss";
 
@@ -23,6 +24,8 @@ export const ImageUpload: React.FC<PropsImageUpload> = (props) => {
 
   const [hasSelection, setHasSelection] = useState<boolean>(false);
   const [fileName, setFileName] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const { t: tw } = useTranslation("wcag");
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files && event.target.files[0];
@@ -41,6 +44,9 @@ export const ImageUpload: React.FC<PropsImageUpload> = (props) => {
         onChange={handleChange}
         disabled={disabled}
         className="imageUploadInputHidden"
+        ref={inputRef}
+        aria-hidden={true}
+        tabIndex={-1}
       />
       <label
         htmlFor={id}
@@ -48,6 +54,18 @@ export const ImageUpload: React.FC<PropsImageUpload> = (props) => {
           hasSelection ? "selected" : ""
         }`}
         title={hasSelection ? fileName : undefined}
+        role="button"
+        aria-label={tw("aria.choose_element")}
+        aria-controls={id}
+        aria-disabled={disabled}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (disabled) return;
+          if (e.key === "Enter") {
+            e.preventDefault();
+            inputRef.current?.click();
+          }
+        }}
       >
         {hasSelection ? fileName || text : text}
       </label>
@@ -58,7 +76,7 @@ export const ImageUpload: React.FC<PropsImageUpload> = (props) => {
         <button
           type="button"
           className="imageUploadClear"
-          aria-label="Clear selected file"
+          aria-label={tw("aria.remove")}
           onClick={() => {
             setHasSelection(false);
             setFileName("");
