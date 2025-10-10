@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import { PropsCompany } from "../../store";
 import { useTranslation } from "react-i18next";
 import { useAppFunctions } from "../../hooks";
 import { ImageUpload } from "../image-upload";
@@ -11,10 +12,12 @@ interface Props {
   show: boolean;
   updatePhoto: boolean;
   setShow: Dispatch<SetStateAction<boolean | any>>;
+  setCompanyData: React.Dispatch<React.SetStateAction<PropsCompany>>;
 }
 
 export const ZoomImg: React.FC<Props> = (props) => {
-  const { img, alt, download, show, updatePhoto, setShow } = props;
+  const { img, alt, download, show, updatePhoto, setShow, setCompanyData } =
+    props;
 
   if (!show) {
     return;
@@ -52,7 +55,22 @@ export const ZoomImg: React.FC<Props> = (props) => {
               {t("download")}
             </button>
           )}
-          {updatePhoto && <ImageUpload text={t("updatePhoto")} />}
+          {updatePhoto && (
+            <ImageUpload
+              text={t("updatePhoto")}
+              accept="image/png,image/jpeg"
+              onFileSelected={(file) => {
+                const url = URL.createObjectURL(file);
+                setCompanyData((prev: PropsCompany) => ({
+                  ...prev,
+                  logo: url,
+                }));
+              }}
+              onClear={() =>
+                setCompanyData((prev: PropsCompany) => ({ ...prev, logo: "" }))
+              }
+            />
+          )}
         </section>
         <div
           id="containerImg"

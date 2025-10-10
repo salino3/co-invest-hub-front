@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Params } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { PropsCompany } from "../../../../store";
 import { ServicesApp } from "../../../../services";
+import { useTranslation } from "react-i18next";
 import { BinIcon, StarIcon, ZoomImg } from "../../../../common";
 import { ConfirmingDelete, ModalWeb } from "../../../../common-app";
-
 import "./first-info-company.styles.scss";
 
 interface Props {
@@ -14,10 +14,19 @@ interface Props {
   cId: string | number;
   setFlag: React.Dispatch<React.SetStateAction<boolean>>;
   logo: string;
+  setCompanyData: React.Dispatch<React.SetStateAction<PropsCompany>>;
 }
 
 export const FirstInfoCompany: React.FC<Props> = (props) => {
-  const { params, roleAccount, myFavorites, cId, setFlag, logo } = props;
+  const {
+    params,
+    roleAccount,
+    myFavorites,
+    cId,
+    setFlag,
+    logo,
+    setCompanyData,
+  } = props;
 
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
@@ -113,6 +122,7 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           setShow={setZoomPhoto}
           show={zoomPhoto}
           updatePhoto
+          setCompanyData={setCompanyData}
         />
       </div>
       <hr
