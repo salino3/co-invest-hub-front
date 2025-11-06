@@ -66,4 +66,6 @@ export const en = {
   textDeleteAccount02: "Text in the input ",
   textDeleteAccount03: " and click in confirm",
   wrong_name: "This name is wrong",
+  login_error_credentials:
+    "The email address or password you entered is incorrect. Please try again.",
 };
