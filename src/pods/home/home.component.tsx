@@ -301,7 +301,22 @@ export const HomePage: React.FC = () => {
           setShow={setShowModal}
           customMaxHeight={"40vh"}
         >
-          <h3 tabIndex={0} ref={modalRef}>
+          <h3
+            onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+              if (e.key === "Tab" && !e.shiftKey) {
+                e.preventDefault();
+                const buttonElement = document.getElementById(
+                  "closeModalWebButton"
+                );
+
+                if (buttonElement) {
+                  buttonElement.focus();
+                }
+              }
+            }}
+            tabIndex={0}
+            ref={modalRef}
+          >
             {t("login_error_credentials")}
           </h3>
         </ModalWeb>
