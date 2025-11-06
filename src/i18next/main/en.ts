@@ -43,6 +43,9 @@ export const en = {
   languages: "Languages",
   settings: "Settings",
   close: "close",
+  rotate: "Rotate",
+  download: "Download",
+  updatePhoto: "Update Photo",
   type_contact: "Type (e. email, tel)",
   value_contact: "Contact (e. contact@site.com, +34..)",
   remove: "Remove",
@@ -66,4 +69,6 @@ export const en = {
   textDeleteAccount02: "Text in the input ",
   textDeleteAccount03: " and click in confirm",
   wrong_name: "This name is wrong",
+  login_error_credentials:
+    "The email address or password you entered is incorrect. Please try again.",
 };

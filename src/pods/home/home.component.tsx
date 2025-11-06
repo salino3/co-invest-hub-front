@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
@@ -11,6 +11,7 @@ import {
 import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
 import { BasicInput, Button } from "../../common";
+import { ModalWeb } from "../../common-app";
 import { routesApp } from "../../router";
 import "./home.styles.scss";
 
@@ -24,6 +25,8 @@ export const HomePage: React.FC = () => {
     "currentUser"
   );
   const { checkFormRequired } = useAppFunctions();
+
+  const modalRef = useRef<HTMLHeadingElement>(null);
 
   const [formType, setFormType] = useState<boolean>(true);
 
@@ -60,6 +63,8 @@ export const HomePage: React.FC = () => {
           password: "",
         }
   );
+
+  const [showModal, setShowModal] = useState<string | null>("");
 
   const handleChange =
     (key: keyof (AccountRegisterForm & AccountLoginForm)) =>
@@ -115,9 +120,15 @@ export const HomePage: React.FC = () => {
     } else {
       ServicesApp?.[formType ? "registerAccount" : "loginAccount"](
         formData as AccountRegisterForm & AccountLoginForm
-      ).then((res: AxiosResponse<any, any>) => {
-        !formType ? loginAccount && loginAccount(res.data) : setFormType(false);
-      });
+      )
+        .then((res: AxiosResponse<any, any>) => {
+          !formType
+            ? loginAccount && loginAccount(res.data)
+            : setFormType(false);
+        })
+        .catch(() => {
+          setShowModal("err");
+        });
     }
   };
 
@@ -158,6 +169,12 @@ export const HomePage: React.FC = () => {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    if (showModal && modalRef.current) {
+      // Mueve el foco al elemento referenciado
+      modalRef.current.focus();
+    }
+  }, [showModal]);
   return (
     <div className="rootHomePage">
       <h1 tabIndex={0} aria-label={t("welcome")}>
@@ -276,6 +293,34 @@ export const HomePage: React.FC = () => {
           />
         </form>
       </div>
+      {/* Modal */}
+      {showModal && (
+        <ModalWeb
+          msg={t("Error")}
+          show={showModal}
+          setShow={setShowModal}
+          customMaxHeight={"40vh"}
+        >
+          <h3
+            onKeyDown={(e: React.KeyboardEvent<HTMLElement>) => {
+              if (e.key === "Tab" && !e.shiftKey) {
+                e.preventDefault();
+                const buttonElement = document.getElementById(
+                  "closeModalWebButton"
+                );
+
+                if (buttonElement) {
+                  buttonElement.focus();
+                }
+              }
+            }}
+            tabIndex={0}
+            ref={modalRef}
+          >
+            {t("login_error_credentials")}
+          </h3>
+        </ModalWeb>
+      )}
     </div>
   );
 };

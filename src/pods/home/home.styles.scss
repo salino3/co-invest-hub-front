@@ -37,4 +37,16 @@
       border-bottom: solid 1px;
     }
   }
+
+  .rootModalWeb {
+    .containerModal {
+      text-align: center;
+      .bodyModal {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }
