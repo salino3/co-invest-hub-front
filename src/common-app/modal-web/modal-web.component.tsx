@@ -63,7 +63,7 @@ export const ModalWeb: React.FC<Props> = (props) => {
         className="containerModal"
       >
         <div className="headerModal">
-          {msg}{" "}
+          {msg}
           <div
             role="button"
             tabIndex={0}

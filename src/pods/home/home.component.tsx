@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
@@ -25,6 +25,8 @@ export const HomePage: React.FC = () => {
     "currentUser"
   );
   const { checkFormRequired } = useAppFunctions();
+
+  const modalRef = useRef<HTMLHeadingElement>(null);
 
   const [formType, setFormType] = useState<boolean>(true);
 
@@ -167,6 +169,12 @@ export const HomePage: React.FC = () => {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    if (showModal && modalRef.current) {
+      // Mueve el foco al elemento referenciado
+      modalRef.current.focus();
+    }
+  }, [showModal]);
   return (
     <div className="rootHomePage">
       <h1 tabIndex={0} aria-label={t("welcome")}>
@@ -293,7 +301,9 @@ export const HomePage: React.FC = () => {
           setShow={setShowModal}
           customMaxHeight={"40vh"}
         >
-          <h3>{t("login_error_credentials")}</h3>
+          <h3 tabIndex={0} ref={modalRef}>
+            {t("login_error_credentials")}
+          </h3>
         </ModalWeb>
       )}
     </div>
