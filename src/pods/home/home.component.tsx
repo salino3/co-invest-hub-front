@@ -185,13 +185,13 @@ export const HomePage: React.FC = () => {
         <div className="boxButtonHome">
           <Button
             al={tw("aria.goToRegister")}
-            customStyles={formType ? "btnRegister" : ""}
+            customStyles={`buttonStyle_02 ${formType ? "btnRegister" : ""}`}
             click={() => setFormType(true)}
             text={t("register")}
           />
           <Button
             al={tw("aria.goToLogin")}
-            customStyles={!formType ? "btnLogin" : ""}
+            customStyles={`buttonStyle_01 ${!formType ? "btnLogin" : ""}`}
             click={() => setFormType(false)}
             text={t("login")}
           />
