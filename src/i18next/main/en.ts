@@ -6,6 +6,7 @@ export const en = {
   description_example: "This is a simple translation example.",
   home_page: "Home Page",
   login_page: "Login page",
+  none: "None",
   email: "Email",
   password: "Password",
   login: "Login",

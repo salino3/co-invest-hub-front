@@ -88,5 +88,6 @@ export const en = {
     close_modal: "Close image viewer",
     download_image: "Download image",
     zoomPhoto: "Open image viewer",
+    none: "None",
   },
 };

@@ -6,6 +6,7 @@ export const es = {
   description_example: "Este es un ejemplo sencillo de traducción.",
   home_page: "Inicio",
   login_page: "Página de login",
+  none: "Ninguno",
   email: "Correo eletrónico",
   password: "Contraseña",
   login: "Iniciar sesión",
