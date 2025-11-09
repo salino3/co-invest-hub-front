@@ -289,6 +289,7 @@ export const HomePage: React.FC = () => {
           <Button
             al={tw("aria.confirmForm")}
             type="submit"
+            customStyles="buttonStyle_04"
             text={t("confirm")}
           />
         </form>

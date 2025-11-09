@@ -72,5 +72,6 @@ export const es = {
     close_modal: "Cerrar visor de imagen",
     download_image: "Descargar imagen",
     zoomPhoto: "Abrir visor de imagen",
+    none: "Ninguno",
   },
 };

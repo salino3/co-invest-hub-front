@@ -57,13 +57,21 @@ export const Header: React.FC = () => {
         {/* <BossaAudioPlayer /> */}
         <div className="boxUp">
           <div className="boxData">
-            {t("email")}: {currentUser?.email}
-            <Button
-              customStyles="buttonStyle_01"
-              al={tw(currentUser?.email ? "aria.logout" : "aria.login")}
-              click={() => closeSession()}
-              text={t(currentUser?.email ? "logout" : "login")}
-            />
+            <span aria-label={tw("aria.email")} tabIndex={0}>
+              {t("email")}:
+              <span>
+                &nbsp;
+                {currentUser?.email ?? t("none")}
+              </span>
+            </span>
+            {currentUser?.email && (
+              <Button
+                customStyles="buttonStyle_01"
+                al={tw("aria.logout")}
+                click={() => closeSession()}
+                text={t("logout")}
+              />
+            )}
           </div>
           <div className="boxNameCompany">
             <img src="/assets/images/Co_Invest_Hub.png" alt={tw("Logo")} />
