@@ -58,9 +58,13 @@ export const Header: React.FC = () => {
         <div className="boxUp">
           <div className="boxData">
             <span aria-label={tw("aria.email")} tabIndex={0}>
-              {t("email")}:
-              <span>
-                &nbsp;
+              {t("email")}:&nbsp;
+              <span
+                style={{
+                  border: currentUser?.email ? "" : "dashed 1px",
+                  padding: currentUser?.email ? "" : "0 1.5px",
+                }}
+              >
                 {currentUser?.email ?? t("none")}
               </span>
             </span>
