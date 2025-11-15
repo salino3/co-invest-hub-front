@@ -1,6 +1,7 @@
 export const en = {
   welcome: "Welcome to my website!",
   login_welcome: "Welcome to the Login Page!",
+  dashboard_page: "Dashboard page",
   name: "Name",
   description: "Description",
   description_example: "This is a simple translation example.",
