@@ -80,7 +80,7 @@ export const CompanyPage: React.FC = () => {
     multimedia: false,
     logo: false,
     role: false,
-    type_contact: false,
+    // type_contact: false,
   });
 
   const [companyDataError, setCompanyDataError] = useState<PropsCompanyError>({
@@ -95,6 +95,7 @@ export const CompanyPage: React.FC = () => {
     multimedia: "",
     logo: "",
     role: "",
+    // type_contact: "",
   });
 
   const [roleAccount, setRoleAccount] = useState<string>("");
@@ -154,6 +155,7 @@ export const CompanyPage: React.FC = () => {
       multimedia: "",
       logo: "",
       role: "",
+      type_contact: "",
     });
   }
 

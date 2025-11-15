@@ -62,7 +62,12 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
     }));
   };
 
-  console.log("Contacts", contacts);
+  console.log(
+    "Contacts",
+    // !isNewCompany,
+    roleAccount
+    // !inputsReadOnly?.type_contact
+  );
   return (
     <div className="rootContactsInputs">
       <h3>Contacts</h3>
@@ -79,7 +84,10 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
               ariaRq
               ariaLabeInput={t("type_contact")}
               readonly={
-                !isNewCompany && !!roleAccount && !inputsReadOnly?.type_contact
+                (!isNewCompany && !!id && !roleAccount) ||
+                (!isNewCompany &&
+                  !!roleAccount &&
+                  !inputsReadOnly?.type_contact)
               }
               update={
                 id && roleAccount
@@ -94,9 +102,20 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
               change={(e) => handleChange(index, "value", e.target.value)}
               value={contact.value}
               ariaLabeInput={t("value_contact")}
+              readonly={
+                (!isNewCompany && !!id && !roleAccount) ||
+                (!isNewCompany &&
+                  !!roleAccount &&
+                  !inputsReadOnly?.value_contact)
+              }
+              update={
+                id && roleAccount
+                  ? () => handleChangeReadOnly("value_contact")
+                  : null
+              }
             />
 
-            {contacts?.length > 1 && (
+            {contacts?.length > 1 && !!roleAccount && (
               <Button
                 customStyles="buttonStyle_04"
                 type="button"
@@ -106,14 +125,15 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
             )}
           </div>
         ))}
-      {!!roleAccount && (
-        <Button
-          customStyles="buttonStyle_03"
-          type="button"
-          click={addContact}
-          text={t("add_contact")}
-        />
-      )}
+      {!!roleAccount ||
+        (isNewCompany && (
+          <Button
+            customStyles="buttonStyle_03"
+            type="button"
+            click={addContact}
+            text={t("add_contact")}
+          />
+        ))}
     </div>
   );
 };
