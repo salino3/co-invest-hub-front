@@ -105,6 +105,7 @@ export interface PropsCompanyReadOnly {
   multimedia: boolean;
   logo: boolean;
   role: boolean;
+  type_contact: boolean;
 }
 
 export interface CreateRelationData {

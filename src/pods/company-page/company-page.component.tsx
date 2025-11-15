@@ -80,6 +80,7 @@ export const CompanyPage: React.FC = () => {
     multimedia: false,
     logo: false,
     role: false,
+    type_contact: false,
   });
 
   const [companyDataError, setCompanyDataError] = useState<PropsCompanyError>({

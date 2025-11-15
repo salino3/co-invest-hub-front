@@ -17,6 +17,8 @@ type ContactInputsProps = {
   inputsReadOnly: PropsCompanyReadOnly;
   roleAccount: string;
   handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
+  id: string | undefined;
+  isNewCompany: boolean;
 };
 
 export const ContactsInputs: React.FC<ContactInputsProps> = ({
@@ -27,6 +29,8 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
   inputsReadOnly,
   roleAccount,
   handleChangeReadOnly,
+  id,
+  isNewCompany,
 }) => {
   const handleChange = (
     index: number,
@@ -74,6 +78,14 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
               change={(e) => handleChange(index, "type", e.target.value)}
               ariaRq
               ariaLabeInput={t("type_contact")}
+              readonly={
+                !isNewCompany && !!roleAccount && !inputsReadOnly?.type_contact
+              }
+              update={
+                id && roleAccount
+                  ? () => handleChangeReadOnly("type_contact")
+                  : null
+              }
             />
             <BasicInput
               lbl={t("value_contact") + `${index === 0 ? " *" : ""}`}

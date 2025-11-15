@@ -175,6 +175,8 @@ export const AboutUs: React.FC<Props> = (props) => {
             inputsReadOnly={inputsReadOnly}
             roleAccount={roleAccount}
             handleChangeReadOnly={handleChangeReadOnly}
+            id={id}
+            isNewCompany={isNewCompany}
           />
         </div>
       </div>
