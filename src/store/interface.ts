@@ -91,6 +91,7 @@ export interface PropsCompanyError {
   multimedia: string;
   logo: string;
   role: string;
+  // type_contact: string;
 }
 
 export interface PropsCompanyReadOnly {
@@ -105,6 +106,8 @@ export interface PropsCompanyReadOnly {
   multimedia: boolean;
   logo: boolean;
   role: boolean;
+  type_contact: boolean[];
+  value_contact: boolean[];
 }
 
 export interface CreateRelationData {

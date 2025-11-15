@@ -27,6 +27,7 @@ interface Props {
   ) => void;
   handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
   id: string | undefined;
+  setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
 }
 
 export const AboutUs: React.FC<Props> = (props) => {
@@ -43,6 +44,7 @@ export const AboutUs: React.FC<Props> = (props) => {
     handleChange,
     handleChangeReadOnly,
     id,
+    setInputsReadOnly,
   } = props;
 
   const location = useLocation();
@@ -175,6 +177,9 @@ export const AboutUs: React.FC<Props> = (props) => {
             inputsReadOnly={inputsReadOnly}
             roleAccount={roleAccount}
             handleChangeReadOnly={handleChangeReadOnly}
+            id={id}
+            isNewCompany={isNewCompany}
+            setInputsReadOnly={setInputsReadOnly}
           />
         </div>
       </div>

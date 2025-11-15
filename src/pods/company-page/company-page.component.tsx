@@ -80,6 +80,8 @@ export const CompanyPage: React.FC = () => {
     multimedia: false,
     logo: false,
     role: false,
+    type_contact: [],
+    value_contact: [],
   });
 
   const [companyDataError, setCompanyDataError] = useState<PropsCompanyError>({
@@ -94,6 +96,7 @@ export const CompanyPage: React.FC = () => {
     multimedia: "",
     logo: "",
     role: "",
+    // type_contact: "",
   });
 
   const [roleAccount, setRoleAccount] = useState<string>("");
@@ -116,11 +119,28 @@ export const CompanyPage: React.FC = () => {
       }));
     };
 
-  const handleChangeReadOnly = (input: keyof PropsCompanyReadOnly) => {
-    setInputsReadOnly((prev: PropsCompanyReadOnly) => ({
-      ...prev,
-      [input]: !prev[input],
-    }));
+  const handleChangeReadOnly = (
+    input: keyof PropsCompanyReadOnly,
+    index?: number
+  ) => {
+    setInputsReadOnly((prev: PropsCompanyReadOnly) => {
+      if (input === "type_contact" || input === "value_contact") {
+        if (typeof index === "number") {
+          const newArray = [...prev[input]];
+          newArray[index] = !newArray[index];
+          return {
+            ...prev,
+            [input]: newArray,
+          };
+        }
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [input]: !prev[input],
+      };
+    });
   };
 
   function clearAllFormSetters() {
@@ -153,6 +173,7 @@ export const CompanyPage: React.FC = () => {
       multimedia: "",
       logo: "",
       role: "",
+      // type_contact: "",
     });
   }
 
@@ -174,6 +195,7 @@ export const CompanyPage: React.FC = () => {
           handleChange={handleChange}
           handleChangeReadOnly={handleChangeReadOnly}
           id={params?.id}
+          setInputsReadOnly={setInputsReadOnly}
         />
       ),
     },
