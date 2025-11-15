@@ -62,12 +62,6 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
     }));
   };
 
-  console.log(
-    "Contacts",
-    // !isNewCompany,
-    roleAccount
-    // !inputsReadOnly?.type_contact
-  );
   return (
     <div className="rootContactsInputs">
       <h3>Contacts</h3>
