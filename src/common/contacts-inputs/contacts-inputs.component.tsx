@@ -16,9 +16,13 @@ type ContactInputsProps = {
   formDataError: PropsCompanyError;
   inputsReadOnly: PropsCompanyReadOnly;
   roleAccount: string;
-  handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
+  handleChangeReadOnly: (
+    input: keyof PropsCompanyReadOnly,
+    index?: number
+  ) => void;
   id: string | undefined;
   isNewCompany: boolean;
+  setInputsReadOnly: React.Dispatch<React.SetStateAction<PropsCompanyReadOnly>>;
 };
 
 export const ContactsInputs: React.FC<ContactInputsProps> = ({
@@ -31,6 +35,7 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
   handleChangeReadOnly,
   id,
   isNewCompany,
+  setInputsReadOnly,
 }) => {
   const handleChange = (
     index: number,
@@ -46,10 +51,29 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
     }));
   };
 
+  console.log("Contact:", contacts, inputsReadOnly);
+
   const addContact = () => {
-    setContacts((prev: any) => ({
+    // 1. Logic with setContacts:
+
+    setContacts((prev: PropsCompany) => {
+      // KEY VALIDATION: Ensure prev.contacts is an array before spreading it.
+      // This prevents the 'not iterable' error if contacts is an object or null/undefined
+      const currentContacts = Array.isArray(prev.contacts) ? prev.contacts : [];
+
+      return {
+        ...prev,
+        // Spread the validated array and add the new contact object.
+        contacts: [...currentContacts, { type: "", value: "" }],
+      };
+    });
+
+    // Logic to synchronize inputsReadOnly (must be passed from the parent)
+    // Adds a 'false' state for the new contact's type and value inputs.
+    setInputsReadOnly((prev) => ({
       ...prev,
-      contacts: [...(prev.contacts || []), { type: "", value: "" }],
+      type_contact: [...prev.type_contact, false],
+      value_contact: [...prev.value_contact, false],
     }));
   };
 
@@ -58,6 +82,17 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
       ...prev,
       contacts: (prev.contacts || []).filter(
         (_: any, i: number) => i !== index
+      ),
+    }));
+
+    // Logic to synchronize inputsReadOnly: remove the boolean state for the deleted contact.
+    setInputsReadOnly((prev) => ({
+      ...prev,
+      type_contact: prev.type_contact.filter(
+        (_: boolean, i: number) => i !== index
+      ),
+      value_contact: prev.value_contact.filter(
+        (_: boolean, i: number) => i !== index
       ),
     }));
   };
@@ -81,11 +116,11 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
                 (!isNewCompany && !!id && !roleAccount) ||
                 (!isNewCompany &&
                   !!roleAccount &&
-                  !inputsReadOnly?.type_contact)
+                  !inputsReadOnly?.type_contact[index])
               }
               update={
                 id && roleAccount
-                  ? () => handleChangeReadOnly("type_contact")
+                  ? () => handleChangeReadOnly("type_contact", index)
                   : null
               }
             />
@@ -100,16 +135,16 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
                 (!isNewCompany && !!id && !roleAccount) ||
                 (!isNewCompany &&
                   !!roleAccount &&
-                  !inputsReadOnly?.value_contact)
+                  !inputsReadOnly?.value_contact[index])
               }
               update={
                 id && roleAccount
-                  ? () => handleChangeReadOnly("value_contact")
+                  ? () => handleChangeReadOnly("value_contact", index)
                   : null
               }
             />
 
-            {contacts?.length > 1 && !!roleAccount && (
+            {contacts?.length > 1 && (!!roleAccount || isNewCompany) && (
               <Button
                 customStyles="buttonStyle_04"
                 type="button"
@@ -119,15 +154,14 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
             )}
           </div>
         ))}
-      {!!roleAccount ||
-        (isNewCompany && (
-          <Button
-            customStyles="buttonStyle_03"
-            type="button"
-            click={addContact}
-            text={t("add_contact")}
-          />
-        ))}
+      {(!!roleAccount || isNewCompany) && (
+        <Button
+          customStyles="buttonStyle_03"
+          type="button"
+          click={addContact}
+          text={t("add_contact")}
+        />
+      )}
     </div>
   );
 };
