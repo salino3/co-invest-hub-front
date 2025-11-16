@@ -150,7 +150,7 @@ export const AboutUs: React.FC<Props> = (props) => {
           />
         )}
 
-        {rolesCompany && rolesCompany?.length > 0 && (
+        {!isNewCompany && rolesCompany && rolesCompany?.length > 0 && (
           <div className="containerRolesParteners">
             <h4>{t("roles_partners")}</h4>
             {rolesCompany.map((role: any) => (
