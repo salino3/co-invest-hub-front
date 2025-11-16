@@ -1,8 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
+import { useAppFunctions } from "../../hooks";
 import { LockIcon, OpenedLockIcon, PenUpdateIcon } from "../icons";
 import "./basic-input.styles.scss";
+
+export enum TypeKeyDown {
+  Number = "number",
+  String = "string",
+  Null = "null",
+}
 
 interface PropsBasicInput {
   type: string;
@@ -24,6 +31,7 @@ interface PropsBasicInput {
   ariaLabeInput?: string;
   // aria-required: type Booleanish = boolean | "true" | "false", default false
   ariaRq?: boolean | "true" | "false";
+  typeKeyDown?: TypeKeyDown;
 }
 
 export const BasicInput: React.FC<PropsBasicInput> = (props) => {
@@ -46,11 +54,13 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
     ariaLabelLbl,
     ariaLabeInput,
     ariaRq,
+    typeKeyDown,
   } = props;
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
 
   const { theme } = useProviderSelector("theme");
+  const { handleNumericPaste } = useAppFunctions();
 
   return (
     <div
@@ -124,6 +134,51 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
                 e.preventDefault()
               );
             }}
+            onKeyDown={
+              typeKeyDown === TypeKeyDown.Number
+                ? (e: React.KeyboardEvent<HTMLInputElement>) => {
+                    // 1. Allow: Essential control keys (Tab, Backspace, Delete, Arrows, etc.)
+                    if (
+                      e.key === "Backspace" ||
+                      e.key === "Delete" ||
+                      e.key === "Tab" ||
+                      e.key.startsWith("Arrow") ||
+                      e.key === "Enter" ||
+                      // Allow Ctrl/Cmd + A, C, V, X (for copy/paste/select)
+                      ((e.ctrlKey || e.metaKey) &&
+                        ["a", "c", "v", "x"].includes(e.key.toLowerCase()))
+                    ) {
+                      return; // Allow the key press
+                    }
+
+                    // 2. Allow: Digits (0-9)
+                    if (/\d/.test(e.key)) {
+                      return;
+                    }
+
+                    // 3. Allow: The decimal point (only one)
+                    if (
+                      e.key === "." ||
+                      e.key === "Decimal" ||
+                      e.key === "NumpadDecimal"
+                    ) {
+                      // Prevent more than one decimal point in the current input value
+                      if (e.currentTarget.value.includes(".")) {
+                        e.preventDefault();
+                        return;
+                      }
+                      return;
+                    }
+
+                    e.preventDefault();
+                  }
+                : undefined
+            }
+            onPaste={
+              typeKeyDown === TypeKeyDown.Number
+                ? handleNumericPaste
+                : undefined
+            }
             // onInput={() => alert("Hi!")} // It works when value change
             aria-required={ariaRq}
           />
