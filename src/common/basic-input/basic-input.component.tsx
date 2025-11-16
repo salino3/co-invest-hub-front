@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useProviderSelector } from "../../store";
+import { useAppFunctions } from "../../hooks";
 import { LockIcon, OpenedLockIcon, PenUpdateIcon } from "../icons";
 import "./basic-input.styles.scss";
 
@@ -59,6 +60,7 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
   const { t: tw } = useTranslation("wcag");
 
   const { theme } = useProviderSelector("theme");
+  const { handleNumericPaste } = useAppFunctions();
 
   return (
     <div
@@ -170,6 +172,11 @@ export const BasicInput: React.FC<PropsBasicInput> = (props) => {
 
                     e.preventDefault();
                   }
+                : undefined
+            }
+            onPaste={
+              typeKeyDown === TypeKeyDown.Number
+                ? handleNumericPaste
                 : undefined
             }
             // onInput={() => alert("Hi!")} // It works when value change
