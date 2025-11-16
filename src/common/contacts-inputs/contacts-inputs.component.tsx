@@ -5,7 +5,7 @@ import {
   PropsCompanyError,
   PropsCompanyReadOnly,
 } from "../../store";
-import { BasicInput } from "../basic-input";
+import { BasicInput, TypeKeyDown } from "../basic-input";
 import { Button } from "../button";
 import "./contacts-inputs.styles.scss";
 
@@ -142,6 +142,7 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
                   ? () => handleChangeReadOnly("value_contact", index)
                   : null
               }
+              typeKeyDown={TypeKeyDown.Number}
             />
 
             {contacts?.length > 1 && (!!roleAccount || isNewCompany) && (
