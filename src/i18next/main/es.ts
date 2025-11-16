@@ -26,6 +26,7 @@ export const es = {
   confirm: "Confirmar",
   cancel: "Cancelar",
   reset: "Resetear",
+  roles_partners: "Roles Socios",
   empty_or_incorrect: "está vacío o con formato incorrecto",
   is_required: "es requerido",
   at_least_6: "debe contener al menos 6 caracteres",
