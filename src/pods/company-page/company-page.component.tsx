@@ -32,7 +32,7 @@ export const CompanyPage: React.FC = () => {
     "setMyCompanies"
   );
 
-  const { checkFormRequired } = useAppFunctions();
+  const { checkFormRequired, convertBlobToBase64 } = useAppFunctions();
 
   const [tab, setTabs] = useState<number>(0);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
@@ -274,6 +274,16 @@ export const CompanyPage: React.FC = () => {
           await ServicesApp?.updateRoleAccountCompany(body);
         }
         // TODO: Check if companyData have some values difference before call endpoint
+        if (companyData.logo && companyData.logo.startsWith("blob:")) {
+          try {
+            const base64Logo = await convertBlobToBase64(companyData.logo);
+
+            companyData.logo = base64Logo;
+          } catch (error) {
+            console.error("Failed to convert logo:", error);
+          }
+        }
+
         await ServicesApp?.updateCompany(
           String(params?.id),
           companyData,
