@@ -90,6 +90,30 @@ export const Investment: React.FC<Props> = (props) => {
           }
         />
       </div>
+
+      <div className="inputsInvestment">
+        <BasicInput
+          lbl={t("hashtags")}
+          name="hashtags"
+          type="string"
+          change={handleChange("hashtags")}
+          value={
+            typeof formData?.hashtags === "object" &&
+            !Array.isArray(formData?.hashtags)
+              ? ""
+              : formData?.hashtags || ""
+          }
+          errMsg={formDataError?.hashtags}
+          checkError={!!formDataError?.hashtags}
+          readonly={
+            (!isNewCompany && !!id && !roleAccount) ||
+            (!isNewCompany && !!roleAccount && !inputsReadOnly?.hashtags)
+          }
+          update={
+            id && roleAccount ? () => handleChangeReadOnly("hashtags") : null
+          }
+        />
+      </div>
     </div>
   );
 };

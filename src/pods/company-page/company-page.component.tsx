@@ -108,6 +108,7 @@ export const CompanyPage: React.FC = () => {
     (key: keyof PropsCompany) =>
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { value } = event.target;
+
       setCompanyData((prev) => ({
         ...prev,
         [key]: value,
@@ -231,7 +232,6 @@ export const CompanyPage: React.FC = () => {
     event
   ) => {
     event.preventDefault();
-
     let error: boolean = checkFormRequired(
       {
         ...companyData,
@@ -239,7 +239,7 @@ export const CompanyPage: React.FC = () => {
       },
       setCompanyDataError,
       t,
-      ["contacts", "investment_min", "investment_max", "logo"],
+      ["contacts", "investment_min", "investment_max", "logo", "hashtags"],
       setTabs
     );
 
@@ -247,6 +247,28 @@ export const CompanyPage: React.FC = () => {
     // checkDataFormCompany()
 
     if (!error) {
+      //
+      if (companyData?.hashtags) {
+        if (typeof companyData.hashtags === "string") {
+          companyData.hashtags =
+            companyData &&
+            (companyData?.hashtags as string)
+              .split(/\s*,\s*/) // Split by commas and remove space
+              .map((s: string) => s.trim())
+              .filter((s: string) => s.length > 0);
+        }
+
+        if (Array.isArray(companyData.hashtags)) {
+          companyData.hashtags = companyData.hashtags.flatMap((s) =>
+            s
+              .split(/\s*,\s*/)
+              .map((p) => p.trim())
+              .filter((p) => p.length > 0)
+          );
+        }
+      }
+
+      //
       if (!params?.id) {
         ServicesApp?.createCompany(companyData).then((res: any) => {
           const id: number = Number(currentUser?.id);
