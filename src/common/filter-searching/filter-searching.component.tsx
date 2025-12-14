@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useShallow } from "zustand/shallow";
 import { useTranslation } from "react-i18next";
 import { useProvider } from "../../store";
@@ -14,6 +14,7 @@ export const FilterSearching: React.FC = () => {
   const { t: tw } = useTranslation("wcag");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const setCompanies = useProvider(useShallow((state) => state.setCompanies));
   const searchData = JSON.parse(localStorage.getItem("searchData") || "{}");
@@ -32,7 +33,11 @@ export const FilterSearching: React.FC = () => {
     e.preventDefault();
 
     if (!searchFilter.trim()) {
-      setSearchErrorFilter("required_field");
+      ServicesApp?.getCompanies().then((res) => {
+        setCompanies && setCompanies(res?.data);
+        if (location?.pathname != routesApp?.dashboard)
+          navigate(routesApp?.dashboard);
+      });
     } else {
       const body = {
         searching: searchFilter.trim() || searchData?.searching,
@@ -41,7 +46,8 @@ export const FilterSearching: React.FC = () => {
       ServicesApp?.getSearchingCompanies(body).then((res) => {
         setCompanies && setCompanies(res?.data);
         localStorage.setItem("searchData", JSON.stringify(body));
-        navigate(routesApp?.dashboard);
+        if (location?.pathname != routesApp?.dashboard)
+          navigate(routesApp?.dashboard);
       });
     }
   }
