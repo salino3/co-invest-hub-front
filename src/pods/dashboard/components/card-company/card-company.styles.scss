@@ -98,8 +98,8 @@
         .infoSector {
           display: flex;
           flex-direction: row;
-          justify-content: stretch;
-          align-items: center;
+          justify-content: space-between;
+          align-items: flex-start;
           gap: 1rem;
           width: 100%;
         }
@@ -120,8 +120,8 @@
         .infoIMax {
           display: flex;
           flex-direction: row;
-          justify-content: stretch;
-          align-items: center;
+          justify-content: space-between;
+          align-items: flex-end;
           gap: 1rem;
           width: 100%;
         }
