@@ -1,16 +1,18 @@
-import React, { JSX, lazy } from "react";
+import React, { JSX, lazy, Suspense } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
 import { routesApp } from "./interface-routes";
 
 const HomePage = lazy(() => import("../pods/home/home.component")); // with 'export default'
+//
+const lazyLoad = (importPromise: Promise<any>, exportName: string) => {
+  const Fn = React.lazy(() =>
+    importPromise.then((module) => ({ default: module[exportName] }))
+  );
+  return <Fn />;
+};
 
-const CompanyPage = lazy(() =>
-  import("../pods/company-page/company-page.component").then((module) => ({
-    default: module.CompanyPage,
-  }))
-);
 const Dashboard = lazy(() =>
   import("../pods/dashboard/dashboard.component").then((module) => ({
     default: module.Dashboard,
@@ -36,7 +38,10 @@ const routes: PropsRoutes[] = [
   },
   {
     path: routesApp?.company(":name", ":id"),
-    element: <CompanyPage />,
+    element: lazyLoad(
+      import("../pods/company-page/company-page.component"), // ImportPromise
+      "CompanyPage" // ExportName
+    ),
     visibility: "private",
   },
   {
@@ -46,7 +51,10 @@ const routes: PropsRoutes[] = [
   },
   {
     path: routesApp?.create_company,
-    element: <CompanyPage />,
+    element: lazyLoad(
+      import("../pods/company-page/company-page.component"),
+      "CompanyPage"
+    ),
     visibility: "private",
   },
   {
@@ -87,7 +95,6 @@ const LayoutWrapper: React.FC = () => (
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      {/* <Suspense fallback={...}> ... */}
       <Route path={routesApp?.root} element={<LayoutWrapper />}>
         {routes &&
           routes?.length > 0 &&
@@ -102,9 +109,3 @@ export const AppRoutes: React.FC = () => {
     </Routes>
   );
 };
-
-//
-// const lazyLoad = (importPromise: Promise<any>, exportName: string) =>
-//   React.lazy(() =>
-//     importPromise.then((module) => ({ default: module[exportName] }))
-//   );
