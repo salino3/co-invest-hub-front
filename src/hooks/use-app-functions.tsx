@@ -89,28 +89,80 @@ export const useAppFunctions = () => {
      - Example of invalid emails: `user@.com`, `@example.com`, `user@com`
 */
 
-  //
+  // Comment old version 'downLoadImage'
+  // function downLoadImage(logo: string) {
+  //   if (!logo) return;
+
+  //   fetch(logo)
+  //     .then((response) => response.blob()) // Convert the image to a Blob
+  //     .then((blob) => {
+  //       const url = window.URL.createObjectURL(blob);
+
+  //       // Get file extension from URL
+  //       // TODO: accept more types of photos
+  //       const extension = logo.split(".").pop()?.split("?")[0] || "png";
+  //       const currentDate = new Date().getTime();
+
+  //       const a = document.createElement("a");
+  //       a.href = url;
+  //       a.download = `company_logo_${currentDate}.${extension}`;
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+
+  //       // Release the URL object
+  //       window.URL.revokeObjectURL(url);
+  //     })
+  //     .catch((error) => console.error("Error downloading the image:", error));
+  // }
+
+  // TODO: check and test well new version, and delete old version
+  //* new version 'downLoadImage' 16-12-2025
   function downLoadImage(logo: string) {
     if (!logo) return;
 
-    fetch(logo)
-      .then((response) => response.blob()) // Convert the image to a Blob
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
+    let fileExtension = "png"; // Default extension
 
-        // Get file extension from URL
-        // TODO: accept more types of photos
-        const extension = logo.split(".").pop()?.split("?")[0] || "png";
+    fetch(logo)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // 1. Get the MIME type from the response headers (e.g., 'image/jpeg')
+        const contentType = response.headers.get("Content-Type");
+
+        if (contentType) {
+          // Extract the part after the slash (e.g., 'jpeg' from 'image/jpeg')
+          const typePart = contentType.split("/").pop();
+          if (typePart && typePart !== "octet-stream") {
+            // 'octet-stream' is generic
+            fileExtension = typePart.replace("svg+xml", "svg"); // Handle special cases like svg+xml
+          }
+        } else {
+          // Fallback: If Content-Type is missing, try to get the extension from the URL string
+          fileExtension = logo.split(".").pop()?.split("?")[0] || "png";
+        }
+
+        return response.blob();
+      })
+      .then((blob) => {
+        // Create a temporary URL for the Blob object
+        const url = window.URL.createObjectURL(blob);
         const currentDate = new Date().getTime();
 
+        // Create a temporary anchor element for triggering download
         const a = document.createElement("a");
         a.href = url;
-        a.download = `company_logo_${currentDate}.${extension}`;
+
+        // Use the determined fileExtension
+        a.download = `company_logo_${currentDate}.${fileExtension}`;
+
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
 
-        // Release the URL object
+        // Clean up by revoking the temporary URL object
         window.URL.revokeObjectURL(url);
       })
       .catch((error) => console.error("Error downloading the image:", error));
