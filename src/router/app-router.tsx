@@ -1,8 +1,7 @@
-import React, { JSX } from "react";
+import React, { JSX, lazy } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
-import { AccountPage, CompanyPage, Dashboard, HomePage } from "../pods";
 import { routesApp } from "./interface-routes";
 
 interface PropsRoutes {
@@ -10,6 +9,15 @@ interface PropsRoutes {
   element: JSX.Element;
   visibility: "public" | "private" | "restricted" | "admin";
 }
+
+const HomePage = lazy(() => import("../pods/home/home.component")); // with 'export default'
+//
+const lazyLoad = (importPromise: Promise<any>, exportName: string) => {
+  const Fn = React.lazy(() =>
+    importPromise.then((module) => ({ default: module[exportName] }))
+  );
+  return <Fn />;
+};
 
 const routes: PropsRoutes[] = [
   {
@@ -19,22 +27,34 @@ const routes: PropsRoutes[] = [
   },
   {
     path: routesApp?.company(":name", ":id"),
-    element: <CompanyPage />,
+    element: lazyLoad(
+      import("../pods/company-page/company-page.component"), // ImportPromise
+      "CompanyPage" // ExportName
+    ),
     visibility: "private",
   },
   {
     path: routesApp?.account(":action"),
-    element: <AccountPage />,
+    element: lazyLoad(
+      import("../pods/account-page/account-page.component"),
+      "AccountPage"
+    ),
     visibility: "private",
   },
   {
     path: routesApp?.create_company,
-    element: <CompanyPage />,
+    element: lazyLoad(
+      import("../pods/company-page/company-page.component"),
+      "CompanyPage"
+    ),
     visibility: "private",
   },
   {
     path: routesApp?.dashboard,
-    element: <Dashboard />,
+    element: lazyLoad(
+      import("../pods/dashboard/dashboard.component"),
+      "Dashboard"
+    ),
     visibility: "private",
   },
   {
@@ -70,6 +90,7 @@ const LayoutWrapper: React.FC = () => (
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
+      {/* <Suspense fallback={...}> ... */}
       <Route path={routesApp?.root} element={<LayoutWrapper />}>
         {routes &&
           routes?.length > 0 &&

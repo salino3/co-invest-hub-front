@@ -18,7 +18,7 @@ import { NavigationCompany } from "../../common-app";
 import { AboutUs, FirstInfoCompany, Investment } from "./components";
 import { routesApp } from "../../router";
 import "./company-page.styles.scss";
-// http://localhost:5500/company/Jim%20Doctor/15
+
 export const CompanyPage: React.FC = () => {
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");

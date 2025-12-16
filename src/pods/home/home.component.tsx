@@ -15,7 +15,7 @@ import { ModalWeb } from "../../common-app";
 import { routesApp } from "../../router";
 import "./home.styles.scss";
 
-export const HomePage: React.FC = () => {
+const HomePage: React.FC = () => {
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
 
@@ -325,3 +325,5 @@ export const HomePage: React.FC = () => {
     </div>
   );
 };
+
+export default HomePage;
