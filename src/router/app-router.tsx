@@ -36,7 +36,7 @@ const routes: PropsRoutes[] = [
   {
     path: routesApp?.account(":action"),
     element: lazyLoad(
-      import("../pods/dashboard/dashboard.component"),
+      import("../pods/account-page/account-page.component"),
       "AccountPage"
     ),
     visibility: "private",
@@ -52,7 +52,7 @@ const routes: PropsRoutes[] = [
   {
     path: routesApp?.dashboard,
     element: lazyLoad(
-      import("../pods/account-page/account-page.component"),
+      import("../pods/dashboard/dashboard.component"),
       "Dashboard"
     ),
     visibility: "private",
