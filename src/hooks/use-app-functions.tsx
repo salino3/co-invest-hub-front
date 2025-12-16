@@ -99,6 +99,7 @@ export const useAppFunctions = () => {
         const url = window.URL.createObjectURL(blob);
 
         // Get file extension from URL
+        // TODO: accept more types of photos
         const extension = logo.split(".").pop()?.split("?")[0] || "png";
         const currentDate = new Date().getTime();
 

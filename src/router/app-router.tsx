@@ -1,9 +1,26 @@
-import React, { JSX } from "react";
+import React, { JSX, lazy } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
-import { AccountPage, CompanyPage, Dashboard, HomePage } from "../pods";
 import { routesApp } from "./interface-routes";
+
+const HomePage = lazy(() => import("../pods/home/home.component")); // with 'export default'
+
+const CompanyPage = lazy(() =>
+  import("../pods/company-page/company-page.component").then((module) => ({
+    default: module.CompanyPage,
+  }))
+);
+const Dashboard = lazy(() =>
+  import("../pods/dashboard/dashboard.component").then((module) => ({
+    default: module.Dashboard,
+  }))
+);
+const AccountPage = lazy(() =>
+  import("../pods/account-page/account-page.component").then((module) => ({
+    default: module.AccountPage,
+  }))
+);
 
 interface PropsRoutes {
   path: string;
@@ -70,6 +87,7 @@ const LayoutWrapper: React.FC = () => (
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
+      {/* <Suspense fallback={...}> ... */}
       <Route path={routesApp?.root} element={<LayoutWrapper />}>
         {routes &&
           routes?.length > 0 &&
@@ -84,3 +102,9 @@ export const AppRoutes: React.FC = () => {
     </Routes>
   );
 };
+
+//
+// const lazyLoad = (importPromise: Promise<any>, exportName: string) =>
+//   React.lazy(() =>
+//     importPromise.then((module) => ({ default: module[exportName] }))
+//   );
