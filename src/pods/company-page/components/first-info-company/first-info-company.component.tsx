@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Params } from "react-router-dom";
 import { PropsCompany } from "../../../../store";
 import { ServicesApp } from "../../../../services";
@@ -34,11 +34,19 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
   const [zoomPhoto, setZoomPhoto] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<string | null>("");
+  const [newImage, setNewImage] = useState<string>(logo);
 
   const isFavorited =
     myFavorites &&
     myFavorites?.length > 0 &&
     myFavorites.some((f) => f === Number(params?.id));
+
+  useEffect(() => {
+    setCompanyData((prev: PropsCompany) => ({
+      ...prev,
+      logo: newImage || logo,
+    }));
+  }, [zoomPhoto]);
 
   return (
     <div className="containerInfoAboutCompany">
@@ -127,13 +135,14 @@ export const FirstInfoCompany: React.FC<Props> = (props) => {
           </div>
         )}
         <ZoomImg
-          img={logo || "/assets/icons/group_3.svg"}
+          img={logo}
           alt="Logo"
           download
           setShow={setZoomPhoto}
           show={zoomPhoto}
           updatePhoto
-          setCompanyData={setCompanyData}
+          newImage={newImage}
+          setNewImage={setNewImage}
         />
       </div>
       <hr

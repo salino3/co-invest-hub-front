@@ -64,7 +64,6 @@ export const CardCompany: React.FC<Props> = (props) => {
               <span>{investment_min}</span>
             </div>
             <div className="infoIMax">
-              {" "}
               <strong>{t("investment_max")}:</strong>
               <span>{investment_max}</span>
             </div>

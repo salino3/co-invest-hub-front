@@ -18,12 +18,22 @@ interface Props {
   show: boolean;
   updatePhoto: boolean;
   setShow: Dispatch<SetStateAction<boolean | any>>;
-  setCompanyData: React.Dispatch<React.SetStateAction<PropsCompany>>;
+  newImage: string;
+  setNewImage: Dispatch<SetStateAction<string>>;
+  // setCompanyData: React.Dispatch<React.SetStateAction<PropsCompany>>;
 }
 
 export const ZoomImg: React.FC<Props> = (props) => {
-  const { img, alt, download, show, updatePhoto, setShow, setCompanyData } =
-    props;
+  const {
+    img,
+    alt,
+    download,
+    show,
+    updatePhoto,
+    setShow,
+    newImage,
+    setNewImage,
+  } = props;
 
   if (!show) {
     return;
@@ -105,14 +115,9 @@ export const ZoomImg: React.FC<Props> = (props) => {
               accept="image/png,image/jpeg"
               onFileSelected={(file) => {
                 const url = URL.createObjectURL(file);
-                setCompanyData((prev: PropsCompany) => ({
-                  ...prev,
-                  logo: url,
-                }));
+                setNewImage(url);
               }}
-              onClear={() =>
-                setCompanyData((prev: PropsCompany) => ({ ...prev, logo: "" }))
-              }
+              onClear={() => setNewImage(img)}
             />
           )}
           <div ref={lastActionRef} tabIndex={-1} />
@@ -126,7 +131,7 @@ export const ZoomImg: React.FC<Props> = (props) => {
           onClick={(e) => e.stopPropagation()}
           className="boxZoomImg"
         >
-          <img src={img} alt={alt} />
+          <img src={newImage || img || "/assets/icons/group_3.svg"} alt={alt} />
         </div>
       </div>
     </div>
