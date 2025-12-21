@@ -160,6 +160,9 @@ export const CompanyPage: React.FC = () => {
             },
           ],
       multimedia: params?.id ? companyOldData?.multimedia : [],
+      logo: params?.id ? companyOldData?.logo : "",
+      investment_min: params?.id ? companyOldData?.investment_min : undefined,
+      investment_max: params?.id ? companyOldData?.investment_max : undefined,
     });
     setRoleAccount(params?.id ? roleOldAccount : "");
     setCompanyDataError({
@@ -383,7 +386,7 @@ export const CompanyPage: React.FC = () => {
               click={clearAllFormSetters}
               type="reset"
               text={t("reset")}
-            />{" "}
+            />
             <Button
               customStyles="buttonStyle_01"
               al={tw("aria.confirmForm")}

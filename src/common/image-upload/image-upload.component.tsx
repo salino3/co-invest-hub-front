@@ -47,6 +47,8 @@ export const ImageUpload: React.FC<PropsImageUpload> = (props) => {
         ref={inputRef}
         aria-hidden={true}
         tabIndex={-1}
+        // Change 'key' for rerender <input> in case user mistakes, deletes photo and load same photo instantly
+        key={fileName || "noFile"}
       />
       <label
         htmlFor={id}
