@@ -1,6 +1,7 @@
 import { TFunction } from "i18next";
 import { PropsCompany, PropsCompanyReadOnly } from "../../../../store";
 import "./portfolio.styles.scss";
+import { CrossIcon } from "../../../../common";
 
 interface Props {
   t: TFunction<"main", undefined>;
@@ -34,6 +35,26 @@ export const Portfolio: React.FC<Props> = (props) => {
   } = props;
 
   console.log("formData", formData);
+  //   const testArray = [];
+
+  //   for (let i = 0; i < 22; i++) {
+  //     testArray.push(
+  //       i % 2
+  //         ? {
+  //             url: "https://youtu.be/qa4CP860Oqo?si=1wDkzI_GH5wq8yeD",
+  //             type: "video",
+  //             description: "Company promotional video",
+  //           }
+  //         : {
+  //             url: "https://y",
+  //             type: "video",
+  //             description: "Company promotional video",
+  //           }
+  //     );
+  //   }
+
+  //   console.log("clog1", testArray);
+
   return (
     <div className="rootPortfolio">
       <div className="containerContentPortfolio">
@@ -49,13 +70,28 @@ export const Portfolio: React.FC<Props> = (props) => {
               const isBase64Video =
                 item.url.startsWith("data:video/") ||
                 (item.url.length > 100 && !item.url.startsWith("http"));
+
+              if (index === 0)
+                return (
+                  <div key={index} className="boxEmptyContentPortfolio">
+                    <div className="cardEmptyContentPortfolio">
+                      <CrossIcon
+                        customStyles={"rotateCross"}
+                        height={50}
+                        width={50}
+                        strokeWidth={"4"}
+                      />
+                    </div>
+                  </div>
+                );
+
               return (
                 <div key={index} className="cardContentPortfolio">
                   {item.description}
                   {isYouTube ? (
                     <iframe
+                      className="videoCard"
                       width="100%"
-                      height="315"
                       src={
                         item.url
                           .replace("youtu.be/", "www.youtube.com/embed/")
@@ -68,6 +104,7 @@ export const Portfolio: React.FC<Props> = (props) => {
                     ></iframe>
                   ) : (
                     <video
+                      className="videoCard"
                       src={
                         isBase64Video
                           ? `data:video/mp4;base64,${item.url}`

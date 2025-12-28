@@ -8,6 +8,7 @@ interface Props {
   click?: MouseEventHandler<SVGSVGElement> | undefined;
   customStyles?: string;
   shape?: "round" | "butt" | "square" | "inherit";
+  strokeWidth?: string | number | undefined;
 }
 
 export const CrossIcon: React.FC<Props> = ({
@@ -18,6 +19,7 @@ export const CrossIcon: React.FC<Props> = ({
   click,
   customStyles,
   shape = "round",
+  strokeWidth = undefined,
 }) => {
   return (
     <svg
@@ -31,6 +33,7 @@ export const CrossIcon: React.FC<Props> = ({
       stroke={stroke}
       strokeLinecap={shape}
       strokeLinejoin={"round"}
+      strokeWidth={strokeWidth}
     >
       <line x1="18" y1="6" x2="6" y2="18"></line>
       <line x1="6" y1="6" x2="18" y2="18"></line>
