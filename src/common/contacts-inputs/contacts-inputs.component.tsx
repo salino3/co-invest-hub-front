@@ -51,7 +51,7 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
     }));
   };
 
-  console.log("Contact:", contacts, inputsReadOnly);
+  // console.log("Contact:", contacts, inputsReadOnly);
 
   const addContact = () => {
     // 1. Logic with setContacts:

@@ -1,0 +1,75 @@
+.rootPortfolio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+
+  .containerContentPortfolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+    width: 100%;
+    height: 100%;
+
+    .boxEmptyContentPortfolio {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0.5rem;
+      border: 2px dashed gray;
+      max-height: 322px;
+      max-width: 322px;
+      min-height: 322px;
+      min-width: 322px;
+      cursor: pointer;
+      .cardEmptyContentPortfolio {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+
+        background: radial-gradient(
+          closest-side at center,
+          rgba(0, 0, 0, 1) 45%,
+          rgba(255, 255, 255, 0.3) 100%
+        );
+        background-blend-mode: multiply;
+
+        .rotateCross {
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    .cardContentPortfolio {
+      border: solid gray;
+      border-radius: 0.5rem;
+      padding: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-height: 322px;
+      max-width: 322px;
+      min-height: 322px;
+      min-width: 322px;
+      height: 100%;
+
+      .videoCard {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

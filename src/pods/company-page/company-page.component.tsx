@@ -15,7 +15,7 @@ import { ServicesApp } from "../../services";
 import { useAppFunctions } from "../../hooks";
 import { Button } from "../../common";
 import { NavigationCompany } from "../../common-app";
-import { AboutUs, FirstInfoCompany, Investment } from "./components";
+import { AboutUs, FirstInfoCompany, Investment, Portfolio } from "./components";
 import { routesApp } from "../../router";
 import "./company-page.styles.scss";
 
@@ -226,7 +226,20 @@ export const CompanyPage: React.FC = () => {
     {
       key: 2,
       title: "portfolio_l",
-      component: <>Portfolio</>,
+      component: (
+        <Portfolio
+          t={t}
+          setFormData={setCompanyData}
+          formData={companyData}
+          roleAccount={roleAccount}
+          setRoleAccount={setRoleAccount}
+          rolesCompany={rolesCompany}
+          inputsReadOnly={inputsReadOnly}
+          handleChange={handleChange}
+          handleChangeReadOnly={handleChangeReadOnly}
+          id={params?.id}
+        />
+      ),
     },
   ];
 
