@@ -51,10 +51,11 @@
     .cardContentPortfolio {
       border: solid gray;
       border-radius: 0.5rem;
-      padding: 0.25rem;
+      padding: 0.2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 0.25rem;
       align-items: center;
       max-height: 322px;
       max-width: 322px;

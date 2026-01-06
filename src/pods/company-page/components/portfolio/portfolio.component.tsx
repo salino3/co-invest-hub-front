@@ -1,4 +1,5 @@
 import { TFunction } from "i18next";
+import { useTranslation } from "react-i18next";
 import { PropsCompany, PropsCompanyReadOnly } from "../../../../store";
 import "./portfolio.styles.scss";
 import { CrossIcon } from "../../../../common";
@@ -34,6 +35,8 @@ export const Portfolio: React.FC<Props> = (props) => {
     id,
   } = props;
 
+  const { t: tw } = useTranslation("wcag");
+
   console.log("formData", formData);
 
   // description
@@ -60,7 +63,12 @@ export const Portfolio: React.FC<Props> = (props) => {
 
               if (index === 0)
                 return (
-                  <div key={index} className="boxEmptyContentPortfolio">
+                  <div
+                    tabIndex={0}
+                    key={index}
+                    aria-label={tw("add_multimedia")}
+                    className="boxEmptyContentPortfolio"
+                  >
                     <div className="cardEmptyContentPortfolio">
                       <CrossIcon
                         customStyles={"rotateCross"}
@@ -74,13 +82,23 @@ export const Portfolio: React.FC<Props> = (props) => {
 
               return (
                 <div key={index} className="cardContentPortfolio">
-                  {item.description}
+                  <span> {item.description}</span>
                   {item.type === "image" ? (
-                    <img src={item?.url} alt={"Image " + index} />
+                    <img
+                      tabIndex={0}
+                      src={item?.url}
+                      aria-label={`${tw("item")} (${tw("image")}) ${index}, ${
+                        item.description
+                      }`}
+                      alt={t("item") + " " + index}
+                    />
                   ) : isYouTube ? (
                     <iframe
                       className="videoCard"
                       width="100%"
+                      aria-label={`${tw("item")} (${tw(
+                        "aria.video"
+                      )}) ${index}, ${item.description}`}
                       src={
                         item.url
                           .replace("youtu.be/", "www.youtube.com/embed/")
@@ -100,6 +118,9 @@ export const Portfolio: React.FC<Props> = (props) => {
                           : item.url
                       }
                       controls
+                      aria-label={`${tw("item")} (${tw(
+                        "aria.video"
+                      )}) ${index}, ${item.description}`}
                       width="100%"
                     />
                   )}

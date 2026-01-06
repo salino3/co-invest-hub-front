@@ -26,6 +26,7 @@ export const en = {
   confirm: "Confrim",
   cancel: "Cancel",
   reset: "Reset",
+  image: "Image",
   roles_partners: "Roles Parteners",
   empty_or_incorrect: "is empty or with incorrect format",
   is_required: "is required",
@@ -72,6 +73,7 @@ export const en = {
   textDeleteAccount02: "Text in the input ",
   textDeleteAccount03: " and click in confirm",
   wrong_name: "This name is wrong",
+  item: "Item",
   login_error_credentials:
     "The email address or password you entered is incorrect. Please try again.",
 };
