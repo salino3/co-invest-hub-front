@@ -26,6 +26,7 @@ export const es = {
   confirm: "Confirmar",
   cancel: "Cancelar",
   reset: "Resetear",
+  image: "Imagen",
   roles_partners: "Roles Socios",
   empty_or_incorrect: "está vacío o con formato incorrecto",
   is_required: "es requerido",
@@ -41,6 +42,7 @@ export const es = {
   required_field: "Este campo es requerido",
   search: "Buscar",
   search_02: "Busca",
+  form_multimedia: "Form multimedia",
   EN: "Inglés",
   ES: "Español",
   languages: "Idiomas",
@@ -49,6 +51,7 @@ export const es = {
   rotate: "Rototar",
   download: "Descargar",
   updatePhoto: "Actualizar Foto",
+  type: "Tipo",
   type_contact: "Tipo (e. correo eletrónico, tel)",
   value_contact: "Contacto (e. contact@site.com, +34..)",
   remove: "Remover",
@@ -72,6 +75,7 @@ export const es = {
   textDeleteAccount02: "Escribe en el input ",
   textDeleteAccount03: " y presiona en confirmar",
   wrong_name: "Este nombre está equivocado",
+  item: "Elemento",
   login_error_credentials:
     "El correo electrónico o la contraseña que has introducido son incorrectos. Por favor, inténtalo de nuevo.",
 };

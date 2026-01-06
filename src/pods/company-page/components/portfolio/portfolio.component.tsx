@@ -1,7 +1,11 @@
 import { TFunction } from "i18next";
+import { useTranslation } from "react-i18next";
 import { PropsCompany, PropsCompanyReadOnly } from "../../../../store";
-import "./portfolio.styles.scss";
 import { CrossIcon } from "../../../../common";
+import { ModalWeb } from "../../../../common-app";
+import { FormMultimedia } from "./components";
+import "./portfolio.styles.scss";
+import { useState } from "react";
 
 interface Props {
   t: TFunction<"main", undefined>;
@@ -34,33 +38,14 @@ export const Portfolio: React.FC<Props> = (props) => {
     id,
   } = props;
 
+  const { t: tw } = useTranslation("wcag");
+  const [showModalForm, setShowModalForm] = useState<boolean>(false);
   console.log("formData", formData);
-  //   const testArray = [];
-
-  //   for (let i = 0; i < 22; i++) {
-  //     testArray.push(
-  //       i % 2
-  //         ? {
-  //             url: "https://youtu.be/qa4CP860Oqo?si=1wDkzI_GH5wq8yeD",
-  //             type: "video",
-  //             description: "Company promotional video",
-  //           }
-  //         : {
-  //             url: "https://y",
-  //             type: "video",
-  //             description: "Company promotional video",
-  //           }
-  //     );
-  //   }
-
-  //   console.log("clog1", testArray);
 
   return (
     <div className="rootPortfolio">
       <div className="containerContentPortfolio">
-        {formData &&
-          formData.multimedia &&
-          formData.multimedia.length > 0 &&
+        {formData && formData.multimedia && formData.multimedia.length > 0 ? (
           formData.multimedia.map(
             (item: Record<string, string>, index: number) => {
               const isYouTube =
@@ -73,7 +58,13 @@ export const Portfolio: React.FC<Props> = (props) => {
 
               if (index === 0)
                 return (
-                  <div key={index} className="boxEmptyContentPortfolio">
+                  <div
+                    tabIndex={0}
+                    key={index}
+                    aria-label={tw("add_multimedia")}
+                    className="boxEmptyContentPortfolio"
+                    onClick={() => setShowModalForm(true)}
+                  >
                     <div className="cardEmptyContentPortfolio">
                       <CrossIcon
                         customStyles={"rotateCross"}
@@ -87,11 +78,23 @@ export const Portfolio: React.FC<Props> = (props) => {
 
               return (
                 <div key={index} className="cardContentPortfolio">
-                  {item.description}
-                  {isYouTube ? (
+                  <span> {item.description}</span>
+                  {item.type === "image" ? (
+                    <img
+                      tabIndex={0}
+                      src={item?.url}
+                      aria-label={`${tw("item")} (${tw("image")}) ${index}, ${
+                        item.description
+                      }`}
+                      alt={t("item") + " " + index}
+                    />
+                  ) : isYouTube ? (
                     <iframe
                       className="videoCard"
                       width="100%"
+                      aria-label={`${tw("item")} (${tw(
+                        "aria.video"
+                      )}) ${index}, ${item.description}`}
                       src={
                         item.url
                           .replace("youtu.be/", "www.youtube.com/embed/")
@@ -111,14 +114,51 @@ export const Portfolio: React.FC<Props> = (props) => {
                           : item.url
                       }
                       controls
+                      aria-label={`${tw("item")} (${tw(
+                        "aria.video"
+                      )}) ${index}, ${item.description}`}
                       width="100%"
                     />
                   )}
                 </div>
               );
             }
-          )}
+          )
+        ) : (
+          <div
+            tabIndex={0}
+            key={0}
+            aria-label={tw("add_multimedia")}
+            className="boxEmptyContentPortfolio"
+            onClick={() => setShowModalForm(true)}
+          >
+            <div className="cardEmptyContentPortfolio">
+              <CrossIcon
+                customStyles={"rotateCross"}
+                height={50}
+                width={50}
+                strokeWidth={"4"}
+              />
+            </div>
+          </div>
+        )}
       </div>
+      {showModalForm && (
+        <ModalWeb
+          show={showModalForm}
+          setShow={setShowModalForm}
+          msg={t("form_multimedia")}
+          customMaxHeight={"90vh"}
+        >
+          <FormMultimedia
+            t={t}
+            setFormData={setFormData}
+            formData={formData}
+            roleAccount={roleAccount}
+            setShowModalForm={setShowModalForm}
+          />
+        </ModalWeb>
+      )}
     </div>
   );
 };

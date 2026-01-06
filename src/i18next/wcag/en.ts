@@ -34,6 +34,7 @@ export const en = {
   min_18: "You must be adult",
   no_companies: "No companies...",
   add_company: "Add company",
+  add_multimedia: "Add multimedia",
   required_field: "This field is required",
   search: "Search",
   search_02: "Searching",
@@ -52,6 +53,7 @@ export const en = {
   location: "Location",
   contacts: "Contacts",
   hashtags: "Hashtags",
+  item: "Item",
   aria: {
     logout: "Log out of your account",
     login: "Log in to your account",
@@ -74,6 +76,7 @@ export const en = {
     goToRegister: "Go to register form",
     closeModal: "Action to close modal",
     resetForm: "Reset form values",
+    video: "Video",
     startIcon01: "Add company ",
     startIcon02: " to prefers",
     startIcon03: "Remove company ",

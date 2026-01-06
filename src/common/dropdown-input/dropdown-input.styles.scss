@@ -1,0 +1,128 @@
+.containerDropDownInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 2rem;
+  position: relative;
+  color: var(--global-07);
+  .contentInputBI {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+
+    label {
+      position: absolute;
+      left: 5px;
+      top: 18px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      transition: top 0.3s ease, transform 0.3s ease;
+      opacity: 0.45;
+    }
+
+    input,
+    textarea {
+      padding: 0.5rem;
+      border-bottom: 1px solid;
+      outline: none;
+      transition: border-color 0.3s ease;
+      transition: height 0.3s ease;
+      min-width: 200px;
+      border-radius: 5px;
+      color: var(--global-07);
+    }
+
+    .inputError {
+      border: solid 2px var(--color-error);
+    }
+
+    .readonly {
+      pointer-events: none;
+    }
+
+    &:focus-within label {
+      top: -11px;
+      bottom: translateY(100%);
+      font-size: 0.9rem;
+    }
+
+    .labelReadonly {
+      top: -11px;
+      bottom: translateY(100%);
+      font-size: 0.9rem;
+    }
+
+    .label_01 {
+      top: -11px;
+      bottom: translateY(100%);
+      font-size: 0.9rem;
+    }
+
+    // It works after focus
+    // input:invalid {
+    //   border: 2px solid var(--color-error);
+    // }
+
+    // input:valid {
+    //   border: 2px solid green;
+    // }
+
+    .PenUpdateIcon_x08 {
+      position: absolute;
+      right: -1.25rem;
+      top: 0.5rem;
+      transition: transform 0.1s ease;
+    }
+
+    .PenUpdateIcon_x67:active {
+      transform: scale(0.92);
+    }
+
+    .OpenedLockIcon_x08 {
+      position: absolute;
+      left: -1.5rem;
+      top: 0.5rem;
+    }
+
+    .LockIcon_x08 {
+      position: absolute;
+      left: -1.25rem;
+      top: 0.75rem;
+    }
+  }
+  small {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    height: 2rem;
+
+    padding-left: 2px;
+    width: 100%;
+    bottom: 0;
+    color: var(--color-error);
+  }
+}
+
+.labelLight {
+  label {
+    color: var(--label-input-light);
+  }
+  input,
+  textarea {
+    background-color: transparent;
+  }
+}
+
+.labelDark {
+  label {
+    color: var(--label-input-dark);
+  }
+  input,
+  textarea {
+    background-color: transparent;
+  }
+}
