@@ -35,25 +35,12 @@ export const Portfolio: React.FC<Props> = (props) => {
   } = props;
 
   console.log("formData", formData);
-  //   const testArray = [];
 
-  //   for (let i = 0; i < 22; i++) {
-  //     testArray.push(
-  //       i % 2
-  //         ? {
-  //             url: "https://youtu.be/qa4CP860Oqo?si=1wDkzI_GH5wq8yeD",
-  //             type: "video",
-  //             description: "Company promotional video",
-  //           }
-  //         : {
-  //             url: "https://y",
-  //             type: "video",
-  //             description: "Company promotional video",
-  //           }
-  //     );
-  //   }
+  // description
 
-  //   console.log("clog1", testArray);
+  // type
+
+  // url
 
   return (
     <div className="rootPortfolio">
@@ -88,7 +75,9 @@ export const Portfolio: React.FC<Props> = (props) => {
               return (
                 <div key={index} className="cardContentPortfolio">
                   {item.description}
-                  {isYouTube ? (
+                  {item.type === "image" ? (
+                    <img src={item?.url} alt={"Image " + index} />
+                  ) : isYouTube ? (
                     <iframe
                       className="videoCard"
                       width="100%"
