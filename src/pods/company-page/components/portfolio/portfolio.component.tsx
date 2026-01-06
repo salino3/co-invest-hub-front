@@ -1,8 +1,11 @@
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { PropsCompany, PropsCompanyReadOnly } from "../../../../store";
-import "./portfolio.styles.scss";
 import { CrossIcon } from "../../../../common";
+import { ModalWeb } from "../../../../common-app";
+import { FormMultimedia } from "./components";
+import "./portfolio.styles.scss";
+import { useState } from "react";
 
 interface Props {
   t: TFunction<"main", undefined>;
@@ -36,7 +39,7 @@ export const Portfolio: React.FC<Props> = (props) => {
   } = props;
 
   const { t: tw } = useTranslation("wcag");
-
+  const [showModalForm, setShowModalForm] = useState<boolean>(false);
   console.log("formData", formData);
 
   // description
@@ -68,6 +71,7 @@ export const Portfolio: React.FC<Props> = (props) => {
                     key={index}
                     aria-label={tw("add_multimedia")}
                     className="boxEmptyContentPortfolio"
+                    onClick={() => setShowModalForm(true)}
                   >
                     <div className="cardEmptyContentPortfolio">
                       <CrossIcon
@@ -129,6 +133,16 @@ export const Portfolio: React.FC<Props> = (props) => {
             }
           )}
       </div>
+      {showModalForm && (
+        <ModalWeb
+          show={showModalForm}
+          setShow={setShowModalForm}
+          msg=""
+          customMaxHeight={"90vh"}
+        >
+          <FormMultimedia />
+        </ModalWeb>
+      )}
     </div>
   );
 };
