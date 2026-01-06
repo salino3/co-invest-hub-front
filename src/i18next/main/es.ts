@@ -42,6 +42,7 @@ export const es = {
   required_field: "Este campo es requerido",
   search: "Buscar",
   search_02: "Busca",
+  form_multimedia: "Form multimedia",
   EN: "Inglés",
   ES: "Español",
   languages: "Idiomas",

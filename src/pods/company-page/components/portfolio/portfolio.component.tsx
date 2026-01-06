@@ -137,10 +137,10 @@ export const Portfolio: React.FC<Props> = (props) => {
         <ModalWeb
           show={showModalForm}
           setShow={setShowModalForm}
-          msg=""
+          msg={t("form_multimedia")}
           customMaxHeight={"90vh"}
         >
-          <FormMultimedia />
+          <FormMultimedia t={t} />
         </ModalWeb>
       )}
     </div>
