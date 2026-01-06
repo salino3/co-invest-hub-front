@@ -39,20 +39,13 @@ export const Portfolio: React.FC<Props> = (props) => {
   } = props;
 
   const { t: tw } = useTranslation("wcag");
-  const [showModalForm, setShowModalForm] = useState<boolean>(true);
+  const [showModalForm, setShowModalForm] = useState<boolean>(false);
   console.log("formData", formData);
-
-  // type
-
-  // url
-  // description
 
   return (
     <div className="rootPortfolio">
       <div className="containerContentPortfolio">
-        {formData &&
-          formData.multimedia &&
-          formData.multimedia.length > 0 &&
+        {formData && formData.multimedia && formData.multimedia.length > 0 ? (
           formData.multimedia.map(
             (item: Record<string, string>, index: number) => {
               const isYouTube =
@@ -130,7 +123,25 @@ export const Portfolio: React.FC<Props> = (props) => {
                 </div>
               );
             }
-          )}
+          )
+        ) : (
+          <div
+            tabIndex={0}
+            key={0}
+            aria-label={tw("add_multimedia")}
+            className="boxEmptyContentPortfolio"
+            onClick={() => setShowModalForm(true)}
+          >
+            <div className="cardEmptyContentPortfolio">
+              <CrossIcon
+                customStyles={"rotateCross"}
+                height={50}
+                width={50}
+                strokeWidth={"4"}
+              />
+            </div>
+          </div>
+        )}
       </div>
       {showModalForm && (
         <ModalWeb
@@ -139,7 +150,13 @@ export const Portfolio: React.FC<Props> = (props) => {
           msg={t("form_multimedia")}
           customMaxHeight={"90vh"}
         >
-          <FormMultimedia t={t} />
+          <FormMultimedia
+            t={t}
+            setFormData={setFormData}
+            formData={formData}
+            roleAccount={roleAccount}
+            setShowModalForm={setShowModalForm}
+          />
         </ModalWeb>
       )}
     </div>

@@ -7,3 +7,4 @@ export * from "./contacts-inputs";
 export * from "./audio-player-01";
 export * from "./filter-searching";
 export * from "./image-upload";
+export * from "./dropdown-input";
