@@ -51,6 +51,7 @@ export const es = {
   rotate: "Rototar",
   download: "Descargar",
   updatePhoto: "Actualizar Foto",
+  type: "Tipo",
   type_contact: "Tipo (e. correo eletrónico, tel)",
   value_contact: "Contacto (e. contact@site.com, +34..)",
   remove: "Remover",
