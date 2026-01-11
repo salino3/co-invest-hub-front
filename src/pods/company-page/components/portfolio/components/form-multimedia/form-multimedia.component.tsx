@@ -1,8 +1,18 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
-import { PropsCompany } from "../../../../../../store";
-import { BasicInput, Button, DropDownInput } from "../../../../../../common";
+import {
+  MultimediaProps,
+  PropsCompany,
+  TypeMultimedia,
+} from "../../../../../../store";
+import { useAppFunctions } from "../../../../../../hooks";
+import {
+  BasicInput,
+  Button,
+  DropDownInput,
+  ImageUpload,
+} from "../../../../../../common";
 import "./form-multimedia.styles.scss";
 
 interface Props {
@@ -13,17 +23,6 @@ interface Props {
   setShowModalForm: Dispatch<SetStateAction<boolean>>;
 }
 
-enum TypeMultimedia {
-  Video = "video",
-  Image = "image",
-}
-
-interface MultimediaProps {
-  type: TypeMultimedia | "";
-  url: string;
-  description: string;
-}
-
 export const FormMultimedia: React.FC<Props> = ({
   t,
   formData,
@@ -32,6 +31,8 @@ export const FormMultimedia: React.FC<Props> = ({
   setShowModalForm,
 }) => {
   const { t: tw } = useTranslation("wcag");
+
+  const { convertBlobToBase64 } = useAppFunctions();
 
   const [formDataMultimedia, setFormDataMultimedia] = useState<MultimediaProps>(
     {
@@ -54,8 +55,12 @@ export const FormMultimedia: React.FC<Props> = ({
   function handleSubmitByButton() {
     // TODO:
     // vallidation errors
-    // add object to multimedia in setFormData
-    // close modal
+    // validation video maximum 8MB
+
+    setFormData((prev: PropsCompany) => ({
+      ...prev,
+      multimedia: [...(prev.multimedia || []), formDataMultimedia],
+    }));
     setShowModalForm(false);
   }
 
@@ -66,6 +71,8 @@ export const FormMultimedia: React.FC<Props> = ({
       description: "",
     });
   }
+
+  console.log("formDataMultimedia", formDataMultimedia);
 
   return (
     <div
@@ -100,11 +107,28 @@ export const FormMultimedia: React.FC<Props> = ({
         change={handleChange}
         ariaRq
       />
-      {formDataMultimedia.type === TypeMultimedia.Video
-        ? "Video "
-        : formDataMultimedia.type === TypeMultimedia.Image
-        ? "Image"
-        : null}
+      {formDataMultimedia.type === TypeMultimedia.Video ? (
+        "Video"
+      ) : formDataMultimedia.type === TypeMultimedia.Image ? (
+        <ImageUpload
+          text={t("updatePhoto")}
+          accept="image/png,image/jpeg"
+          onFileSelected={async (file) => {
+            const url = URL.createObjectURL(file);
+            const base64Img = await convertBlobToBase64(url);
+            setFormDataMultimedia((prev: MultimediaProps) => ({
+              ...prev,
+              url: base64Img,
+            }));
+          }}
+          onClear={() =>
+            setFormDataMultimedia((prev: MultimediaProps) => ({
+              ...prev,
+              url: "",
+            }))
+          }
+        />
+      ) : null}
       <div className="boxButtonsForm_FM">
         <Button
           customStyles="buttonStyle_02"

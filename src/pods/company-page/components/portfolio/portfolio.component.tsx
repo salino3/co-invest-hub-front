@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
-import { PropsCompany, PropsCompanyReadOnly } from "../../../../store";
+import {
+  MultimediaProps,
+  PropsCompany,
+  PropsCompanyReadOnly,
+} from "../../../../store";
 import { CrossIcon } from "../../../../common";
 import { ModalWeb } from "../../../../common-app";
 import { FormMultimedia } from "./components";
 import "./portfolio.styles.scss";
-import { useState } from "react";
 
 interface Props {
   t: TFunction<"main", undefined>;
@@ -39,15 +43,30 @@ export const Portfolio: React.FC<Props> = (props) => {
   } = props;
 
   const { t: tw } = useTranslation("wcag");
-  const [showModalForm, setShowModalForm] = useState<boolean>(true);
+  const [showModalForm, setShowModalForm] = useState<boolean>(false);
   console.log("formData", formData);
 
   return (
     <div className="rootPortfolio">
       <div className="containerContentPortfolio">
-        {formData && formData.multimedia && formData.multimedia.length > 0 ? (
-          formData.multimedia.map(
-            (item: Record<string, string>, index: number) => {
+        <div
+          tabIndex={0}
+          aria-label={tw("add_multimedia")}
+          className="boxEmptyContentPortfolio"
+          onClick={() => setShowModalForm(true)}
+        >
+          <div className="cardEmptyContentPortfolio">
+            <CrossIcon
+              customStyles={"rotateCross"}
+              height={50}
+              width={50}
+              strokeWidth={"4"}
+            />
+          </div>
+        </div>
+
+        {formData && formData.multimedia && formData.multimedia.length > 0
+          ? formData.multimedia.map((item: MultimediaProps, index: number) => {
               const isYouTube =
                 item.url.includes("youtube.com") ||
                 item.url.includes("youtu.be");
@@ -55,26 +74,6 @@ export const Portfolio: React.FC<Props> = (props) => {
               const isBase64Video =
                 item.url.startsWith("data:video/") ||
                 (item.url.length > 100 && !item.url.startsWith("http"));
-
-              if (index === 0 && id && roleAccount)
-                return (
-                  <div
-                    tabIndex={0}
-                    key={index}
-                    aria-label={tw("add_multimedia")}
-                    className="boxEmptyContentPortfolio"
-                    onClick={() => setShowModalForm(true)}
-                  >
-                    <div className="cardEmptyContentPortfolio">
-                      <CrossIcon
-                        customStyles={"rotateCross"}
-                        height={50}
-                        width={50}
-                        strokeWidth={"4"}
-                      />
-                    </div>
-                  </div>
-                );
 
               return (
                 <div key={index} className="cardContentPortfolio">
@@ -122,26 +121,8 @@ export const Portfolio: React.FC<Props> = (props) => {
                   )}
                 </div>
               );
-            }
-          )
-        ) : (
-          <div
-            tabIndex={0}
-            key={0}
-            aria-label={tw("add_multimedia")}
-            className="boxEmptyContentPortfolio"
-            onClick={() => setShowModalForm(true)}
-          >
-            <div className="cardEmptyContentPortfolio">
-              <CrossIcon
-                customStyles={"rotateCross"}
-                height={50}
-                width={50}
-                strokeWidth={"4"}
-              />
-            </div>
-          </div>
-        )}
+            })
+          : null}
       </div>
       {showModalForm && (
         <ModalWeb
