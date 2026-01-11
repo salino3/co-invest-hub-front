@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { PropsCompany } from "../../../../../../store";
-import { Button, DropDownInput } from "../../../../../../common";
+import { BasicInput, Button, DropDownInput } from "../../../../../../common";
 import "./form-multimedia.styles.scss";
 
 interface Props {
@@ -41,7 +41,9 @@ export const FormMultimedia: React.FC<Props> = ({
     }
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormDataMultimedia((prev: MultimediaProps) => ({
       ...prev,
       type: e.target.value as TypeMultimedia,
@@ -77,15 +79,33 @@ export const FormMultimedia: React.FC<Props> = ({
       aria-label={t("form_multimedia")}
       id="formMultimediaPortfolio"
     >
-      {/* TODO: modify component dropdown input */}
+      <BasicInput
+        type="textarea"
+        name={"description"}
+        value={formDataMultimedia.description}
+        lbl={t("description")}
+        change={(e) =>
+          setFormDataMultimedia((prev: MultimediaProps) => ({
+            ...prev,
+            description: e.target.value,
+          }))
+        }
+        ariaRq
+      />
       <DropDownInput
         value={formDataMultimedia.type}
         name="type"
         type="dropdownOneValue"
         lbl={t("type")}
         change={handleChange}
+        ariaRq
       />
-      <div className="boxButtonsForm">
+      {formDataMultimedia.type === TypeMultimedia.Video
+        ? "Video "
+        : formDataMultimedia.type === TypeMultimedia.Image
+        ? "Image"
+        : null}
+      <div className="boxButtonsForm_FM">
         <Button
           customStyles="buttonStyle_02"
           al={tw("aria.resetForm")}
