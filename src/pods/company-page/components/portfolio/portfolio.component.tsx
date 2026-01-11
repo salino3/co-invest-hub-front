@@ -56,7 +56,7 @@ export const Portfolio: React.FC<Props> = (props) => {
                 item.url.startsWith("data:video/") ||
                 (item.url.length > 100 && !item.url.startsWith("http"));
 
-              if (index === 0)
+              if (index === 0 && id && roleAccount)
                 return (
                   <div
                     tabIndex={0}
