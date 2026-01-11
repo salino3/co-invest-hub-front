@@ -378,11 +378,42 @@ export const useAppFunctions = () => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
-          // Resolve with the Data URL
-          resolve(reader.result as string);
+          const base64Original = reader.result as string;
+
+          const img = new Image();
+          img.src = base64Original;
+
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            const MAX_WIDTH = 800;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > MAX_WIDTH) {
+              height = (MAX_WIDTH * height) / width;
+              width = MAX_WIDTH;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx?.drawImage(img, 0, 0, width, height);
+
+            // We're resolving with reduced quality (0.7 = 70%)
+            // This will reduce your 30MB to just a few KB
+            resolve(canvas.toDataURL("image/jpeg", 0.7));
+          };
+          // Set up reader error handler
+          img.onerror = () => {
+            console.warn(
+              "Error al cargar imagen para compresión, usando original."
+            );
+            resolve(base64Original);
+          };
         };
 
-        // Set up reader error handler
         reader.onerror = reject;
 
         // Start reading the blob as a Data URL
