@@ -3,6 +3,17 @@ export interface Contacts {
   value: string;
 }
 
+export enum TypeMultimedia {
+  Video = "video",
+  Image = "image",
+}
+
+export interface MultimediaProps {
+  type: TypeMultimedia | "";
+  url: string;
+  description: string;
+}
+
 export interface PropsCompany {
   id?: number;
   // companyCode: string;
@@ -14,7 +25,8 @@ export interface PropsCompany {
   investment_min?: number;
   investment_max?: number;
   contacts: Contacts[];
-  multimedia: Record<string, string>[];
+  // multimedia: Record<string, string>[];
+  multimedia: MultimediaProps[];
   logo?: string;
   createdAt?: string;
   updatedAt?: string;

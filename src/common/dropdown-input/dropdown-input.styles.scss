@@ -24,7 +24,8 @@
     }
 
     input,
-    textarea {
+    textarea,
+    select {
       padding: 0.5rem;
       border-bottom: 1px solid;
       outline: none;
@@ -33,6 +34,10 @@
       min-width: 200px;
       border-radius: 5px;
       color: var(--global-07);
+    }
+    optgroup,
+    option {
+      color: black;
     }
 
     .inputError {
@@ -112,7 +117,10 @@
     color: var(--label-input-light);
   }
   input,
-  textarea {
+  textarea,
+  select,
+  optgroup,
+  option {
     background-color: transparent;
   }
 }
@@ -122,7 +130,10 @@
     color: var(--label-input-dark);
   }
   input,
-  textarea {
+  textarea,
+  select,
+  optgroup,
+  option {
     background-color: transparent;
   }
 }

@@ -34,7 +34,8 @@
         justify-content: center;
         align-items: center;
         font-size: 2rem;
-
+        box-sizing: border-box;
+        // TODO: switch colors depending for color mode
         background: radial-gradient(
           closest-side at center,
           rgba(0, 0, 0, 1) 45%,
@@ -49,7 +50,7 @@
     }
 
     .cardContentPortfolio {
-      border: solid gray;
+      border: 2px solid gray;
       border-radius: 0.5rem;
       padding: 0.2rem;
       display: flex;
@@ -62,8 +63,15 @@
       min-height: 322px;
       min-width: 322px;
       height: 100%;
+      box-sizing: border-box;
+
+      img {
+        // z-index: -1;
+        max-width: 312px;
+      }
 
       .videoCard {
+        max-width: 312px;
         display: flex;
         flex-direction: column;
         justify-content: center;

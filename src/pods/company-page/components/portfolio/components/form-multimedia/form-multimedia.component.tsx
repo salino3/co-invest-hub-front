@@ -1,8 +1,18 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
-import { PropsCompany } from "../../../../../../store";
-import { Button, DropDownInput } from "../../../../../../common";
+import {
+  MultimediaProps,
+  PropsCompany,
+  TypeMultimedia,
+} from "../../../../../../store";
+import { useAppFunctions } from "../../../../../../hooks";
+import {
+  BasicInput,
+  Button,
+  DropDownInput,
+  ImageUpload,
+} from "../../../../../../common";
 import "./form-multimedia.styles.scss";
 
 interface Props {
@@ -11,17 +21,6 @@ interface Props {
   formData: PropsCompany;
   roleAccount: string;
   setShowModalForm: Dispatch<SetStateAction<boolean>>;
-}
-
-enum TypeMultimedia {
-  Video = "video",
-  Image = "image",
-}
-
-interface MultimediaProps {
-  type: TypeMultimedia | "";
-  url: string;
-  description: string;
 }
 
 export const FormMultimedia: React.FC<Props> = ({
@@ -33,6 +32,8 @@ export const FormMultimedia: React.FC<Props> = ({
 }) => {
   const { t: tw } = useTranslation("wcag");
 
+  const { convertBlobToBase64 } = useAppFunctions();
+
   const [formDataMultimedia, setFormDataMultimedia] = useState<MultimediaProps>(
     {
       type: "",
@@ -41,12 +42,25 @@ export const FormMultimedia: React.FC<Props> = ({
     }
   );
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormDataMultimedia((prev: MultimediaProps) => ({
+      ...prev,
+      type: e.target.value as TypeMultimedia,
+    }));
+  };
+
   //
   function handleSubmitByButton() {
     // TODO:
     // vallidation errors
-    // add object to multimedia in setFormData
-    // close modal
+    // validation video maximum 8MB
+
+    setFormData((prev: PropsCompany) => ({
+      ...prev,
+      multimedia: [...(prev.multimedia || []), formDataMultimedia],
+    }));
     setShowModalForm(false);
   }
 
@@ -58,8 +72,10 @@ export const FormMultimedia: React.FC<Props> = ({
     });
   }
 
+  console.log("formDataMultimedia", formDataMultimedia);
+
   return (
-    <form
+    <div
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           e.preventDefault();
@@ -70,14 +86,50 @@ export const FormMultimedia: React.FC<Props> = ({
       aria-label={t("form_multimedia")}
       id="formMultimediaPortfolio"
     >
-      {/* TODO: modify component dropdown input */}
+      <BasicInput
+        type="textarea"
+        name={"description"}
+        value={formDataMultimedia.description}
+        lbl={t("description")}
+        change={(e) =>
+          setFormDataMultimedia((prev: MultimediaProps) => ({
+            ...prev,
+            description: e.target.value,
+          }))
+        }
+        ariaRq
+      />
       <DropDownInput
         value={formDataMultimedia.type}
         name="type"
-        type="text"
+        type="dropdownOneValue"
         lbl={t("type")}
+        change={handleChange}
+        ariaRq
       />
-      <div className="boxButtonsForm">
+      {formDataMultimedia.type === TypeMultimedia.Video ? (
+        "Video"
+      ) : formDataMultimedia.type === TypeMultimedia.Image ? (
+        <ImageUpload
+          text={t("updatePhoto")}
+          accept="image/png,image/jpeg"
+          onFileSelected={async (file) => {
+            const url = URL.createObjectURL(file);
+            const base64Img = await convertBlobToBase64(url);
+            setFormDataMultimedia((prev: MultimediaProps) => ({
+              ...prev,
+              url: base64Img,
+            }));
+          }}
+          onClear={() =>
+            setFormDataMultimedia((prev: MultimediaProps) => ({
+              ...prev,
+              url: "",
+            }))
+          }
+        />
+      ) : null}
+      <div className="boxButtonsForm_FM">
         <Button
           customStyles="buttonStyle_02"
           al={tw("aria.resetForm")}
@@ -93,6 +145,6 @@ export const FormMultimedia: React.FC<Props> = ({
           text={t("confirm")}
         />
       </div>
-    </form>
+    </div>
   );
 };
