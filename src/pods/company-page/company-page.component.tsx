@@ -34,7 +34,7 @@ export const CompanyPage: React.FC = () => {
 
   const { checkFormRequired, convertBlobToBase64 } = useAppFunctions();
 
-  const [tab, setTabs] = useState<number>(0);
+  const [tab, setTabs] = useState<number>(2);
   const [myFavorites, setMyFavorites] = useState<number[]>([]);
   const [flag, setFlag] = useState<boolean>(false);
   const [companyData, setCompanyData] = useState<PropsCompany>({

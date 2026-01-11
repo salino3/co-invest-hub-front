@@ -16,8 +16,8 @@ interface PropsDropdownInput {
   name: string;
   customStyles?: string;
   lbl?: string;
-  click?: React.MouseEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  change?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  click?: React.MouseEventHandler<HTMLInputElement | HTMLSelectElement>;
+  change?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
   value?: string | number | readonly string[] | undefined;
   ref?: React.Ref<HTMLInputElement> | undefined;
   errMsg?: string;
@@ -85,8 +85,8 @@ export const DropDownInput: React.FC<PropsDropdownInput> = (props) => {
         >
           {lbl}
         </label>
-        {type === "textarea" ? (
-          <textarea
+        {type === "dropdownOneValue" ? (
+          <select
             className={`${checkError ? "inputError" : ""}
                 ${readonly ? "readonly" : ""} 
               `}
@@ -96,11 +96,16 @@ export const DropDownInput: React.FC<PropsDropdownInput> = (props) => {
             onClick={click}
             onChange={change}
             aria-label={ariaLabeInput}
-            rows={rows}
-            cols={cols}
-            readOnly={readonly}
+            // readOnly={readonly}
             aria-required={ariaRq}
-          ></textarea>
+          >
+            <optgroup label="Multimedia type">
+              <option value="" hidden></option>
+              <option value="">..</option>
+              <option value="image">Image</option>
+              <option value="video">Video</option>
+            </optgroup>
+          </select>
         ) : (
           <input
             className={`${checkError ? "inputError" : ""}

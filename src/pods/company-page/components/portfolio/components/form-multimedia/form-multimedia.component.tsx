@@ -41,6 +41,13 @@ export const FormMultimedia: React.FC<Props> = ({
     }
   );
 
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormDataMultimedia((prev: MultimediaProps) => ({
+      ...prev,
+      type: e.target.value as TypeMultimedia,
+    }));
+  };
+
   //
   function handleSubmitByButton() {
     // TODO:
@@ -59,7 +66,7 @@ export const FormMultimedia: React.FC<Props> = ({
   }
 
   return (
-    <form
+    <div
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           e.preventDefault();
@@ -74,8 +81,9 @@ export const FormMultimedia: React.FC<Props> = ({
       <DropDownInput
         value={formDataMultimedia.type}
         name="type"
-        type="text"
+        type="dropdownOneValue"
         lbl={t("type")}
+        change={handleChange}
       />
       <div className="boxButtonsForm">
         <Button
@@ -93,6 +101,6 @@ export const FormMultimedia: React.FC<Props> = ({
           text={t("confirm")}
         />
       </div>
-    </form>
+    </div>
   );
 };

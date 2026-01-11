@@ -39,7 +39,7 @@ export const Portfolio: React.FC<Props> = (props) => {
   } = props;
 
   const { t: tw } = useTranslation("wcag");
-  const [showModalForm, setShowModalForm] = useState<boolean>(false);
+  const [showModalForm, setShowModalForm] = useState<boolean>(true);
   console.log("formData", formData);
 
   return (
