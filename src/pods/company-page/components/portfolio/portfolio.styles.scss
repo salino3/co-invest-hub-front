@@ -35,17 +35,28 @@
         align-items: center;
         font-size: 2rem;
         box-sizing: border-box;
-        // TODO: switch colors depending for color mode
-        background: radial-gradient(
-          closest-side at center,
-          rgba(0, 0, 0, 1) 45%,
-          rgba(255, 255, 255, 0.3) 100%
-        );
+
         background-blend-mode: multiply;
 
         .rotateCross {
           transform: rotate(45deg);
         }
+      }
+
+      .darkCCP {
+        background: radial-gradient(
+          closest-side at center,
+          rgba(0, 0, 0, 1) 45%,
+          rgba(255, 255, 255, 0.3) 100%
+        );
+      }
+
+      .lightCCP {
+        background: radial-gradient(
+          closest-side at center,
+          rgba(255, 255, 255, 0.3) 45%,
+          rgba(0, 0, 0, 1) 100%
+        );
       }
     }
 
@@ -55,7 +66,7 @@
       padding: 0.2rem;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: start;
       gap: 0.25rem;
       align-items: center;
       max-height: 322px;
@@ -64,6 +75,33 @@
       min-width: 322px;
       height: 100%;
       box-sizing: border-box;
+
+      .boxSpansMultimedia {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.25rem;
+        align-items: center;
+        width: 100%;
+        .spanDesc {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .crossDeleteItem {
+          cursor: pointer;
+          border-radius: 50%;
+          padding: 0.2rem;
+        }
+
+        .darkCDM:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+        .lightCDM:hover {
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+      }
 
       img {
         // z-index: -1;

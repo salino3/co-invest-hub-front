@@ -5,6 +5,7 @@ import {
   MultimediaProps,
   PropsCompany,
   PropsCompanyReadOnly,
+  useProviderSelector,
 } from "../../../../store";
 import { CrossIcon } from "../../../../common";
 import { ModalWeb } from "../../../../common-app";
@@ -43,8 +44,17 @@ export const Portfolio: React.FC<Props> = (props) => {
   } = props;
 
   const { t: tw } = useTranslation("wcag");
+  const { theme } = useProviderSelector();
   const [showModalForm, setShowModalForm] = useState<boolean>(false);
   console.log("formData", formData);
+
+  function deleteMultimedia(index: number) {
+    formData.multimedia.splice(index, 1);
+    setFormData((prev: PropsCompany) => ({
+      ...prev,
+      multimedia: formData.multimedia,
+    }));
+  }
 
   return (
     <div className="rootPortfolio">
@@ -55,7 +65,11 @@ export const Portfolio: React.FC<Props> = (props) => {
           className="boxEmptyContentPortfolio"
           onClick={() => setShowModalForm(true)}
         >
-          <div className="cardEmptyContentPortfolio">
+          <div
+            className={`cardEmptyContentPortfolio ${
+              theme === "dark" ? "darkCCP" : "lightCCP"
+            }`}
+          >
             <CrossIcon
               customStyles={"rotateCross"}
               height={50}
@@ -77,7 +91,18 @@ export const Portfolio: React.FC<Props> = (props) => {
 
               return (
                 <div key={index} className="cardContentPortfolio">
-                  <span> {item.description}</span>
+                  <div className="boxSpansMultimedia">
+                    <span className="spanDesc">{item.description}</span>
+                    <CrossIcon
+                      click={() => deleteMultimedia(index)}
+                      customStyles={`crossDeleteItem ${
+                        theme === "dark" ? "darkCDM" : "lightCDM"
+                      }`}
+                      height={20}
+                      width={20}
+                      strokeWidth={"2"}
+                    />
+                  </div>
                   {item.type === "image" ? (
                     <img
                       tabIndex={0}
