@@ -64,6 +64,7 @@ export const FormMultimedia: React.FC<Props> = ({
     setShowModalForm(false);
   }
 
+  //
   function clearAllFormSetters() {
     setFormDataMultimedia({
       type: "",
@@ -108,10 +109,36 @@ export const FormMultimedia: React.FC<Props> = ({
         ariaRq
       />
       {formDataMultimedia.type === TypeMultimedia.Video ? (
-        "Video"
+        <ImageUpload
+          text={t("video")}
+          accept="video/mp4,video/x-m4v,video/webm,video/quicktime,.mkv"
+          onFileSelected={async (file) => {
+            const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB  bytes
+
+            if (file.size > MAX_FILE_SIZE) {
+              alert("Error limit 15MB.");
+              return;
+            }
+
+            const url = URL.createObjectURL(file);
+            const base64Data = await convertBlobToBase64(url);
+
+            setFormDataMultimedia((prev) => ({
+              ...prev,
+              url: base64Data,
+            }));
+          }}
+          onClear={() =>
+            setFormDataMultimedia((prev: MultimediaProps) => ({
+              ...prev,
+              url: "",
+            }))
+          }
+          id={"videoUploadInput"}
+        />
       ) : formDataMultimedia.type === TypeMultimedia.Image ? (
         <ImageUpload
-          text={t("updatePhoto")}
+          text={t("photo")}
           accept="image/png,image/jpeg"
           onFileSelected={async (file) => {
             const url = URL.createObjectURL(file);

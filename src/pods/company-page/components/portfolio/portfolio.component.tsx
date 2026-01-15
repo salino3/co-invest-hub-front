@@ -48,6 +48,7 @@ export const Portfolio: React.FC<Props> = (props) => {
   const [showModalForm, setShowModalForm] = useState<boolean>(false);
   console.log("formData", formData);
 
+  //
   function deleteMultimedia(index: number) {
     formData.multimedia.splice(index, 1);
     setFormData((prev: PropsCompany) => ({
@@ -55,6 +56,20 @@ export const Portfolio: React.FC<Props> = (props) => {
       multimedia: formData.multimedia,
     }));
   }
+
+  //
+  const getVideoSrc = (url: string, isBase64Video: boolean) => {
+    if (isBase64Video) {
+      // it has prefix
+      if (url.startsWith("data:video/")) {
+        return url;
+      }
+      return `data:video/mp4;base64,${url}`;
+    }
+
+    // normal URL (http...)
+    return url;
+  };
 
   return (
     <div className="rootPortfolio">
@@ -132,11 +147,7 @@ export const Portfolio: React.FC<Props> = (props) => {
                   ) : (
                     <video
                       className="videoCard"
-                      src={
-                        isBase64Video
-                          ? `data:video/mp4;base64,${item.url}`
-                          : item.url
-                      }
+                      src={getVideoSrc(item.url, isBase64Video)}
                       controls
                       aria-label={`${tw("item")} (${tw(
                         "aria.video"
