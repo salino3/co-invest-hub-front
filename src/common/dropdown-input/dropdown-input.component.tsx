@@ -49,8 +49,6 @@ export const DropDownInput: React.FC<PropsDropdownInput> = (props) => {
     readonly = false,
     update = null,
     min,
-    rows = 3,
-    cols = 30,
     ariaLabelLbl,
     ariaLabeInput,
     ariaRq,
@@ -139,46 +137,12 @@ export const DropDownInput: React.FC<PropsDropdownInput> = (props) => {
                 e.preventDefault()
               );
             }}
-            onKeyDown={
-              typeKeyDown === TypeKeyDown.Number
-                ? (e: React.KeyboardEvent<HTMLInputElement>) => {
-                    // 1. Allow: Essential control keys (Tab, Backspace, Delete, Arrows, etc.)
-                    if (
-                      e.key === "Backspace" ||
-                      e.key === "Delete" ||
-                      e.key === "Tab" ||
-                      e.key.startsWith("Arrow") ||
-                      e.key === "Enter" ||
-                      // Allow Ctrl/Cmd + A, C, V, X (for copy/paste/select)
-                      ((e.ctrlKey || e.metaKey) &&
-                        ["a", "c", "v", "x"].includes(e.key.toLowerCase()))
-                    ) {
-                      return; // Allow the key press
-                    }
-
-                    // 2. Allow: Digits (0-9)
-                    if (/\d/.test(e.key)) {
-                      return;
-                    }
-
-                    // 3. Allow: The decimal point (only one)
-                    if (
-                      e.key === "." ||
-                      e.key === "Decimal" ||
-                      e.key === "NumpadDecimal"
-                    ) {
-                      // Prevent more than one decimal point in the current input value
-                      if (e.currentTarget.value.includes(".")) {
-                        e.preventDefault();
-                        return;
-                      }
-                      return;
-                    }
-
-                    e.preventDefault();
-                  }
-                : undefined
-            }
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === "Enter") {
+                e.stopPropagation();
+                // e.preventDefault();
+              }
+            }}
             onPaste={
               typeKeyDown === TypeKeyDown.Number
                 ? handleNumericPaste
