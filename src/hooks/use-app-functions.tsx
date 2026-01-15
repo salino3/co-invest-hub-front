@@ -373,12 +373,19 @@ export const useAppFunctions = () => {
       const response = await fetch(blobUrl);
       const blob = await response.blob();
 
+      const isImage = blob.type.startsWith("image/");
+
       // 2. Read the blob content and convert it to Data URL (Base64)
       return await new Promise((resolve, reject) => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
           const base64Original = reader.result as string;
+
+          if (!isImage) {
+            resolve(base64Original);
+            return;
+          }
 
           const img = new Image();
           img.src = base64Original;
