@@ -55,7 +55,6 @@ export const FormMultimedia: React.FC<Props> = ({
   function handleSubmitByButton() {
     // TODO:
     // vallidation errors
-    // validation video maximum 8MB
 
     setFormData((prev: PropsCompany) => ({
       ...prev,
@@ -113,10 +112,10 @@ export const FormMultimedia: React.FC<Props> = ({
           text={t("video")}
           accept="video/mp4,video/x-m4v,video/webm,video/quicktime,.mkv"
           onFileSelected={async (file) => {
-            const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB  bytes
+            const MAX_FILE_SIZE = 12 * 1024 * 1024; // 12MB  bytes
 
             if (file.size > MAX_FILE_SIZE) {
-              alert("Error limit 15MB.");
+              alert("Error limit 12MB.");
               return;
             }
 
