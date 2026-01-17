@@ -356,7 +356,11 @@ export const CompanyPage: React.FC = () => {
         setCompanyData(res.data);
         setCompanyOldData(res.data);
       });
+    } else {
+      clearAllFormSetters();
+    }
 
+    if (params?.id) {
       ServicesApp?.getRelationCompanyAccounts(params?.id || "")
         .then((res) => {
           setRolesCompany(
@@ -364,8 +368,6 @@ export const CompanyPage: React.FC = () => {
           );
         })
         .finally(() => Loading.remove());
-    } else {
-      clearAllFormSetters();
     }
 
     const foundRole: string =
