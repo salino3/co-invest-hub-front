@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useShallow } from "zustand/shallow";
+import { Loading } from "notiflix/build/notiflix-loading-aio";
 import { useTranslation } from "react-i18next";
 import { useProvider } from "../../store";
 import { ServicesApp } from "../../services";
@@ -20,7 +21,7 @@ export const FilterSearching: React.FC = () => {
   const searchData = JSON.parse(localStorage.getItem("searchData") || "{}");
 
   const [searchFilter, setSearchFilter] = useState<string>(
-    searchData?.searching || ""
+    searchData?.searching || "",
   );
   const [searchErrorFilter, setSearchErrorFilter] = useState<string>("");
 
@@ -31,24 +32,28 @@ export const FilterSearching: React.FC = () => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    Loading.circle();
     if (!searchFilter.trim()) {
-      ServicesApp?.getCompanies().then((res) => {
-        setCompanies && setCompanies(res?.data);
-        if (location?.pathname != routesApp?.dashboard)
-          navigate(routesApp?.dashboard);
-      });
+      ServicesApp?.getCompanies()
+        .then((res) => {
+          setCompanies && setCompanies(res?.data);
+          if (location?.pathname != routesApp?.dashboard)
+            navigate(routesApp?.dashboard);
+        })
+        .finally(() => Loading.remove());
     } else {
       const body = {
         searching: searchFilter.trim() || searchData?.searching,
         offset: 0,
       };
-      ServicesApp?.getSearchingCompanies(body).then((res) => {
-        setCompanies && setCompanies(res?.data);
-        localStorage.setItem("searchData", JSON.stringify(body));
-        if (location?.pathname != routesApp?.dashboard)
-          navigate(routesApp?.dashboard);
-      });
+      ServicesApp?.getSearchingCompanies(body)
+        .then((res) => {
+          setCompanies && setCompanies(res?.data);
+          localStorage.setItem("searchData", JSON.stringify(body));
+          if (location?.pathname != routesApp?.dashboard)
+            navigate(routesApp?.dashboard);
+        })
+        .finally(() => Loading.remove());
     }
   }
 
