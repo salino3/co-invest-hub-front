@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Loading } from "notiflix/build/notiflix-loading-aio";
 import {
   CreateRelationData,
   MyCompany,
@@ -29,7 +30,7 @@ export const CompanyPage: React.FC = () => {
   const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
     "currentUser",
     "myCompanies",
-    "setMyCompanies"
+    "setMyCompanies",
   );
 
   const { checkFormRequired, convertBlobToBase64 } = useAppFunctions();
@@ -122,7 +123,7 @@ export const CompanyPage: React.FC = () => {
 
   const handleChangeReadOnly = (
     input: keyof PropsCompanyReadOnly,
-    index?: number
+    index?: number,
   ) => {
     setInputsReadOnly((prev: PropsCompanyReadOnly) => {
       if (input === "type_contact" || input === "value_contact") {
@@ -245,7 +246,7 @@ export const CompanyPage: React.FC = () => {
 
   // handleSubmit
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
-    event
+    event,
   ) => {
     event.preventDefault();
     let error: boolean = checkFormRequired(
@@ -256,7 +257,7 @@ export const CompanyPage: React.FC = () => {
       setCompanyDataError,
       t,
       ["contacts", "investment_min", "investment_max", "logo", "hashtags"],
-      setTabs
+      setTabs,
     );
 
     // TODO: Create function 'checkDataFormCompany'
@@ -279,30 +280,37 @@ export const CompanyPage: React.FC = () => {
             s
               .split(/\s*,\s*/)
               .map((p) => p.trim())
-              .filter((p) => p.length > 0)
+              .filter((p) => p.length > 0),
           );
         }
       }
 
       //
       if (!params?.id) {
-        ServicesApp?.createCompany(companyData).then((res: any) => {
-          const id: number = Number(currentUser?.id);
-          const body: CreateRelationData = {
-            idCreator: id,
-            account_id: id,
-            company_id: res?.data?.company_id,
-            role: roleAccount.trim(),
-          };
-          // TODO??: Move this execution to backend
-          ServicesApp?.createRelationAccountCompany(body).then(() =>
-            ServicesApp?.getMyCompanies(String(currentUser?.id)).then((res) => {
-              setMyCompanies && setMyCompanies(res.data);
-              navigate(routesApp?.dashboard);
-            })
-          );
-        });
+        Loading.circle();
+        ServicesApp?.createCompany(companyData)
+          .then(async (res: any) => {
+            const id: number = Number(currentUser?.id);
+            const body: CreateRelationData = {
+              idCreator: id,
+              account_id: id,
+              company_id: res?.data?.company_id,
+              role: roleAccount.trim(),
+            };
+            // TODO??: Move this execution to backend
+            await ServicesApp?.createRelationAccountCompany(body).then(
+              async () =>
+                await ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+                  (res) => {
+                    setMyCompanies && setMyCompanies(res.data);
+                    navigate(routesApp?.dashboard);
+                  },
+                ),
+            );
+          })
+          .finally(() => Loading.remove());
       } else {
+        Loading.circle();
         if (roleAccount && roleAccount != roleOldAccount) {
           const body: UpdateAccountCompany = {
             account_id: currentUser?.id || 0,
@@ -325,12 +333,14 @@ export const CompanyPage: React.FC = () => {
         await ServicesApp?.updateCompany(
           String(params?.id),
           companyData,
-          String(currentUser?.id)
-        ).then(() =>
-          ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-            (res) => setMyCompanies && setMyCompanies(res.data)
+          String(currentUser?.id),
+        )
+          .then(() =>
+            ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
+              (res) => setMyCompanies && setMyCompanies(res.data),
+            ),
           )
-        );
+          .finally(() => Loading.remove());
       }
     }
   };
@@ -338,10 +348,11 @@ export const CompanyPage: React.FC = () => {
   //
   useEffect(() => {
     if (params?.id) {
+      Loading.circle();
       ServicesApp?.getFavoriteCompanies(String(currentUser?.id)).then((res) =>
-        setMyFavorites(res.data)
+        setMyFavorites(res.data),
       );
-      ServicesApp?.getCompany(params?.id).then((res) => {
+      ServicesApp?.getCompany(params?.id || "").then((res) => {
         setCompanyData(res.data);
         setCompanyOldData(res.data);
       });
@@ -350,11 +361,13 @@ export const CompanyPage: React.FC = () => {
     }
 
     if (params?.id) {
-      ServicesApp?.getRelationCompanyAccounts(params?.id || "").then((res) => {
-        setRolesCompany(
-          res?.data.filter((c: MyCompany) => c?.id !== currentUser?.id)
-        );
-      });
+      ServicesApp?.getRelationCompanyAccounts(params?.id || "")
+        .then((res) => {
+          setRolesCompany(
+            res?.data.filter((c: MyCompany) => c?.id !== currentUser?.id),
+          );
+        })
+        .finally(() => Loading.remove());
     }
 
     const foundRole: string =
