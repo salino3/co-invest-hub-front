@@ -1,8 +1,14 @@
-import React, { JSX, lazy } from "react";
+import React, { JSX } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
-import { routesApp } from "./interface-routes";
+import {
+  LazyAccountPage,
+  LazyCompanyPage,
+  LazyDashboard,
+  LazyHomePage,
+  routesApp,
+} from "./interface-routes";
 
 interface PropsRoutes {
   path: string;
@@ -10,51 +16,30 @@ interface PropsRoutes {
   visibility: "public" | "private" | "restricted" | "admin";
 }
 
-const HomePage = lazy(() => import("../pods/home/home.component")); // with 'export default'
-//
-const lazyLoad = (importPromise: Promise<any>, exportName: string) => {
-  const Fn = React.lazy(() =>
-    importPromise.then((module) => ({ default: module[exportName] }))
-  );
-  return <Fn />;
-};
-
 const routes: PropsRoutes[] = [
   {
     path: routesApp?.root,
-    element: <HomePage />,
+    element: <LazyHomePage />,
     visibility: "public",
   },
   {
     path: routesApp?.company(":name", ":id"),
-    element: lazyLoad(
-      import("../pods/company-page/company-page.component"), // ImportPromise
-      "CompanyPage" // ExportName
-    ),
+    element: <LazyCompanyPage />,
     visibility: "private",
   },
   {
     path: routesApp?.account(":action"),
-    element: lazyLoad(
-      import("../pods/account-page/account-page.component"),
-      "AccountPage"
-    ),
+    element: <LazyAccountPage />,
     visibility: "private",
   },
   {
     path: routesApp?.create_company,
-    element: lazyLoad(
-      import("../pods/company-page/company-page.component"),
-      "CompanyPage"
-    ),
+    element: <LazyCompanyPage />,
     visibility: "private",
   },
   {
     path: routesApp?.dashboard,
-    element: lazyLoad(
-      import("../pods/dashboard/dashboard.component"),
-      "Dashboard"
-    ),
+    element: <LazyDashboard />,
     visibility: "private",
   },
   {
