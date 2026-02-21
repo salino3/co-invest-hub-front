@@ -69,11 +69,11 @@ export const AppRoutes: React.FC = () => {
     <Routes>
       {/* <Suspense fallback={...}> ... */}
       <Route element={<LayoutWrapper />}>
-        {/* Grupo Privado */}
-        <Route element={<PrivateRoutes />}>{reducedRoutes["private"]}</Route>
-
-        {/* Grupo Público */}
+        {/* Grupo Public */}
         <Route element={<PublicRoutes />}>{reducedRoutes["public"]}</Route>
+
+        {/* Grupo Private */}
+        <Route element={<PrivateRoutes />}>{reducedRoutes["private"]}</Route>
 
         {/* Grupo Admin */}
         <Route element={<AdminRoutes />}>{reducedRoutes["admin"]}</Route>
