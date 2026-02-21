@@ -21,9 +21,9 @@ interface Props {
   rolesCompany: any;
   inputsReadOnly: PropsCompanyReadOnly;
   handleChange: (
-    key: keyof PropsCompany
+    key: keyof PropsCompany,
   ) => (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   handleChangeReadOnly: (input: keyof PropsCompanyReadOnly) => void;
   id: string | undefined;
@@ -50,10 +50,12 @@ export const Portfolio: React.FC<Props> = (props) => {
 
   //
   function deleteMultimedia(index: number) {
-    formData.multimedia.splice(index, 1);
+    const newMultimedia: MultimediaProps[] = formData.multimedia.filter(
+      (_, i) => i !== index,
+    );
     setFormData((prev: PropsCompany) => ({
       ...prev,
-      multimedia: formData.multimedia,
+      multimedia: newMultimedia,
     }));
   }
 
@@ -132,7 +134,7 @@ export const Portfolio: React.FC<Props> = (props) => {
                       className="videoCard"
                       width="100%"
                       aria-label={`${tw("item")} (${tw(
-                        "aria.video"
+                        "aria.video",
                       )}) ${index}, ${item.description}`}
                       src={
                         item.url
@@ -150,7 +152,7 @@ export const Portfolio: React.FC<Props> = (props) => {
                       src={getVideoSrc(item.url, isBase64Video)}
                       controls
                       aria-label={`${tw("item")} (${tw(
-                        "aria.video"
+                        "aria.video",
                       )}) ${index}, ${item.description}`}
                       width="100%"
                     />

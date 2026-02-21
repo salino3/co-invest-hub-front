@@ -354,7 +354,7 @@ export const CompanyPage: React.FC = () => {
       );
       ServicesApp?.getCompany(params?.id || "").then((res) => {
         setCompanyData(res.data);
-        setCompanyOldData(res.data);
+        setCompanyOldData(structuredClone(res.data)); // Native JS deep copy
       });
     } else {
       clearAllFormSetters();
