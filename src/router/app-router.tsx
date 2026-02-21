@@ -1,8 +1,14 @@
-import React, { JSX, lazy } from "react";
+import React, { JSX } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AdminRoutes, PrivateRoutes, PublicRoutes } from "./session-routes";
 import { ContainerLayout } from "../layout";
-import { routesApp } from "./interface-routes";
+import {
+  LazyAccountPage,
+  LazyCompanyPage,
+  LazyDashboard,
+  LazyHomePage,
+  routesApp,
+} from "./interface-routes";
 
 interface PropsRoutes {
   path: string;
@@ -10,75 +16,33 @@ interface PropsRoutes {
   visibility: "public" | "private" | "restricted" | "admin";
 }
 
-const HomePage = lazy(() => import("../pods/home/home.component")); // with 'export default'
-//
-const lazyLoad = (importPromise: Promise<any>, exportName: string) => {
-  const Fn = React.lazy(() =>
-    importPromise.then((module) => ({ default: module[exportName] }))
-  );
-  return <Fn />;
-};
-
 const routes: PropsRoutes[] = [
   {
     path: routesApp?.root,
-    element: <HomePage />,
+    element: <LazyHomePage />,
     visibility: "public",
   },
   {
     path: routesApp?.company(":name", ":id"),
-    element: lazyLoad(
-      import("../pods/company-page/company-page.component"), // ImportPromise
-      "CompanyPage" // ExportName
-    ),
+    element: <LazyCompanyPage />,
     visibility: "private",
   },
   {
     path: routesApp?.account(":action"),
-    element: lazyLoad(
-      import("../pods/account-page/account-page.component"),
-      "AccountPage"
-    ),
+    element: <LazyAccountPage />,
     visibility: "private",
   },
   {
     path: routesApp?.create_company,
-    element: lazyLoad(
-      import("../pods/company-page/company-page.component"),
-      "CompanyPage"
-    ),
+    element: <LazyCompanyPage />,
     visibility: "private",
   },
   {
     path: routesApp?.dashboard,
-    element: lazyLoad(
-      import("../pods/dashboard/dashboard.component"),
-      "Dashboard"
-    ),
+    element: <LazyDashboard />,
     visibility: "private",
   },
-  {
-    path: routesApp?.error404,
-    element: <Navigate to={routesApp?.root} />,
-    visibility: "public",
-  },
 ];
-
-function chooseRoutes(visibility: string) {
-  switch (visibility) {
-    case "public":
-      return <PublicRoutes />;
-
-    case "private":
-      return <PrivateRoutes />;
-
-    case "admin":
-      return <AdminRoutes />;
-
-    default:
-      return null;
-  }
-}
 
 // Layout wrapper component
 const LayoutWrapper: React.FC = () => (
@@ -87,20 +51,37 @@ const LayoutWrapper: React.FC = () => (
   </ContainerLayout>
 );
 
+const reducedRoutes: Record<string, JSX.Element[]> = routes.reduce(
+  (acc, route) => {
+    if (!acc[route.visibility]) {
+      acc[route.visibility] = [];
+    }
+    acc[route.visibility].push(
+      <Route key={route.path} path={route.path} element={route.element} />,
+    );
+    return acc;
+  },
+  {} as Record<string, JSX.Element[]>,
+);
+
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
       {/* <Suspense fallback={...}> ... */}
-      <Route path={routesApp?.root} element={<LayoutWrapper />}>
-        {routes &&
-          routes?.length > 0 &&
-          routes.map(({ path, element, visibility }) => {
-            return (
-              <Route key={path} path={path} element={chooseRoutes(visibility)}>
-                <Route path={path} element={element} />
-              </Route>
-            );
-          })}
+      <Route element={<LayoutWrapper />}>
+        {/* Grupo Privado */}
+        <Route element={<PrivateRoutes />}>{reducedRoutes["private"]}</Route>
+
+        {/* Grupo Público */}
+        <Route element={<PublicRoutes />}>{reducedRoutes["public"]}</Route>
+
+        {/* Grupo Admin */}
+        <Route element={<AdminRoutes />}>{reducedRoutes["admin"]}</Route>
+
+        <Route
+          path={routesApp?.error404}
+          element={<Navigate to={routesApp.root} />}
+        />
       </Route>
     </Routes>
   );

@@ -39,11 +39,11 @@ export const FormMultimedia: React.FC<Props> = ({
       type: "",
       url: "",
       description: "",
-    }
+    },
   );
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     setFormDataMultimedia((prev: MultimediaProps) => ({
       ...prev,
@@ -142,6 +142,7 @@ export const FormMultimedia: React.FC<Props> = ({
           onFileSelected={async (file) => {
             const url = URL.createObjectURL(file);
             const base64Img = await convertBlobToBase64(url);
+            URL.revokeObjectURL(url);
             setFormDataMultimedia((prev: MultimediaProps) => ({
               ...prev,
               url: base64Img,
