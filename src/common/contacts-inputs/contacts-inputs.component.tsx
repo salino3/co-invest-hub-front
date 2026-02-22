@@ -18,7 +18,7 @@ type ContactInputsProps = {
   roleAccount: string;
   handleChangeReadOnly: (
     input: keyof PropsCompanyReadOnly,
-    index?: number
+    index?: number,
   ) => void;
   id: string | undefined;
   isNewCompany: boolean;
@@ -40,7 +40,7 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
   const handleChange = (
     index: number,
     field: keyof Contacts,
-    value: string
+    value: string,
   ) => {
     const updated = [...contacts];
     updated[index][field] = value;
@@ -49,6 +49,20 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
       ...prev,
       contacts: updated,
     }));
+  };
+
+  // Check if a contact field is empty or contains only whitespace
+  const hasContactError = (index: number, field: keyof Contacts): boolean => {
+    const contact = contacts[index];
+    return index === 0 && (!contact[field] || !contact[field].trim());
+  };
+
+  // Get error message for a contact field
+  const getContactErrorMessage = (
+    index: number,
+    field: keyof Contacts,
+  ): string => {
+    return hasContactError(index, field) ? t("required") : "";
   };
 
   // console.log("Contact:", contacts, inputsReadOnly);
@@ -81,7 +95,7 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
     setContacts((prev: any) => ({
       ...prev,
       contacts: (prev.contacts || []).filter(
-        (_: any, i: number) => i !== index
+        (_: any, i: number) => i !== index,
       ),
     }));
 
@@ -89,10 +103,10 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
     setInputsReadOnly((prev) => ({
       ...prev,
       type_contact: prev.type_contact.filter(
-        (_: boolean, i: number) => i !== index
+        (_: boolean, i: number) => i !== index,
       ),
       value_contact: prev.value_contact.filter(
-        (_: boolean, i: number) => i !== index
+        (_: boolean, i: number) => i !== index,
       ),
     }));
   };
@@ -123,6 +137,8 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
                   ? () => handleChangeReadOnly("type_contact", index)
                   : null
               }
+              errMsg={getContactErrorMessage(index, "type")}
+              checkError={hasContactError(index, "type")}
             />
             <BasicInput
               lbl={t("value_contact") + `${index === 0 ? " *" : ""}`}
@@ -142,6 +158,8 @@ export const ContactsInputs: React.FC<ContactInputsProps> = ({
                   ? () => handleChangeReadOnly("value_contact", index)
                   : null
               }
+              errMsg={getContactErrorMessage(index, "value")}
+              checkError={hasContactError(index, "value")}
             />
 
             {contacts?.length > 1 && (!!roleAccount || isNewCompany) && (
