@@ -327,28 +327,28 @@ export const useAppFunctions = () => {
       }
     }
 
-    // Additional validation for contacts array # cline 22-02-26
+    // Additional validation for contacts array # 22-02-26
     if (formData.contacts && Array.isArray(formData.contacts)) {
-      const firstContact = formData.contacts[0];
-      if (firstContact) {
+      // Check all contacts, not just the first one
+      formData.contacts.forEach((contact: any, index: number) => {
         // Check if type is empty or only whitespace
-        if (!firstContact.type || !firstContact.type.trim()) {
+        if (!contact.type || !contact.type.trim()) {
           setFormDataError((prev: any) => ({
             ...prev,
-            contacts: t("required"),
+            [`contacts_${index}_type`]: t("required"),
           }));
           hasError = true;
         }
 
         // Check if value is empty or only whitespace
-        if (!firstContact.value || !firstContact.value.trim()) {
+        if (!contact.value || !contact.value.trim()) {
           setFormDataError((prev: any) => ({
             ...prev,
-            contacts: t("required"),
+            [`contacts_${index}_value`]: t("required"),
           }));
           hasError = true;
         }
-      }
+      });
     }
     if (setTabs) {
       const pages: Record<number, string[]> = {
