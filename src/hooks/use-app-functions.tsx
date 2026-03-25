@@ -4,6 +4,19 @@ import { routesApp } from "../router";
 import { TFunction } from "i18next";
 
 export const useAppFunctions = () => {
+  // TODO: Implement it for production
+  // function getEndTokenFromSessionStorage() {
+  //   const authKey = sessionStorage.getItem(
+  //     import.meta.env.VITE_APP_COOKIE_AUTH + "_key",
+  //   );
+
+  //   if (authKey) {
+  //     const endToken = authKey.split("_").pop();
+  //     return endToken;
+  //   }
+  //   return null;
+  // }
+
   //
   function getEndTokenFromCookie() {
     const cookies = document.cookie.split(";");
@@ -21,7 +34,7 @@ export const useAppFunctions = () => {
   const getAuthToken = (): PropsCurrentUser | null => {
     const cookies = document.cookie.split("; ");
     const authCookie = cookies.find((cookie) =>
-      cookie.startsWith(import.meta.env.VITE_APP_COOKIE_AUTH)
+      cookie.startsWith(import.meta.env.VITE_APP_COOKIE_AUTH),
     );
 
     if (!authCookie) return null;
@@ -192,13 +205,13 @@ export const useAppFunctions = () => {
     // Get names of months
     const monthFormatter = new Intl.DateTimeFormat(locale, { month: "long" });
     const months = Array.from({ length: 12 }, (_, i) =>
-      monthFormatter.format(new Date(2025, i, 1))
+      monthFormatter.format(new Date(2025, i, 1)),
     );
 
     // Get names of the days of the week
     const dayFormatter = new Intl.DateTimeFormat(locale, { weekday: "long" });
     const weeks = Array.from({ length: 7 }, (_, i) =>
-      dayFormatter.format(new Date(2024, 0, i + 1))
+      dayFormatter.format(new Date(2024, 0, i + 1)),
     );
 
     // Get names of "day", "month" y "year"
@@ -241,7 +254,7 @@ export const useAppFunctions = () => {
   //
   const scrollToErrorInput = (
     setTabs: React.Dispatch<React.SetStateAction<number>>,
-    tab: number
+    tab: number,
   ): Promise<void> => {
     return new Promise((resolve) => {
       setTabs(tab);
@@ -300,7 +313,7 @@ export const useAppFunctions = () => {
     setFormDataError: any,
     t: TFunction<"main", undefined>,
     listNoRequired: string[],
-    setTabs?: React.Dispatch<React.SetStateAction<number>>
+    setTabs?: React.Dispatch<React.SetStateAction<number>>,
   ): boolean {
     let hasError = false;
     let inputWithError: HTMLElement | null = null;
@@ -334,13 +347,13 @@ export const useAppFunctions = () => {
       };
 
       const choosingTab: string | undefined = Object.entries(pages).find(
-        ([_, ids]: [string, string[]]) => ids.includes(input || "")
+        ([_, ids]: [string, string[]]) => ids.includes(input || ""),
       )?.[0];
       console.log(
         "choosingTab",
         Object.entries(pages).find(([_, ids]: [string, string[]]) =>
-          ids.includes(input || "")
-        )
+          ids.includes(input || ""),
+        ),
       );
       const tabIndex: number =
         choosingTab !== undefined ? parseInt(choosingTab) : 0;
@@ -415,7 +428,7 @@ export const useAppFunctions = () => {
           // Set up reader error handler
           img.onerror = () => {
             console.warn(
-              "Error al cargar imagen para compresión, usando original."
+              "Error al cargar imagen para compresión, usando original.",
             );
             resolve(base64Original);
           };
