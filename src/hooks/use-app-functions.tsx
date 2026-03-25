@@ -4,6 +4,19 @@ import { routesApp } from "../router";
 import { TFunction } from "i18next";
 
 export const useAppFunctions = () => {
+  // TODO: Implement it for production
+  // function getEndTokenFromSessionStorage() {
+  //   const authKey = sessionStorage.getItem(
+  //     import.meta.env.VITE_APP_COOKIE_AUTH + "_key",
+  //   );
+
+  //   if (authKey) {
+  //     const endToken = authKey.split("_").pop();
+  //     return endToken;
+  //   }
+  //   return null;
+  // }
+
   //
   function getEndTokenFromCookie() {
     const cookies = document.cookie.split(";");

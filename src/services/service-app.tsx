@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { jwtDecode } from "jwt-decode";
 import { apisApp } from ".";
 import {
   AccountLoginForm,
@@ -11,13 +12,56 @@ import { useAppFunctions } from "../hooks";
 
 const { baseBackend } = apisApp;
 
-const { getEndTokenFromCookie } = useAppFunctions();
+const { getEndTokenFromCookie, closeSession } = useAppFunctions();
 
 export class ServicesApp {
+  /**
+   * PRIVATE HELPER
+   * Checks the token and refreshes it IF needed before continuing.
+   */
+  private static async ensureValidToken(): Promise<void> {
+    // 1. Get the FULL CONTENT of the cookie, not just the name
+    const cookieName =
+      import.meta.env.VITE_APP_COOKIE_AUTH + getEndTokenFromCookie();
+
+    // Helper to find the specific cookie value
+    const match = document.cookie.match(
+      new RegExp("(^| )" + cookieName + "=([^;]+)"),
+    );
+    const tokenValue = match ? match[2] : null;
+
+    if (tokenValue) {
+      const isExpiring = this.isTokenExpiringSoon(tokenValue);
+
+      // This will now be FALSE until the last 5 minutes
+      if (isExpiring) {
+        console.log("Token truly expiring soon, refreshing...");
+        try {
+          await this.refreshToken();
+        } catch (error) {
+          console.error("Auto-refresh failed", error);
+          closeSession();
+        }
+      }
+    }
+  }
+
+  private static isTokenExpiringSoon(token: string): boolean {
+    try {
+      const decoded: any = jwtDecode(token);
+
+      if (!decoded.exp) return true;
+      const currentTime = Date.now() / 1000;
+      return decoded.exp - currentTime < 5 * 60;
+    } catch {
+      return true;
+    }
+  }
+
   //* Auth
 
   public static async registerAccount(
-    user: AccountRegisterForm
+    user: AccountRegisterForm,
   ): Promise<AxiosResponse> {
     return await axios
       .post(`${baseBackend}/auth/register`, user, {
@@ -30,7 +74,7 @@ export class ServicesApp {
   }
 
   public static async loginAccount(
-    account: AccountLoginForm
+    account: AccountLoginForm,
   ): Promise<AxiosResponse> {
     return await axios
       .post(`${baseBackend}/auth/login`, account, {
@@ -42,9 +86,30 @@ export class ServicesApp {
       });
   }
 
+  public static async refreshToken(): Promise<AxiosResponse> {
+    return await axios
+      .post(
+        `${baseBackend}/auth/refresh-token`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+            "end_token": getEndTokenFromCookie(),
+          },
+        },
+      )
+      .catch((err) => {
+        console.error(err);
+        return Promise.reject(err);
+      });
+  }
+
   // Accounts
 
   public static async deleteAccount(id: string): Promise<AxiosResponse> {
+    await this.ensureValidToken();
+
     return await axios
       .request({
         method: "PATCH",
@@ -63,6 +128,8 @@ export class ServicesApp {
 
   //* Relation account Companies
   public static async getMyCompanies(id: string): Promise<AxiosResponse> {
+    await this.ensureValidToken();
+
     return await axios
       .get(`${baseBackend}/relation/account/companies/${id}`, {
         withCredentials: true,
@@ -79,8 +146,9 @@ export class ServicesApp {
 
   //
   public static async getRelationCompanyAccounts(
-    id: string
+    id: string,
   ): Promise<AxiosResponse> {
+    await this.ensureValidToken();
     return await axios
       .get(`${baseBackend}/relation/company/accounts/${id}`, {
         withCredentials: true,
@@ -93,8 +161,10 @@ export class ServicesApp {
 
   //
   public static async createRelationAccountCompany(
-    body: CreateRelationData
+    body: CreateRelationData,
   ): Promise<AxiosResponse<CreateRelationData>> {
+    await this.ensureValidToken();
+
     return await axios
       .post(`${baseBackend}/relation/account/companies`, body, {
         withCredentials: true,
@@ -110,8 +180,10 @@ export class ServicesApp {
   }
 
   public static async updateRoleAccountCompany(
-    body: UpdateAccountCompany
+    body: UpdateAccountCompany,
   ): Promise<AxiosResponse<void>> {
+    await this.ensureValidToken();
+
     return await axios
       .patch(`${baseBackend}/relation/account/companies`, body, {
         withCredentials: true,
@@ -128,6 +200,8 @@ export class ServicesApp {
 
   //*  Companies
   public static async getCompanies(): Promise<AxiosResponse<PropsCompany[]>> {
+    await this.ensureValidToken();
+
     return await axios.get(`${baseBackend}/api/companies`).catch((err) => {
       console.error(err);
       return Promise.reject(err);
@@ -135,8 +209,10 @@ export class ServicesApp {
   }
 
   public static async getCompany(
-    id: string
+    id: string,
   ): Promise<AxiosResponse<PropsCompany>> {
+    await this.ensureValidToken();
+
     return await axios
       .get(`${baseBackend}/api/companies/${id}`)
       .catch((err) => {
@@ -160,8 +236,10 @@ export class ServicesApp {
   }
 
   public static async createCompany(
-    company: PropsCompany
+    company: PropsCompany,
   ): Promise<AxiosResponse<PropsCompany>> {
+    await this.ensureValidToken();
+
     return await axios
       .post(`${baseBackend}/api/companies`, company, {
         withCredentials: true,
@@ -175,8 +253,10 @@ export class ServicesApp {
   public static async updateCompany(
     id: string,
     company: PropsCompany,
-    idAccount: string
+    idAccount: string,
   ): Promise<AxiosResponse> {
+    await this.ensureValidToken();
+
     return await axios
       .put(`${baseBackend}/api/companies/${id}/${idAccount}`, company, {
         withCredentials: true,
@@ -195,6 +275,8 @@ export class ServicesApp {
     id: string;
     idCompany: string;
   }): Promise<AxiosResponse> {
+    await this.ensureValidToken();
+
     return await axios
       .delete(`${baseBackend}/api/companies/${body?.id}/${body?.idCompany}`, {
         withCredentials: true,
@@ -215,6 +297,8 @@ export class ServicesApp {
     account_id: string | number;
     company_id: string | number;
   }): Promise<AxiosResponse> {
+    await this.ensureValidToken();
+
     return await axios
       .post(`${baseBackend}/api/favorites`, ids, {
         withCredentials: true,
@@ -230,8 +314,10 @@ export class ServicesApp {
   }
 
   public static async getFavoriteCompanies(
-    id: string
+    id: string,
   ): Promise<AxiosResponse<number[]>> {
+    await this.ensureValidToken();
+
     return await axios
       .get(`${baseBackend}/api/favorites/${id}`, {
         withCredentials: true,
@@ -250,6 +336,8 @@ export class ServicesApp {
     account_id: string | number;
     company_id: string | number;
   }): Promise<AxiosResponse<number[]>> {
+    await this.ensureValidToken();
+
     return await axios
       .delete(
         `${baseBackend}/api/favorites/${ids?.account_id}/${ids?.company_id}`,
@@ -259,7 +347,7 @@ export class ServicesApp {
             "Content-Type": "application/json",
             "end_token": getEndTokenFromCookie(),
           },
-        }
+        },
       )
       .catch((err) => {
         console.error(err);
