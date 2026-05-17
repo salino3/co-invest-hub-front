@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 import { immer } from "zustand/middleware/immer";
+import Cookies from "js-cookie";
 import { createJSONStorage, persist } from "zustand/middleware";
 import {
   MyCompany,
   PropsCompany,
-  PropsCurrentUser,
+  PropsCurrentUserLogin,
   PropsProvider,
 } from "./interface";
 
@@ -40,21 +41,31 @@ export const useProvider = create<PropsProvider>()(
         root.style.setProperty("--global-08", isDark ? "#f3f3f3" : "#4a5568");
         root.style.setProperty(
           "--color-01",
-          isDark ? "rgba(74, 85, 104, 0.5)" : "rgba(113, 128, 150, 0.5)"
+          isDark ? "rgba(74, 85, 104, 0.5)" : "rgba(113, 128, 150, 0.5)",
         );
         root.style.setProperty("--color-02", isDark ? "#1e40af" : "#3b82f6");
         root.style.setProperty(
           "--global-lines",
-          isDark ? "rgba(0, 0, 0, 0.1)" : "rgb(178, 164, 164)"
+          isDark ? "rgba(0, 0, 0, 0.1)" : "rgb(178, 164, 164)",
         );
         set((state) => {
           state.theme = isDark ? "light" : "dark";
         });
       },
 
-      loginAccount: (user: PropsCurrentUser) => {
+      loginAccount: (user: PropsCurrentUserLogin) => {
+        const { token, ...rest } = user;
+        console.log("clog1", rest);
+        if (token) {
+          Cookies.set(import.meta.env.VITE_APP_COOKIE_AUTH, token, {
+            expires: new Date(Date.now() + 3600 * 1000),
+            secure: true,
+            sameSite: "strict",
+          });
+        }
+
         set((state) => {
-          state.currentUser = user;
+          state.currentUser = rest;
         });
       },
       logoutAccount: () => {
@@ -74,8 +85,8 @@ export const useProvider = create<PropsProvider>()(
         myCompanies: state.myCompanies,
         currentUser: state.currentUser,
       }),
-    }
-  )
+    },
+  ),
 );
 
 // Selector for avoid rerender

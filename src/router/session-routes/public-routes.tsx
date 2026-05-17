@@ -8,7 +8,7 @@ export const PublicRoutes: React.FC = () => {
   const navigate = useNavigate();
   const { currentUser, logoutAccount } = useProviderSelector(
     "currentUser",
-    "logoutAccount"
+    "logoutAccount",
   );
   const { getAuthToken, closeSession } = useAppFunctions();
 

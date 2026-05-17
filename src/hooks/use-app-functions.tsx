@@ -19,6 +19,11 @@ export const useAppFunctions = () => {
 
   //
   function getEndTokenFromCookie() {
+    console.log("production??", import.meta.env.VITE_APP_BASE === "production");
+    if (import.meta.env.VITE_APP_BASE === "production") {
+      return "";
+    }
+
     const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();

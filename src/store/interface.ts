@@ -48,6 +48,17 @@ export interface PropsCurrentUser {
   updatedAt?: string;
 }
 
+export interface PropsCurrentUserLogin {
+  id?: number;
+  email: string;
+  name?: string;
+  role_user?: "user" | "admin";
+  age?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  token?: string;
+}
+
 //-----------------------
 export interface AccountRegisterForm {
   name?: string;
