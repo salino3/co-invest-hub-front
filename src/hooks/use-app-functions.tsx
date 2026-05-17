@@ -19,7 +19,6 @@ export const useAppFunctions = () => {
 
   //
   function getEndTokenFromCookie() {
-    console.log("production??", import.meta.env.VITE_APP_BASE === "production");
     if (import.meta.env.VITE_APP_BASE === "production") {
       return "";
     }
@@ -28,30 +27,66 @@ export const useAppFunctions = () => {
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
       if (cookie.startsWith(import.meta.env.VITE_APP_COOKIE_AUTH)) {
-        const endToken = cookie.split("=")[0].split("_").pop();
-        return endToken;
+        const cookieName = cookie.split("=")[0];
+        const endToken = cookieName.replace(
+          import.meta.env.VITE_APP_COOKIE_AUTH,
+          "",
+        );
+        // If there was an underscore, we want to return the part after it
+        return endToken.startsWith("_") ? endToken.substring(1) : endToken;
       }
     }
-    return null;
+    return "";
   }
 
   //*
   const getAuthToken = (): PropsCurrentUser | null => {
-    const cookies = document.cookie.split("; ");
-    const authCookie = cookies.find((cookie) =>
-      cookie.startsWith(import.meta.env.VITE_APP_COOKIE_AUTH),
-    );
+    console.log("clog_getAuthToken_start", {
+      cookieAuthName: import.meta.env.VITE_APP_COOKIE_AUTH,
+      allCookies: document.cookie,
+    });
 
-    if (!authCookie) return null;
+    // 1. Try to get from cookies (Development)
+    const cookies = document.cookie.split(";");
+    const authCookies = cookies
+      .map((c) => c.trim())
+      .filter(
+        (cookie) => cookie.startsWith(import.meta.env.VITE_APP_COOKIE_AUTH), // TODO: it must search the random code
+      );
 
-    const authCookieSplitted = authCookie.split("=")[1];
+    console.log("clog_getAuthToken_found_cookies01", authCookies);
+
+    let tokenValue = null;
+    for (const cookie of authCookies) {
+      const value = cookie.split("=")[1];
+      if (value && value.split(".").length === 3) {
+        tokenValue = value;
+        break;
+      }
+    }
+
+    // 2. Fallback to sessionStorage/Zustand (Production)
+    if (!tokenValue) {
+      try {
+        const storage = sessionStorage.getItem("companies-storage");
+        if (storage) {
+          const parsed = JSON.parse(storage);
+          tokenValue = parsed.state?.currentUser?.token || null;
+        }
+      } catch (error) {
+        console.error("Error reading from sessionStorage:", error);
+      }
+    }
+
+    if (!tokenValue) return null;
 
     // Verifiying it is divided in 3 parts - header, payload and signature
-    if (authCookieSplitted && authCookieSplitted.split(".").length === 3) {
+    if (tokenValue.split(".").length === 3) {
       try {
-        const decoded: any = jwtDecode(authCookieSplitted);
-
-        return decoded || null;
+        const decoded: any = jwtDecode(tokenValue);
+        const result = { ...decoded, token: tokenValue };
+        console.log("clog_getAuthToken_success", result);
+        return result;
       } catch (error) {
         console.error("Error decoding JWT:", error);
         return null;

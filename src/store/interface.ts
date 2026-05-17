@@ -46,6 +46,7 @@ export interface PropsCurrentUser {
   age?: number;
   createdAt?: string;
   updatedAt?: string;
+  token?: string;
 }
 
 export interface PropsCurrentUserLogin {

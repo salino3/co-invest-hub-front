@@ -20,15 +20,28 @@ export class ServicesApp {
    * Checks the token and refreshes it IF needed before continuing.
    */
   private static async ensureValidToken(): Promise<void> {
-    // 1. Get the FULL CONTENT of the cookie, not just the name
+    // 1. Try to get from cookies (Development)
+    const endToken = getEndTokenFromCookie();
     const cookieName =
-      import.meta.env.VITE_APP_COOKIE_AUTH + getEndTokenFromCookie();
+      import.meta.env.VITE_APP_COOKIE_AUTH + (endToken ? endToken : "");
 
-    // Helper to find the specific cookie value
     const match = document.cookie.match(
       new RegExp("(^| )" + cookieName + "=([^;]+)"),
     );
-    const tokenValue = match ? match[2] : null;
+    let tokenValue = match ? match[2] : null;
+
+    // 2. Fallback to sessionStorage/Zustand (Production)
+    if (!tokenValue) {
+      try {
+        const storage = sessionStorage.getItem("companies-storage");
+        if (storage) {
+          const parsed = JSON.parse(storage);
+          tokenValue = parsed.state?.currentUser?.token || null;
+        }
+      } catch (error) {
+        console.error("Error reading from sessionStorage:", error);
+      }
+    }
 
     if (tokenValue) {
       const isExpiring = this.isTokenExpiringSoon(tokenValue);

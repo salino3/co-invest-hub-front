@@ -57,15 +57,34 @@ export const useProvider = create<PropsProvider>()(
         const { token, ...rest } = user;
         console.log("clog1", rest);
         if (token) {
-          Cookies.set(import.meta.env.VITE_APP_COOKIE_AUTH, token, {
+          const isProduction = import.meta.env.VITE_APP_BASE === "production";
+          let cookieName = import.meta.env.VITE_APP_COOKIE_AUTH;
+
+          if (!isProduction) {
+            // Try to reuse existing cookie suffix if present to avoid multiple cookies
+            const existingCookie = document.cookie
+              .split(";")
+              .map((c) => c.trim())
+              .find((c) => c.startsWith(import.meta.env.VITE_APP_COOKIE_AUTH));
+            console.log("clog3", existingCookie);
+            if (existingCookie) {
+              cookieName = existingCookie.split("=")[0];
+            } else {
+              const suffix = Math.floor(1000 + Math.random() * 9000).toString();
+              cookieName += suffix;
+              console.log("clog4", suffix);
+            }
+          }
+
+          Cookies.set(cookieName, token, {
             expires: new Date(Date.now() + 3600 * 1000),
-            secure: true,
-            sameSite: "strict",
+            secure: isProduction,
+            sameSite: isProduction ? "strict" : "lax",
           });
         }
 
         set((state) => {
-          state.currentUser = rest;
+          state.currentUser = { ...rest, token };
         });
       },
       logoutAccount: () => {

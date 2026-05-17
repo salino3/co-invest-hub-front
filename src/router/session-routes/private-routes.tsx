@@ -11,6 +11,7 @@ export const PrivateRoutes: React.FC = () => {
 
   React.useEffect(() => {
     const token = getAuthToken();
+    console.log("clog4_PrivateRoutes", token);
     if (!token) {
       navigate(routesApp.root);
     } else {

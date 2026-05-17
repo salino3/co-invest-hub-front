@@ -14,11 +14,13 @@ export const Header: React.FC = () => {
   const { t } = useTranslation("main");
   const { t: tw } = useTranslation("wcag");
 
-  const { currentUser, myCompanies, setMyCompanies } = useProviderSelector(
-    "currentUser",
-    "myCompanies",
-    "setMyCompanies"
-  );
+  const { currentUser, myCompanies, setMyCompanies, logoutAccount } =
+    useProviderSelector(
+      "currentUser",
+      "myCompanies",
+      "setMyCompanies",
+      "logoutAccount",
+    );
   const { closeSession } = useAppFunctions();
 
   const [showSettings, setShowSettings] = useState<boolean | null>(null);
@@ -46,7 +48,7 @@ export const Header: React.FC = () => {
   useEffect(() => {
     if (currentUser?.id && myCompanies?.length === 0) {
       ServicesApp?.getMyCompanies(String(currentUser?.id)).then(
-        (res) => setMyCompanies && setMyCompanies(res.data)
+        (res) => setMyCompanies && setMyCompanies(res.data),
       );
     }
   }, [currentUser?.id]);
@@ -72,7 +74,10 @@ export const Header: React.FC = () => {
               <Button
                 customStyles="buttonStyle_01"
                 al={tw("aria.logout")}
-                click={() => closeSession()}
+                click={() => {
+                  logoutAccount && logoutAccount();
+                  closeSession();
+                }}
                 text={t("logout")}
               />
             )}
